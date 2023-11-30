@@ -14,7 +14,7 @@ import {
   Col,
   CardTitle,
   CardText,
-  Form,
+
   Label,
   Input,
   Button,
@@ -27,13 +27,47 @@ import illustrationsDark from "@src/assets/images/pages/login-v2-dark.svg";
 // ** Styles
 import "@styles/react/pages/page-authentication.scss";
 
-const Login = () => {
-  const { skin } = useSkin();
+import { useForm, Controller } from 'react-hook-form'
+import { Formik , Form , Field , useFormik , ErrorMessage  } from 'formik';
+import http from '../@core/interceptor'
+import { setItem } from "../@core/common/storage.services";
+import { useNavigate } from 'react-router-dom';
 
+
+const defaultValues = {
+  password: 'admin',
+  loginEmail: 'admin@demo.com'
+}
+
+
+
+
+
+const Login = () => {
+
+  const { skin } = useSkin();
   const source = skin === "dark" ? illustrationsDark : illustrationsLight;
+  const navigate = useNavigate()
+
+
+  const onSubmit =async (values) =>{
+    const person = {
+      phoneOrGmail : values.email,
+      password : values.pass,
+      rememberMe : values.check,
+    }
+
+    const result = await http.post(`/Sign/Login` , person)
+
+    if(result.roles.includes("Administrator")){
+      navigate('/home')
+    }
+
+    setItem('token' , result.token)
+  }
 
   return (
-    <div className="auth-wrapper auth-cover">
+    <div className="auth-wrapper auth-cover" >
       <Row className="auth-inner m-0">
         <Link className="brand-logo" to="/" onClick={(e) => e.preventDefault()}>
           <svg viewBox="0 0 139 95" version="1.1" height="28">
@@ -114,52 +148,65 @@ const Login = () => {
           lg="4"
           sm="12"
         >
-          <Col className="px-xl-2 mx-auto" sm="8" md="6" lg="12">
-            <CardTitle tag="h2" className="fw-bold mb-1">
-              Welcome to Vuexy! 👋
+          <Col className="px-xl-2 mx-auto" sm="8" md="6" lg="12" >
+            <CardTitle tag="h2" className="fw-bold mb-1" style={{direction : 'rtl'}}>
+              خوش آمدید 👋
             </CardTitle>
-            <CardText className="mb-2">
-              Please sign-in to your account and start the adventure
+            <CardText className="mb-2" style={{direction : 'rtl'}}>
+              برای ورود فرم زیر را پر کنید
             </CardText>
-            <Form
-              className="auth-login-form mt-2"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <div className="mb-1">
-                <Label className="form-label" for="login-email">
-                  Email
-                </Label>
-                <Input
-                  type="email"
-                  id="login-email"
-                  placeholder="john@example.com"
-                  autoFocus
-                />
-              </div>
-              <div className="mb-1">
-                <div className="d-flex justify-content-between">
-                  <Label className="form-label" for="login-password">
-                    Password
-                  </Label>
-                  <Link to="/forgot-password">
-                    <small>Forgot Password?</small>
-                  </Link>
-                </div>
-                <InputPasswordToggle
-                  className="input-group-merge"
-                  id="login-password"
-                />
-              </div>
-              <div className="form-check mb-1">
-                <Input type="checkbox" id="remember-me" />
-                <Label className="form-check-label" for="remember-me">
-                  Remember Me
-                </Label>
-              </div>
-              <Button tag={Link} to="/" color="primary" block>
-                Sign in
-              </Button>
-            </Form>
+
+            <Formik onSubmit={onSubmit} initialValues={{email : '' , pass : '' , check : false}}>
+              {({values , handleSubmit , handleChange}) => (
+                <form
+                  className="auth-login-form mt-2"
+                  onSubmit={handleSubmit}
+                >
+                  <div className="mb-1" style={{direction : 'rtl'}}>
+                    <Label className="form-label" for="login-email">
+                      ایمیل
+                    </Label>
+                    <Input
+                      name="email"
+                      value={values.email}
+                      onChange={handleChange}
+                      id="login-email"
+                      placeholder="john@example.com"
+                      autoFocus
+                      style={{direction : 'ltr'}}
+                      />
+                  </div>
+                  <div className="mb-1">
+                    <div className="d-flex justify-content-between" style={{direction : 'rtl'}}>
+                      <Label className="form-label" for="login-password">
+                        رمز
+                      </Label>
+  
+                    </div>
+                    <InputPasswordToggle
+                      name='pass'
+                      value={values.pass}
+                      onChange={handleChange}
+                      className="input-group-merge"
+                      id="login-password"
+                    />
+                  </div>
+                  <div className="form-check mb-1">
+                    <Input name="check" value={values.check} onChange={handleChange} type="checkbox" id="remember-me" />
+                    <Label className="form-check-label" for="remember-me">
+                      Remember Me
+                    </Label>
+                  </div>
+                  <Button type='submit' color='primary' block>
+                    Sign in
+                  </Button>
+                </form>                
+              )}
+
+
+            </Formik>
+
+
             <p className="text-center mt-2">
               <span className="me-25">New on our platform?</span>
               <Link to="/register">
