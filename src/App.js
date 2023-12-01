@@ -6,10 +6,10 @@ import Router from "./router/Router";
 
 const App = () => {
 
-  const client = new QueryClient({defaultOptions: {queries: {refetchOnWindowFocus: false, staleTime: 1000*6*5}, mutations:{}}})
+  const queryClient = new QueryClient()
 
   return (
-    <QueryClientProvider client={client}>
+    <QueryClientProvider client={queryClient}>
       <Suspense fallback={null}>
         <Router />
       </Suspense>
