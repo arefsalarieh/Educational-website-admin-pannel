@@ -6,7 +6,7 @@ import Router from "./router/Router";
 
 const App = () => {
 
-  const queryClient = new QueryClient()
+  const queryClient = new QueryClient({defaultOptions: {queries: {refetchOnWindowFocus: false, staleTime: 1000*6*5}, mutations:{}}})
 
   return (
     <QueryClientProvider client={queryClient}>
