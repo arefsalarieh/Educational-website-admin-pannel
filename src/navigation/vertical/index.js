@@ -25,6 +25,12 @@ export default [
         icon: <Circle size={12} />,
         navLink: "/apps/invoice/list",
       },
+      {
+        id: "courdseList",
+        title: "لیست دوره ها",
+        icon: <Circle size={12} />,
+        navLink: "/CoursesList",
+      },
     ],
   },
 ];
