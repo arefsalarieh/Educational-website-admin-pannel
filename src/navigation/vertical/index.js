@@ -27,4 +27,32 @@ export default [
       },
     ],
   },
+  {
+    id: "UsersList",
+    title: "کاربران",
+    icon: <Home size={20} />,
+    //navLink: "/UsersList",
+    children: [
+      {
+        id: "AdminTable",
+        title: "ادمین ها",
+        icon: <Circle size={12} />,
+        navLink: "/UsersList/AdminTable",
+      },
+      {
+        id: "TeacherTable",
+        title: "مدرسان",
+        icon: <Circle size={12} />,
+        navLink: "/UsersList/TeacherTable",
+      },   
+      {
+        id: "StudentTable",
+        title: "دانش جو",
+        icon: <Circle size={12} />,
+        navLink: "/UsersList/StudentTable",
+      },            
+    ],    
+  },
+
+  
 ];
