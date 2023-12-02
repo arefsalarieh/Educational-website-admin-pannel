@@ -17,12 +17,7 @@ function CourseItem({
   cost,
   title,
   describe,
-//   tumbImageAddress,
-//   lastUpdate,
-//   courseId,
-//   isActive,
-//   isdelete,
-//   isExpire,
+
 }) {
   return (
     <tr>
