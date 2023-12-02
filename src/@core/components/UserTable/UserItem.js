@@ -2,7 +2,7 @@ import React from 'react'
 import { MoreVertical, Edit, Trash } from 'react-feather'
 import { Table, Badge, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap'
 
-const UserItem = ({id , fName , lNmae , role , gender , profileCompletionPercentage , gmail , phoneNumber}) => {
+const UserItem = ({id=0 , fName , lNmae , role , gender , profileCompletionPercentage , gmail , phoneNumber}) => {
   return (
     <tr>
         <td>
@@ -12,6 +12,10 @@ const UserItem = ({id , fName , lNmae , role , gender , profileCompletionPercent
         <td>
             <span className='align-middle fw-bold'> {role}</span>
         </td>
+
+        <td>
+            <span className='align-middle fw-bold'> {id}</span>
+        </td>        
 
         <td>
             <span className='align-middle fw-bold'> {gender === true ? 'مرد' : 'زن'}</span>

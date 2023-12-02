@@ -50,7 +50,19 @@ export default [
         title: "دانش جو",
         icon: <Circle size={12} />,
         navLink: "/UsersList/StudentTable",
-      },            
+      }, 
+      {
+        id: "FreeUserTable",
+        title: "  داوران",
+        icon: <Circle size={12} />,
+        navLink: "/UsersList/FreeUserTable",
+      },
+      {
+        id: "MentorsTable",
+        title: "  منتور ها",
+        icon: <Circle size={12} />,
+        navLink: "/UsersList/MentorsTable",
+      },                        
     ],    
   },
 

@@ -8,16 +8,13 @@ import { Row, Col } from 'reactstrap'
 import StatsVertical from '../StatsVertical/StatsVertical'
 import Earnings from '../Earnings/Earnings'
 
-
-
-const StudentTable = () => {
-
-    const getStudents =async () =>{
-        const result = await http.get("/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&Query=&IsActiveUser=true&IsDeletedUser=true&roleId=3")
+const FreeUserTable = () => {
+    const getFreeUsers =async () =>{
+        const result = await http.get("/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&Query=&IsActiveUser=true&IsDeletedUser=true&roleId=7")
         return result
       }
     
-      const {data , Status} = useQuery('getStudent' , getStudents)
+      const {data , Status} = useQuery('getFree' , getFreeUsers)
 
       var completeProfile = 0;
 
@@ -38,22 +35,22 @@ const StudentTable = () => {
     
 
 
+
   return (
-    <div>
-        <Row>
-            <Col xl='3' md='4' sm='6'>
-            <StatsVertical stats={data && Percent} statTitle='درصد تکمیل اطلاعات دانشجوها '/>
-            </Col>
-            <Col lg='4' md='6' xs='12'>
-                {data && <Earnings all={ data?.listUser.length} mensCount={mensCount} wemenCount={wemenCount}/>}
-            </Col>
-                    
-        </Row>
+        <div>
+      <Row>
+        <Col xl='3' md='4' sm='6'>
+          <StatsVertical stats={data && Percent} statTitle='درصد تکمیل اطلاعات  داوران'/>
+        </Col>
+        <Col lg='4' md='6' xs='12'>
+              {data && <Earnings all={ data?.listUser.length} mensCount={mensCount} wemenCount={wemenCount}/>}
+        </Col>
+                  
+      </Row>
 
-
-        <Table responsive>
-            <thead>
-            <tr>
+      <Table responsive>
+          <thead>
+          <tr>
                 <th>نام</th>
                 <th>نوع کاربر</th>
                 <th> id</th>
@@ -61,28 +58,23 @@ const StudentTable = () => {
                 <th>درصد تکمیل اطلاعات</th>
                 <th>ایمیل</th>              
                 <th>شماره تماس</th>
-            </tr>
-            </thead>
-            <tbody>
-            {data && (
-                data.listUser?.map((item , index) =>{
+          </tr>
+          </thead>
+          <tbody>
+              {data && (
+                  data.listUser?.map((item , index) =>{
                             return(
-                            <UserItem key={index} id={item.id}  fName={item.fname} lNmae={item.lname} role='دانش جو' gender={item.gender}
-                            profileCompletionPercentage={item.profileCompletionPercentage} gmail={item.gmail} phoneNumber={item.phoneNumber}/>         
+                              <UserItem key={index} id={item.id}  fName={item.fname} lNmae={item.lname} role='مدرس' gender={item.gender}
+                              profileCompletionPercentage={item.profileCompletionPercentage} gmail={item.gmail} phoneNumber={item.phoneNumber}/>         
                         )
                     })         
-                )
-                } 
+                  )
+              } 
 
-
-
-
-
-            </tbody>
-        </Table>        
+          </tbody>
+      </Table>      
     </div>
-
   )
 }
 
-export default StudentTable
+export default FreeUserTable
