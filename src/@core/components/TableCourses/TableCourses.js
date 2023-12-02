@@ -33,12 +33,7 @@ const TableCourses = () => {
           <th>وضعیت دوره</th>
           <th>نوع دوره</th>
           <th>قیمت</th>
-          {/* <th>فعال</th>
-          <th>حذف</th>
-          <th>منقضی</th> */}
           <th>توضیحات </th>
-          {/* <th>عکس</th>
-          <th>آی دی</th> */}
         </tr>
       </thead>
       <tbody>
@@ -53,14 +48,8 @@ const TableCourses = () => {
                 classRoomName={item.classRoomName}
                 levelName={item.levelName}
                 cost={item.cost}
-                // isActive={item.isActive}
-                // isdelete={item.isdelete}
-                // isExpire={item.isExpire}
                 title={item.title}
                 describe={item.describe}
-                // tumbImageAddress={item.tumbImageAddress}
-                // lastUpdate={item.lastUpdate}
-                // courseId={item.courseId}
               />
             );
           })}
