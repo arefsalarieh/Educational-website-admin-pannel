@@ -21,17 +21,17 @@ function CourseItem({
 }) {
   return (
     <tr>
-      <td ><span className='white-space: nowrap;color:red'>{fullName}</span></td>
-      <td className="white-space: nowrap;color:red;"> {title}</td>
-      <td>{levelName}</td>
-      <td>{classRoomName}</td>
-      <td>{statusName}</td>
-      <td>{typeName}</td>
-      <td>{cost}</td>
-      <td>{describe}</td>
+      <td className='text-nowrap '>{fullName}</td>
+      <td className='text-nowrap '> {title}</td>
+      <td className='text-nowrap '>{levelName}</td>
+      <td className='text-nowrap '>{classRoomName}</td>
+      <td className='text-nowrap '>{statusName}</td>
+      <td className='text-nowrap '>{typeName}</td>
+      <td className='text-nowrap '>{cost}</td>
+      <td className='text-ellipsis'>{describe}</td>
       <td>
         <Badge pill color="light-primary" className="me-1">
-          Active
+          فعال
         </Badge>
       </td>
       <td>
@@ -47,11 +47,11 @@ function CourseItem({
           <DropdownMenu>
             <DropdownItem href="/" onClick={(e) => e.preventDefault()}>
               <Edit className="me-50" size={15} />{" "}
-              <span className="align-middle">Edit</span>
+              <span className="align-middle">ویرایش</span>
             </DropdownItem>
             <DropdownItem href="/" onClick={(e) => e.preventDefault()}>
               <Trash className="me-50" size={15} />{" "}
-              <span className="align-middle">Delete</span>
+              <span className="align-middle">حذف</span>
             </DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>
