@@ -34,22 +34,24 @@ import { Formik , Form , Field , useFormik , ErrorMessage  } from 'formik';
 import http from '../@core/interceptor'
 import { setItem } from "../@core/common/storage.services";
 import { useNavigate } from 'react-router-dom';
+import toast, { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { onEmailChange, onPhoneNumberChange, onTokenChange } from "../redux/user";
 
 
 const defaultValues = {
-  password: 'admin',
-  loginEmail: 'admin@demo.com'
+  email: '',
+  pass: '',
+  check: false,
 }
-
-
-
 
 
 const Login = () => {
 
   const { skin } = useSkin();
   const source = skin === "dark" ? illustrationsDark : illustrationsLight;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
 
   const onSubmit =async (values) =>{
@@ -60,13 +62,19 @@ const Login = () => {
     }
 
     const result = await http.post(`/Sign/Login` , person)
+    console.log(result);
 
-    if(result.roles.includes("Administrator" || "Teacher" || "Referee" || "TournamentMentor")){
+    if(result.roles?.includes("Administrator" || "Teacher" || "Referee" || "TournamentMentor")){
       navigate('/home')
       setItem('token' , result.token)
+      toast.success("ورود موفقیت آمیز")
+      dispatch(onTokenChange(result.token))
+      // dispatch(onRoleChange(result.roles))
+      dispatch(onEmailChange(result.phoneOrGmail))
+      dispatch(onPhoneNumberChange(result.phoneNumber))
     }
-    else {
-      
+    else if (result.success == false) {
+      toast.error("نام کاربری یا کلمه عبور اشتباه است.")
     }
   }
 
@@ -95,7 +103,7 @@ const Login = () => {
               برای ورود فرم زیر را پر کنید
             </CardText>
 
-            <Formik onSubmit={onSubmit} initialValues={{email : '' , pass : '' , check : false}}>
+            <Formik onSubmit={onSubmit} initialValues={defaultValues}>
               {({values , handleSubmit , handleChange}) => (
                 <form
                   className="auth-login-form mt-2"
@@ -172,6 +180,7 @@ const Login = () => {
           </Col>
         </Col>
       </Row>
+      <Toaster reverseOrder={false} position="top-left" />
     </div>
   );
 };
