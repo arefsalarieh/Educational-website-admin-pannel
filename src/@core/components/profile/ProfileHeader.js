@@ -19,7 +19,7 @@ const ProfileHeader = ({ pic , fName , lName}) => {
 
   return (
     <Card className='profile-header mb-2'>
-      <CardImg src={pic} alt='User Profile Image' top />
+      {/* <CardImg src={pic} alt='User Profile Image' top /> */}
       <div className='position-relative'>
         <div className='profile-img-container d-flex align-items-center'>
           <div className='profile-img'>

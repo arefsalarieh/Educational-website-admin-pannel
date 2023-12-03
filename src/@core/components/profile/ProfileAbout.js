@@ -1,27 +1,27 @@
 // ** Reactstrap Imports
 import { Card, CardBody, CardText } from 'reactstrap'
 
-const ProfileAbout = ({ data }) => {
+const ProfileAbout = ({  email , phoneNumber , gender , birthDay , insertDate}) => {
   return (
     <Card>
       <CardBody>
-        <h5 className='mb-75'>About</h5>
-        {/* <CardText>{data.about}</CardText> */}
+        <h5 className='mb-75'>Email</h5>
+        <CardText>{email}</CardText>
         <div className='mt-2'>
-          <h5 className='mb-75'>Joined:</h5>
-          {/* <CardText>{data.joined}</CardText> */}
+          <h5 className='mb-75'>شماره تماس:</h5>
+          <CardText>{phoneNumber}</CardText>
         </div>
         <div className='mt-2'>
-          <h5 className='mb-75'>Lives:</h5>
-          {/* <CardText>{data.lives}</CardText> */}
+          <h5 className='mb-75'>جنسیت :</h5>
+          <CardText>{gender === true ? 'مرد' : "زن"}</CardText>
         </div>
         <div className='mt-2'>
-          <h5 className='mb-75'>Email:</h5>
-          {/* <CardText>{data.email}</CardText> */}
+          <h5 className='mb-75'>تاریخ تولد :</h5>
+          <CardText>{birthDay}</CardText>
         </div>
         <div className='mt-2'>
-          <h5 className='mb-75'>Website:</h5>
-          {/* <CardText>{data.website}</CardText> */}
+          <h5 className='mb-75'>زمان ثبت نام :</h5>
+          <CardText>{insertDate}</CardText>
         </div>
       </CardBody>
     </Card>

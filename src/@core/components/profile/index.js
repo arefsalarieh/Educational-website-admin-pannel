@@ -26,6 +26,21 @@ import {useQuery} from 'react-query'
 
 // ** Styles
 import '@styles/react/pages/page-profile.scss'
+import StatsVertical from '../StatsVertical/StatsVertical'
+import StatsHorizontal from '../StatsHorizontal/StatsHorizontal'
+import {
+  Eye,
+  Cpu,
+  Heart,
+  Award,
+  Truck,
+  Server,
+  Activity,
+  ShoppingBag,
+  AlertOctagon,
+  MessageSquare
+} from 'react-feather'
+
 
 const Profile = () => {
 
@@ -53,20 +68,24 @@ const Profile = () => {
           </Row>
           <section id='profile-info'>
             <Row>
-              <Col lg={{ size: 3, order: 1 }} sm={{ size: 12 }} xs={{ order: 2 }}>
-                <ProfileAbout  />
-                {/* <ProfileSuggestedPages data={data.suggestedPages} /> */}
-                {/* <ProfileTwitterFeeds data={data.twitterFeeds} /> */}
+              
+              <Col lg={{ size: 4, order: 1 }} sm={{ size: 12 }} xs={{ order: 1 }}>
+                {data &&  <ProfileAbout  email={data.gmail} phoneNumber={data.phoneNumber} gender={data.gender} birthDay={data.birthDay} insertDate={data.insertDate}   />}
               </Col>
-              <Col lg={{ size: 6, order: 2 }} sm={{ size: 12 }} xs={{ order: 1 }}>
-                {/* <ProfilePosts data={data.post} /> */}
+
+              <Col lg={{ size: 8, order: 1 }} sm={{ size: 12 }} xs={{ order: 2 }}>
+                <Row lg={{ size: 4, order: 1 }} sm={{ size: 12 }} xs={{ order: 2 }}>
+                  {data && <StatsVertical icon={<Eye size={21} />}   stats='آدرس' statTitle={data.homeAdderess}/> } 
+                </Row>
+
+                <Row lg={{ size: 4, order: 1 }} sm={{ size: 12 }} xs={{ order: 3 }}>
+                  {data && <StatsVertical icon={<ShoppingBag size={21} />} stats='توضیحات' statTitle={data.userAbout}/> } 
+                </Row>  
               </Col>
-              <Col lg={{ size: 3, order: 3 }} sm={{ size: 12 }} xs={{ order: 3 }}>
-                {/* <ProfileLatestPhotos data={data.latestPhotos} /> */}
-                {/* <ProfileFriendsSuggestions data={data.suggestions} /> */}
-                {/* <ProfilePoll data={data.polls} /> */}
-              </Col>
+
             </Row>
+
+
             <Row>
               <Col className='text-center' sm='12'>
                 <Button color='primary' className='border-0 mb-1 profile-load-more' size='sm' >
