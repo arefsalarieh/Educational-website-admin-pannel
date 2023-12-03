@@ -47,7 +47,7 @@ export default [
       },   
       {
         id: "StudentTable",
-        title: "دانش جو",
+        title: "دانشجویان",
         icon: <Circle size={12} />,
         navLink: "/UsersList/StudentTable",
       }, 

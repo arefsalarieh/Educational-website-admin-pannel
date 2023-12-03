@@ -38,7 +38,8 @@ import {
   Activity,
   ShoppingBag,
   AlertOctagon,
-  MessageSquare
+  MessageSquare,
+  Mail
 } from 'react-feather'
 
 
@@ -83,6 +84,23 @@ const Profile = () => {
                 </Row>  
               </Col>
 
+            </Row>
+
+            <Row>
+
+                <Col lg={{ size: 4, order: 1 }} sm={{ size: 12 }} xs={{ order: 3 }}>
+                  {data && <StatsVertical icon={<Mail size={21} />} stats='توضیحات' statTitle={data.userAbout}/> } 
+                </Col>
+                
+
+                <Col lg={{ size: 4, order: 1 }} sm={{ size: 12 }} xs={{ order: 3 }}>
+                  {data && <StatsVertical icon={<ShoppingBag size={21} />} stats='توضیحات' statTitle={data.userAbout}/> } 
+                </Col>                  
+
+
+                <Col lg={{ size: 4, order: 1 }} sm={{ size: 12 }} xs={{ order: 3 }}>
+                  {data && <StatsVertical icon={<ShoppingBag size={21} />} stats='توضیحات' statTitle={data.userAbout}/> } 
+                </Col>
             </Row>
 
 
