@@ -1,8 +1,17 @@
 import React from 'react'
 import { MoreVertical, Edit, Trash } from 'react-feather'
 import { Table, Badge, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap'
+import { Button } from 'reactstrap'
+import { useNavigate } from 'react-router-dom';
 
 const UserItem = ({id=0 , fName , lNmae , role , gender , profileCompletionPercentage , gmail , phoneNumber}) => {
+
+    const navigate = useNavigate()
+
+    const goDetail = () =>{
+        navigate('/pages/profile/' + id)
+    }
+    
   return (
     <tr>
         <td>
@@ -34,6 +43,10 @@ const UserItem = ({id=0 , fName , lNmae , role , gender , profileCompletionPerce
             {phoneNumber}
         </Badge>
         </td>
+
+        <td>
+            <Button.Ripple onClick={goDetail} color='primary'>جزئیات</Button.Ripple>
+        </td>        
 
     </tr>
   )

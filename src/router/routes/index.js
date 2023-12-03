@@ -36,6 +36,7 @@ const TeacherTable = lazy(() => import("../../@core/components/UserTable/Teacher
 const StudentTable = lazy(() => import("../../@core/components/UserTable/StudentTable"));
 const FreeUserTable = lazy(() => import("../../@core/components/UserTable/FreeUserTable"));
 const MentorsTable = lazy(() => import("../../@core/components/UserTable/MentorsTable"));
+const Profile = lazy(() => import('../../@core/components/profile'))
 const SecondPage = lazy(() => import("../../pages/SecondPage"));
 const Login = lazy(() => import("../../pages/Login"));
 const Register = lazy(() => import("../../pages/Register"));
@@ -73,7 +74,15 @@ const Routes = [
   {
     path: "/UsersList/MentorsTable",
     element: <MentorsTable />,
-  },    
+  }, 
+  {
+    path: '/pages/profile',
+    element: <Profile />
+  },
+  {
+    path: '/pages/profile/:id',
+    element: <Profile />
+  },  
   {
     path: "/sample",
     element: <Sample />,
