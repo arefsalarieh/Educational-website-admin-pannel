@@ -6,8 +6,38 @@ import {
   CardText,
   CardLink,
 } from "reactstrap";
+import  axios  from "axios";
+import http from '../@core/interceptor'
+import { useEffect } from "react";
+import {useQuery} from 'react-query'
 
 const Home = () => {
+
+
+
+  const getCourseList = async () =>{
+    const result = await http.get(`/Course/CourseList?PageNumber=1&RowsOfPage=10&SortingCol=DESC&SortType=Expire&Query`)
+    return result;
+  }
+
+  const {data , status, refetch} = useQuery('courseQuery'  , getCourseList  )
+
+  
+  status === 'success' && console.log(data);
+
+
+
+
+  // const getUserList = async()=>{
+  //   const res =await http.get('/Course/CourseList?PageNumber=1&RowsOfPage=10&SortingCol=DESC&SortType=Expire&Query')
+  //   console.log(res);
+  // }
+
+  // useEffect(() =>{
+  //   getUserList()
+  // },[])
+
+
   return (
     <div>
       <Card>
