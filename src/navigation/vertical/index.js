@@ -1,4 +1,4 @@
-import { Mail, Home, Airplay, Circle } from "react-feather";
+import { Mail, Home, Airplay, Circle, List } from "react-feather";
 
 export default [
   {
@@ -28,7 +28,7 @@ export default [
       {
         id: "courdseList",
         title: "لیست دوره ها",
-        icon: <Circle size={12} />,
+        icon: <List  size={12} />,
         navLink: "/CoursesList",
       },
     ],
