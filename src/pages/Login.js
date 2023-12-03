@@ -67,11 +67,14 @@ const Login = () => {
     if(result.roles?.includes("Administrator" || "Teacher" || "Referee" || "TournamentMentor")){
       navigate('/home')
       setItem('token' , result.token)
+      // setItem('role' , result.roles)
       toast.success("ورود موفقیت آمیز")
       dispatch(onTokenChange(result.token))
-      // dispatch(onRoleChange(result.roles))
+      dispatch(onIdChange(result.id))
+      dispatch(onRoleChange(result.roles))
       dispatch(onEmailChange(result.phoneOrGmail))
       dispatch(onPhoneNumberChange(result.phoneNumber))
+
     }
     else if (result.success == false) {
       toast.error("نام کاربری یا کلمه عبور اشتباه است.")

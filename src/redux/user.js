@@ -5,6 +5,7 @@ import { getItem } from '../@core/common/storage.services';
 const userSlice = createSlice({
     name: 'user',
     initialState: {
+        id: "",
         email: "",
         password : '',
         name: "",
@@ -14,6 +15,9 @@ const userSlice = createSlice({
     },
     
     reducers: {
+        onIdChange: (state, action) => {
+            state.id = action.payload
+        },
         onEmailChange: (state, action) => {
             state.email = action.payload
         },
@@ -35,7 +39,7 @@ const userSlice = createSlice({
         },
         
         onRoleChange: (state, action) => {
-            state.token = action.payload
+            state.role = action.payload
         }, 
     },
 });

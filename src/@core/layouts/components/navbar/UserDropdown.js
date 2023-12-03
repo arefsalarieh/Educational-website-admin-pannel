@@ -26,22 +26,37 @@ import {
 
 // ** Default Avatar Image
 import defaultAvatar from "@src/assets/images/portrait/small/avatar-s-11.jpg";
+import { useQuery } from "react-query";
+import http from "../../../../@core/interceptor";
+import { useSelector } from "react-redux";
+import { getItem } from "../../../common/storage.services";
 
 const UserDropdown = () => {
+  const user = useSelector(state => state.user)
+
+  
+  console.log(user);
+
+
+  const { data } = useQuery("getUserInfo", () =>
+    http.get("/SharePanel/GetProfileInfo")
+  );
+  console.log(data);
+
+
   return (
     <UncontrolledDropdown tag="li" className="dropdown-user nav-item">
       <DropdownToggle
         href="/"
         tag="a"
         className="nav-link dropdown-user-link"
-        onClick={(e) => e.preventDefault()}
-      >
+        onClick={(e) => e.preventDefault()}>
         <div className="user-nav d-sm-flex d-none">
-          <span className="user-name fw-bold">John Doe</span>
-          <span className="user-status">Admin</span>
+          <span className="user-name fw-bold">{data?.fName + " " + data?.lName }</span>
+          <span className="user-status">{getItem("role")}</span>
         </div>
         <Avatar
-          img={defaultAvatar}
+          img={data?.currentPictureAddress}
           imgHeight="40"
           imgWidth="40"
           status="online"
@@ -68,8 +83,7 @@ const UserDropdown = () => {
         <DropdownItem
           tag={Link}
           to="/pages/"
-          onClick={(e) => e.preventDefault()}
-        >
+          onClick={(e) => e.preventDefault()}>
           <Settings size={14} className="me-75" />
           <span className="align-middle">Settings</span>
         </DropdownItem>
