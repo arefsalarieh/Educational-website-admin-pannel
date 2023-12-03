@@ -12,6 +12,8 @@ import PublicRoute from "@components/routes/PublicRoute";
 
 // ** Utils
 import { isObjEmpty } from "@utils";
+import CreatCourse from "../../pages/CreatCourse";
+import DetailCourse from "../../pages/DetailCourse";
 
 
 const getLayout = {
@@ -49,7 +51,15 @@ const Routes = [
   {
     path: "/CoursesList",
     element: <CoursesList />,
-  },  
+  },
+  {
+    path: "/CreatCourse",
+    element: <CreatCourse />,
+  }, 
+  {
+    path: "/DetailCourse",
+    element: <DetailCourse/>,
+  },      
   {
     path: "/sample",
     element: <Sample />,
