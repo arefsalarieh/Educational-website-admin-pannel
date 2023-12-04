@@ -9,7 +9,7 @@ import UILoader from '@components/ui-loader'
 import Breadcrumbs from '@components/breadcrumbs'
 
 // ** Reactstrap Imports
-import { Row, Col, Button } from 'reactstrap'
+import { Button, Card, CardTitle, CardBody, CardText, CardSubtitle, CardLink, CardImg, Row, Col  } from 'reactstrap'
 
 // ** Demo Components
 import ProfilePoll from './ProfilePolls'
@@ -41,7 +41,11 @@ import {
   MessageSquare,
   Mail
 } from 'react-feather'
-
+import gmailImage from '../../../../src/assets/images/NewImage/gmail.png'
+import linkedinImage from '../../../../src/assets/images/NewImage/linkedin.png'
+import telegramImage from '../../../../src/assets/images/NewImage/telegram.png'
+import phoneImage from '../../../../src/assets/images/NewImage/phone.png'
+import UserReservedCourse from './UserReservedCourse'
 
 const Profile = () => {
 
@@ -88,31 +92,79 @@ const Profile = () => {
 
             <Row>
 
-                <Col lg={{ size: 4, order: 1 }} sm={{ size: 12 }} xs={{ order: 3 }}>
-                  {data && <StatsVertical icon={<Mail size={21} />} stats='توضیحات' statTitle={data.userAbout}/> } 
-                </Col>
-                
+              <Col lg='3' md='6'>
+                <Card>
+                  <CardImg top src={gmailImage} alt='Card cap' />
+                  <CardBody>
+                    <CardTitle tag='h4'> Gmail</CardTitle>
+                    <CardText>
+                      {data && ( data.gmail === null ? "کاربر اکانت gmail را وارد نکرده" : data.gmail)}
+                    </CardText>
+                    <Button color='primary' outline>
+                        Go to gmail
+                    </Button>
+                  </CardBody>
+                </Card>
+              </Col>
 
-                <Col lg={{ size: 4, order: 1 }} sm={{ size: 12 }} xs={{ order: 3 }}>
-                  {data && <StatsVertical icon={<ShoppingBag size={21} />} stats='توضیحات' statTitle={data.userAbout}/> } 
-                </Col>                  
+              <Col lg='3' md='6'>
+                <Card>
+                  <CardImg top src={linkedinImage} alt='Card cap' />
+                  <CardBody>
+                    <CardTitle tag='h4'>Linkedin </CardTitle>
+                    <CardText>
+                      {data && ( data.linkdinProfile === null ? "کاربر اکانت linkedin را وارد نکرده" : data.linkdinProfile)}
+                     </CardText>
 
+                    <Button color='primary' outline>
+                      Go to linkedin
+                    </Button>
+                  </CardBody>
+                </Card>
+              </Col>
 
-                <Col lg={{ size: 4, order: 1 }} sm={{ size: 12 }} xs={{ order: 3 }}>
-                  {data && <StatsVertical icon={<ShoppingBag size={21} />} stats='توضیحات' statTitle={data.userAbout}/> } 
-                </Col>
+              <Col lg='3' md='6'>
+                <Card>
+                  <CardImg top src={telegramImage} alt='Card cap' />
+                  <CardBody>
+                    <CardTitle tag='h4'> Telegram</CardTitle>
+                    <CardText>
+                        {data && ( data.telegramLink === null ? "کاربر اکانت telegram را وارد نکرده" : data.telegramLink)}
+                    </CardText>
+                    <Button color='primary' outline>
+                      Go to telegram
+                    </Button>
+                  </CardBody>
+                </Card>
+              </Col>
+
+              <Col lg='3' md='6'>
+                <Card>
+                  <CardImg top src={phoneImage} alt='Card cap' />
+                  <CardBody>
+                    <CardTitle tag='h4'>Phone Number </CardTitle>
+                    <CardText>
+                       {data && ( data.phoneNumber === null ? "کاربر شماره تماس را وارد نکرده" : data.phoneNumber)}
+                    </CardText>
+                    <Button color='primary' outline>
+                        Call 
+                    </Button>
+                  </CardBody>
+                </Card>
+              </Col>
+
             </Row>
 
 
             <Row>
-              <Col className='text-center' sm='12'>
-                <Button color='primary' className='border-0 mb-1 profile-load-more' size='sm' >
-      
-                    <span> Load More</span>
-                  
-                </Button>
+              <Col lg='6'>
+               {data && <UserReservedCourse coursesReseves={data.coursesReseves}/>}              
               </Col>
+
             </Row>
+
+
+
           </section>
         </div>
       
