@@ -76,7 +76,7 @@ const Profile = () => {
             <Row>
               
               <Col lg={{ size: 4, order: 1 }} sm={{ size: 12 }} xs={{ order: 1 }}>
-                {data &&  <ProfileAbout  id={data.id} gender={data.gender} birthDay={data.birthDay} insertDate={data.insertDate}   />}
+                {data &&  <ProfileAbout  id={data.id} gender={data.gender} birthDay={data.birthDay} insertDate={data.insertDate}  roles={data.roles} />}
               </Col>
 
               <Col lg={{ size: 8, order: 1 }} sm={{ size: 12 }} xs={{ order: 2 }}>
