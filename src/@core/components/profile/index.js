@@ -46,6 +46,7 @@ import linkedinImage from '../../../../src/assets/images/NewImage/linkedin.png'
 import telegramImage from '../../../../src/assets/images/NewImage/telegram.png'
 import phoneImage from '../../../../src/assets/images/NewImage/phone.png'
 import UserReservedCourse from './UserReservedCourse'
+import UserAcceptCourse from './UserAcceptCourse'
 
 const Profile = () => {
 
@@ -75,7 +76,7 @@ const Profile = () => {
             <Row>
               
               <Col lg={{ size: 4, order: 1 }} sm={{ size: 12 }} xs={{ order: 1 }}>
-                {data &&  <ProfileAbout  email={data.gmail} phoneNumber={data.phoneNumber} gender={data.gender} birthDay={data.birthDay} insertDate={data.insertDate}   />}
+                {data &&  <ProfileAbout  id={data.id} gender={data.gender} birthDay={data.birthDay} insertDate={data.insertDate}   />}
               </Col>
 
               <Col lg={{ size: 8, order: 1 }} sm={{ size: 12 }} xs={{ order: 2 }}>
@@ -158,9 +159,12 @@ const Profile = () => {
 
             <Row>
               <Col lg='6'>
-               {data && <UserReservedCourse coursesReseves={data.coursesReseves}/>}              
+                 {data && <UserReservedCourse coursesReseves={data.coursesReseves}/>}              
               </Col>
 
+              <Col lg='6'>
+                 {data && <UserAcceptCourse courses={data.courses}/>}              
+              </Col>
             </Row>
 
 

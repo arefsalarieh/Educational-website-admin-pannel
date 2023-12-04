@@ -1,6 +1,6 @@
 import React from 'react'
 import { Table, Badge, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap'
-import CourseItem from './CourseItem'
+import ReserveCourseItem from './ReserveCourseItem'
 
 const UserReservedCourse = ({coursesReseves}) => {
    
@@ -22,7 +22,7 @@ const UserReservedCourse = ({coursesReseves}) => {
             {coursesReseves && (
                 coursesReseves?.map((item , index) =>{
                             return(
-                            <CourseItem key={index} id={item.courseId} courseName={item.courseName}   />         
+                            <ReserveCourseItem key={index} id={item.courseId} courseName={item.courseName}   />         
                         )
                     })         
                 )

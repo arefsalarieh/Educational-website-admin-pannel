@@ -5,7 +5,7 @@ import { Button } from 'reactstrap'
 import { useNavigate } from 'react-router-dom';
 
 
-const CourseItem = ({id=0 , courseName}) => {
+const ReserveCourseItem = ({id=0 , courseName}) => {
 
 
     const navigate = useNavigate()
@@ -39,4 +39,4 @@ const CourseItem = ({id=0 , courseName}) => {
   )
 }
 
-export default CourseItem
+export default ReserveCourseItem

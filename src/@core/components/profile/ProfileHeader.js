@@ -8,6 +8,7 @@ import { AlignJustify, Rss, Info, Image, Users, Edit } from 'react-feather'
 import { Card, CardImg, Collapse, Navbar, Nav, NavItem, NavLink, Button } from 'reactstrap'
 
 import avatar1 from '../../../assets/images/myPics/1.jpg'
+import city from '../../../assets/images/NewImage/city.jpg'
 
 const ProfileHeader = ({ pic , fName , lName}) => {
 
