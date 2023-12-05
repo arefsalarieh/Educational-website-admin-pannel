@@ -28,16 +28,13 @@ import {
 import defaultAvatar from "@src/assets/images/portrait/small/avatar-s-11.jpg";
 import { useQuery } from "react-query";
 import http from "../../../../@core/interceptor";
-import { useSelector } from "react-redux";
 import { getItem } from "../../../common/storage.services";
 
 const UserDropdown = () => {
-  const user = useSelector(state => state.user)
 
   const { data } = useQuery("getUserInfo", () =>
     http.get("/SharePanel/GetProfileInfo")
   );
-  console.log(data);
 
 
   return (

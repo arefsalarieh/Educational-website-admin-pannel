@@ -1,4 +1,4 @@
-import { Mail, Home, Airplay, Circle } from "react-feather";
+import { Mail, Home, Airplay, Circle, FileText } from "react-feather";
 
 export default [
   {
@@ -64,6 +64,20 @@ export default [
         navLink: "/UsersList/MentorsTable",
       },                        
     ],    
+  },
+  {
+    id: "news",
+    title: "اخبار",
+    icon: <FileText size={20} />,
+    // navLink: "/news",
+    children: [
+      {
+        id: "invoiceList",
+        title: "همه اخبار",
+        icon: <Circle size={12} />,
+        navLink: "/news",
+      },
+    ],
   },
 
   
