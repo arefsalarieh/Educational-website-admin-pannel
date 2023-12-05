@@ -15,14 +15,17 @@ import CourseItem from "./CourseItem";
 import { useNavigate } from "react-router-dom";
 
 const TableCourses = () => {
+  
   const getAllCourses = async () => {
     const result = await http.get(
-      `/Course/CourseList?PageNumber=1&RowsOfPage=10&SortingCol=DESC&SortType=Expire&Query`
+      `/Course/CourseList?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=Expire&Query`
     );
     return result;
   };
 
-  const { data, status } = useQuery("getAllCourses", getAllCourses);
+  const { data, status , refetch } = useQuery("getAllCourses", getAllCourses);
+
+  data && console.log(data.courseDtos[0].isdelete)
 
   const navigate = useNavigate();
 
@@ -45,28 +48,30 @@ const TableCourses = () => {
             <th  className='text-nowrap '>نام دوره</th>
             <th  className='text-nowrap '>عنوان دوره</th>
             <th  className='text-nowrap '>سطح دوره</th>
-            {/* <th  className='text-nowrap '>شماره کلاس</th> */}
             <th  className='text-nowrap '>وضعیت دوره</th>
             <th  className='text-nowrap '>نوع دوره</th>
             <th  className='text-nowrap '>قیمت</th>
-            {/* <th>توضیحات </th> */}
           </tr>
         </thead>
         <tbody>
           {status === "success" &&
             data.courseDtos.map((item, index) => {
               return (
-                <CourseItem
-                  key={index}
-                  fullName={item.fullName}
-                  typeName={item.typeName}
-                  statusName={item.statusName}
-                  // classRoomName={item.classRoomName}
-                  levelName={item.levelName}
-                  cost={item.cost}
-                  title={item.title}
-                  // describe={item.describe}
-                />
+                item.isdelete=== false && (
+
+                  <CourseItem               
+                    key={index}
+                    id={item.courseId}
+                    fullName={item.fullName}
+                    typeName={item.typeName}
+                    statusName={item.statusName}
+                    levelName={item.levelName}
+                    cost={item.cost}
+                    title={item.title}
+                    refetch={refetch}
+                    isActive={item.isActive}
+                  />
+                )
               );
             })}
         </tbody>
