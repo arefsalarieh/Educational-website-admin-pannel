@@ -15,7 +15,7 @@ export default [
   },
   {
     id: "smaplePage",
-    title: "Sample Page",
+    title: " دوره های آموزشی",
     icon: <Airplay size={20} />,
     // navLink: "/sample",
     children: [
