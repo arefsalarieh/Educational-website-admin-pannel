@@ -265,7 +265,7 @@ const SelectOptions = () => {
             />
           </Col>
           <Col className="mb-1" md="6" sm="12">
-            <Label className="form-label">  استاد </Label>
+            <Label className="form-label"> شماره استاد </Label>
             <Select
               options={courseteach}
               className="react-select"
