@@ -8,6 +8,7 @@ import { AlignJustify, Rss, Info, Image, Users, Edit } from 'react-feather'
 import { Card, CardImg, Collapse, Navbar, Nav, NavItem, NavLink, Button } from 'reactstrap'
 
 import avatar1 from '../../../assets/images/myPics/1.jpg'
+import city from '../../../assets/images/NewImage/city.jpg'
 
 const ProfileHeader = ({ pic , fName , lName}) => {
 
@@ -19,7 +20,7 @@ const ProfileHeader = ({ pic , fName , lName}) => {
 
   return (
     <Card className='profile-header mb-2'>
-      <CardImg src={pic} alt='User Profile Image' top />
+      {/* <CardImg src={pic} alt='User Profile Image' top /> */}
       <div className='position-relative'>
         <div className='profile-img-container d-flex align-items-center'>
           <div className='profile-img'>

@@ -22,9 +22,9 @@ const StatsVertical = ({ icon, color, stats, statTitle, className }) => {
     <Card className='text-center'>
       <CardBody className={className}>
         <div className='avatar p-50 m-0 mb-1 bg-light-info'>
-          <div className='avatar-content'>{<Eye size={21} />}</div>
+          <div className='avatar-content'>{icon}</div>
         </div>
-        <h2 className='fw-bolder'>{stats}%</h2>
+        <h2 className='fw-bolder'>{stats}</h2>
         <p className='card-text line-ellipsis'>{statTitle}</p>
       </CardBody>
     </Card>
