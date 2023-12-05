@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Edit, MoreVertical, Trash } from "react-feather";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Badge,
   DropdownItem,
@@ -8,33 +8,71 @@ import {
   DropdownToggle,
   UncontrolledDropdown,
 } from "reactstrap";
+import http from "../../interceptor";
+import { useQuery } from "react-query";
+import { useFormikContext } from "formik";
+
 
 function CourseItem({
+  id,
   fullName,
-  // classRoomName,
   typeName,
   statusName,
   levelName,
   cost,
   title,
-  // describe,
+  refetch,
+  isActive
 }) {
 
   const navigate = useNavigate();
 
+  const handleDelete = async (values) => {
+    const courseobjDel = {
+      active: true,
+      id: id,
+    };
+    const result = await http.delete(`/Course/DeleteCourse/`, {data:courseobjDel});
+    refetch();
+    return result;
+   
+  };
+
+
+
+
+  const handleActive = async (values) => {
+    
+    const courseobjAct = {
+      active: isActive === true ? false : true,
+      id:id,
+    };
+    const result = await http.put(
+      `/Course/ActiveAndDeactiveCourse`,
+      courseobjAct
+    );
+    refetch()
+    return result;
+   
+  };
+ 
+
   return (
     <tr>
       <td className="text-nowrap ">{fullName}</td>
-      <td className="text-nowrap "> {title}</td>
+      <td className="text-nowrap ">{title}</td>
       <td className="text-nowrap ">{levelName}</td>
-      {/* <td className='text-nowrap '>{classRoomName}</td> */}
       <td className="text-nowrap ">{statusName}</td>
       <td className="text-nowrap ">{typeName}</td>
       <td className="text-nowrap ">{cost}</td>
-      {/* <td className='text-ellipsis'>{describe}</td> */}
       <td>
-        <Badge pill color="light-primary" className="me-1">
-          فعال
+        <Badge
+          pill
+          color="light-primary"
+          className="me-1"
+          onClick={handleActive}
+        >
+          {isActive === true ? "فعال" : "غیرفعال"}
         </Badge>
       </td>
 
@@ -44,7 +82,7 @@ function CourseItem({
           color="light-primary"
           className="me-1"
           onClick={() => {
-            navigate("/DetailCourse");
+            navigate("/DetailCourse/" + id);
           }}
         >
           جزییات
@@ -62,16 +100,14 @@ function CourseItem({
           </DropdownToggle>
           <DropdownMenu>
             <DropdownItem href="/" onClick={(e) => e.preventDefault()}>
-              <Edit className="me-50" size={15} />{" "}
-              <span className="align-middle">جزییات</span>
-            </DropdownItem>
-            <DropdownItem href="/" onClick={(e) => e.preventDefault()}>
-              <Edit className="me-50" size={15} />{" "}
+              <Edit className="me-50" size={15} />
               <span className="align-middle">ویرایش</span>
             </DropdownItem>
             <DropdownItem href="/" onClick={(e) => e.preventDefault()}>
-              <Trash className="me-50" size={15} />{" "}
-              <span className="align-middle">حذف</span>
+              <Trash className="me-50" size={15} />
+              <span className="align-middle" onClick={handleDelete}>
+                حذف
+              </span>
             </DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>
