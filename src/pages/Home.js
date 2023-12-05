@@ -6,8 +6,13 @@ import {
   CardText,
   CardLink,
 } from "reactstrap";
+import  axios  from "axios";
+import http from '../@core/interceptor'
+import { useEffect } from "react";
+import {useQuery} from 'react-query'
 
 const Home = () => {
+
   return (
     <div>
       <Card>

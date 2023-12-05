@@ -1,4 +1,4 @@
-import { Mail, Home, Airplay, Circle, List } from "react-feather";
+import { Mail, Home, Airplay, Circle, FileText, List } from "react-feather";
 
 export default [
   {
@@ -33,4 +33,58 @@ export default [
       },
     ],
   },
+  {
+    id: "UsersList",
+    title: "کاربران",
+    icon: <Home size={20} />,
+    //navLink: "/UsersList",
+    children: [
+      {
+        id: "AdminTable",
+        title: "ادمین ها",
+        icon: <Circle size={12} />,
+        navLink: "/UsersList/AdminTable",
+      },
+      {
+        id: "TeacherTable",
+        title: "مدرسان",
+        icon: <Circle size={12} />,
+        navLink: "/UsersList/TeacherTable",
+      },   
+      {
+        id: "StudentTable",
+        title: "دانشجویان",
+        icon: <Circle size={12} />,
+        navLink: "/UsersList/StudentTable",
+      }, 
+      {
+        id: "FreeUserTable",
+        title: "  داوران",
+        icon: <Circle size={12} />,
+        navLink: "/UsersList/FreeUserTable",
+      },
+      {
+        id: "MentorsTable",
+        title: "  منتور ها",
+        icon: <Circle size={12} />,
+        navLink: "/UsersList/MentorsTable",
+      },                        
+    ],    
+  },
+  {
+    id: "news",
+    title: "اخبار",
+    icon: <FileText size={20} />,
+    // navLink: "/news",
+    children: [
+      {
+        id: "invoiceList",
+        title: "همه اخبار",
+        icon: <Circle size={12} />,
+        navLink: "/news",
+      },
+    ],
+  },
+
+  
 ];
