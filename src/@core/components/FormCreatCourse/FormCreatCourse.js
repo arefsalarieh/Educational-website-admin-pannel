@@ -99,11 +99,11 @@ const FormCreatCourse = () => {
             <CardTitle tag="h4">ایجاد دوره جدید </CardTitle>
           </CardHeader>
           <CardBody>
-            {/* {({ values, handleSubmit, handleChange }) => (
-              <Form  onSubmit={handleSubmit}> */}
+            {({ values, handleSubmit, handleChange }) => (
+              <form  onSubmit={handleSubmit}>
                 <SelectOptions/>
-              {/* </Form>
-            )} */}
+              </form>
+            )}
             <div className="d-flex">
               <Button className="me-1" color="primary" type="submit">
                 اضافه کردن
