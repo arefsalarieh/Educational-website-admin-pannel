@@ -13,13 +13,8 @@ import PublicRoute from "@components/routes/PublicRoute";
 // ** Utils
 import { isObjEmpty } from "@utils";
 
-
-
-
-
 import CreatCourse from "../../pages/CreatCourse";
 import DetailCourse from "../../pages/DetailCourse";
-
 
 const getLayout = {
   blank: <BlankLayout />,
@@ -35,12 +30,24 @@ const DefaultRoute = "/login";
 
 const Home = lazy(() => import("../../pages/Home"));
 const AdminTable = lazy(() => import("../../@core/components/UserTable/AdminTable"));
+// ** start news imports
 const News = lazy(() => import("../../@core/components/news/News"));
-const TeacherTable = lazy(() => import("../../@core/components/UserTable/TeacherTable"));
-const StudentTable = lazy(() => import("../../@core/components/UserTable/StudentTable"));
-const FreeUserTable = lazy(() => import("../../@core/components/UserTable/FreeUserTable"));
-const MentorsTable = lazy(() => import("../../@core/components/UserTable/MentorsTable"));
-const Profile = lazy(() => import('../../@core/components/profile'))
+const AddNews = lazy(() => import("../../@core/components/news/AddNews"));
+// const NewsDetail = lazy(() => import("../../@core/components/news/newsDetail/NewsDetail"));
+//** end news imports
+const TeacherTable = lazy(() =>
+  import("../../@core/components/UserTable/TeacherTable")
+);
+const StudentTable = lazy(() =>
+  import("../../@core/components/UserTable/StudentTable")
+);
+const FreeUserTable = lazy(() =>
+  import("../../@core/components/UserTable/FreeUserTable")
+);
+const MentorsTable = lazy(() =>
+  import("../../@core/components/UserTable/MentorsTable")
+);
+const Profile = lazy(() => import("../../@core/components/profile"));
 const CoursesList = lazy(() => import("../../pages/CoursesList"));
 const SecondPage = lazy(() => import("../../pages/SecondPage"));
 const Login = lazy(() => import("../../pages/Login"));
@@ -63,30 +70,30 @@ const Routes = [
   {
     path: "/UsersList/AdminTable",
     element: <AdminTable />,
-  },  
+  },
   {
     path: "/UsersList/TeacherTable",
     element: <TeacherTable />,
-  },  
+  },
   {
     path: "/UsersList/StudentTable",
     element: <StudentTable />,
-  },   
+  },
   {
     path: "/UsersList/FreeUserTable",
     element: <FreeUserTable />,
-  }, 
+  },
   {
     path: "/UsersList/MentorsTable",
     element: <MentorsTable />,
-  }, 
-  {
-    path: '/pages/profile',
-    element: <Profile />
   },
   {
-    path: '/pages/profile/:id',
-    element: <Profile />
+    path: "/pages/profile",
+    element: <Profile />,
+  },
+  {
+    path: "/pages/profile/:id",
+    element: <Profile />,
   },
   {
     path: "/CoursesList",
@@ -95,21 +102,33 @@ const Routes = [
   {
     path: "/CreatCourse",
     element: <CreatCourse />,
-  }, 
+  },
   {
     path: "/DetailCourse/:id",
-    element: <DetailCourse/>,
-  },        
+    element: <DetailCourse />,
+  },
   {
     path: "/sample",
     element: <Sample />,
   },
-  //
+  // ** start news routes
   {
     path: "/news",
     element: <News />,
   },
-  //
+  {
+    path: "/addNews",
+    element: <AddNews />,
+  },
+  {
+    path: "/editNews/:id",
+    element: <AddNews />,
+  },
+  // {
+  //   path: "/news/newsDetail/",
+  //   element: <NewsDetail />,
+  // },
+  // ** end news routes
   {
     path: "/second-page",
     element: <SecondPage />,

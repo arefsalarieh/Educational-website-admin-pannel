@@ -8,8 +8,10 @@ import {
   Card,
   Label,
   Input,
+  Row,
+  Col,
 } from "reactstrap";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { useState } from "react";
 import { QueryClient, useQuery } from "react-query";
 import instance from "../../interceptor";
@@ -19,26 +21,39 @@ import DbError from "../common/DbError";
 import NoItemFromDb from "../common/NoItemFromDb";
 import IconPagination from "../common/PaginationIconsAndText";
 import AddNewModal from "../modal/AddNewModal";
+import { inputTimeout } from "../../utils/inputTimeOut";
+import { useNavigate } from "react-router-dom";
 
 const News = () => {
   // ** states
   const [modal, setModal] = useState(false);
+  const navigate = useNavigate();
 
   // ** Function to handle Modal toggle
   const handleModal = () => setModal(!modal);
 
   const [apiParam, setApiParam] = useState({
     PageNumber: 1,
-    RowsOfPage: 10,
+    RowsOfPage: 6,
     SortingCol: "InsertDate",
     SortType: "DESC",
     Query: "",
     IsActive: true,
   });
 
+  // useEffect(() => {
+  //   console.log("refetch", apiParam.PageNumber);
+  //   refetch();
+  // }, [apiParam.PageNumber]);
+
   // ** call api news
-  const { data, status } = useQuery({
-    queryKey: "getAllNews",
+  const { data, status, refetch, queryKey } = useQuery({
+    queryKey: [
+      "getAllNews",
+      apiParam.PageNumber,
+      apiParam.Query,
+      apiParam.IsActive,
+    ],
     queryFn: () =>
       instance.get(
         `/News/AdminNewsFilterList?PageNumber=${apiParam.PageNumber}&RowsOfPage=${apiParam.RowsOfPage}&SortingCol=${apiParam.SortingCol}&SortType=${apiParam.SortType}&Query=${apiParam.Query}&IsActive=${apiParam.IsActive}`
@@ -46,6 +61,15 @@ const News = () => {
   });
 
   const qClient = new QueryClient();
+
+  const handleFilter = (e) => {
+    // inputTimeout(
+    // () => setApiParam({ ...apiParam, Query: e.target.value }),
+    setApiParam({ ...apiParam, Query: e.target.value });
+
+    // 500
+    // );
+  };
 
   const CustomLabel = ({ htmlFor }) => {
     return (
@@ -66,7 +90,10 @@ const News = () => {
         <CardHeader className="flex-md-row flex-column align-md-items-center align-items-start border-bottom">
           <CardTitle tag="h4">لیست اخبار</CardTitle>
           <div className="d-flex mt-md-0 mt-1">
-            <Button className="ms-2" color="primary" onClick={handleModal}>
+            <Button
+              className="ms-2"
+              color="primary"
+              onClick={() => navigate("/addNews")}>
               <span className="align-middle me-50">درج خبر جدید</span>
               <Plus size={15} />
             </Button>
@@ -77,13 +104,15 @@ const News = () => {
             </Label>
             <div className="form-switch form-check-primary">
               <Input
-                onClick={(e) => {
-                  qClient.invalidateQueries("getAllNews");
-                  setApiParam({ ...apiParam, IsActive: !apiParam.IsActive });
+                onChange={(e) => {
+                  // qClient.invalidateQueries("getAllNews");
+                  setApiParam({ ...apiParam, IsActive: e.target.checked });
+                  refetch();
                   console.log(apiParam);
                 }}
                 type="switch"
-                defaultChecked
+                // defaultChecked
+                checked={apiParam.IsActive}
                 id="icon-primary"
                 name="icon-primary"
               />
@@ -91,12 +120,30 @@ const News = () => {
             </div>
           </div>
         </CardHeader>
+        <Row className="justify-content-end mx-0">
+          <Col
+            className="d-flex align-items-center justify-content-end mt-1"
+            md="6"
+            sm="12">
+            <Label className="me-1" for="search-input">
+              جستجو
+            </Label>
+            <Input
+              className="dataTable-filter mb-50"
+              type="text"
+              bsSize="sm"
+              id="search-input"
+              onChange={(e) => handleFilter(e)}
+              // onChange={handleFilter}
+            />
+          </Col>
+        </Row>
         {status === "loading" ? (
           <ProjSpinner />
         ) : status === "error" ? (
           <DbError />
         ) : (
-          <Card>
+          <>
             {data?.totalCount > 0 ? (
               <Table responsive>
                 <thead>
@@ -104,29 +151,37 @@ const News = () => {
                     <th>عنوان خبر</th>
                     <th>نویسنده</th>
                     <th>تاریخ درج</th>
-                    <th>امتیاز خبر</th>
+                    <th>تعداد لایک</th>
                     <th>تعداد بازدید</th>
                     <th>عملیات</th>
                   </tr>
                 </thead>
                 <tbody>
                   {data?.news.map((news, index) => {
-                    return <NewsItem key={index} data={news} />;
+                    return (
+                      <NewsItem
+                        key={index}
+                        data={news}
+                        setApiParam={setApiParam}
+                        apiParam={apiParam}
+                        refetch={refetch()}
+                      />
+                    );
                   })}
                 </tbody>
               </Table>
             ) : (
               <NoItemFromDb title="عدم وجود داده" />
             )}
-          </Card>
+          </>
         )}
         <IconPagination
           total={data?.totalCount}
           apiParam={apiParam}
-          setApiParam={() => setApiParam()}
+          setApiParam={setApiParam}
         />
       </Card>
-      <AddNewModal open={modal} handleModal={handleModal} />
+      {/* <AddNewModal open={modal} handleModal={handleModal}  /> */}
     </Fragment>
   );
 };

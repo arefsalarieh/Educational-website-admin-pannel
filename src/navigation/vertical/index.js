@@ -28,7 +28,7 @@ export default [
       {
         id: "courdseList",
         title: "لیست دوره ها",
-        icon: <List  size={12} />,
+        icon: <List size={12} />,
         navLink: "/CoursesList",
       },
     ],
@@ -50,13 +50,13 @@ export default [
         title: "مدرسان",
         icon: <Circle size={12} />,
         navLink: "/UsersList/TeacherTable",
-      },   
+      },
       {
         id: "StudentTable",
         title: "دانشجویان",
         icon: <Circle size={12} />,
         navLink: "/UsersList/StudentTable",
-      }, 
+      },
       {
         id: "FreeUserTable",
         title: "  داوران",
@@ -68,8 +68,8 @@ export default [
         title: "  منتور ها",
         icon: <Circle size={12} />,
         navLink: "/UsersList/MentorsTable",
-      },                        
-    ],    
+      },
+    ],
   },
   {
     id: "news",
@@ -78,13 +78,17 @@ export default [
     // navLink: "/news",
     children: [
       {
-        id: "invoiceList",
+        id: "getAllNews",
         title: "همه اخبار",
         icon: <Circle size={12} />,
         navLink: "/news",
       },
+      {
+        id: "addNews",
+        title: "درج خبر",
+        icon: <Circle size={12} />,
+        navLink: "/addNews",
+      },
     ],
   },
-
-  
 ];
