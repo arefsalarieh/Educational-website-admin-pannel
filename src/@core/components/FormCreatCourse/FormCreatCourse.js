@@ -18,27 +18,27 @@ import {
   CardTitle,
   CardBody,
   Button,
-  Form,
+  // Form,
   Label,
   Input,
   FormFeedback,
 } from "reactstrap";
 import { useQuery } from "react-query";
 import http from "../../interceptor";
-import { Formik } from "formik";
+import { Formik,Form } from "formik";
 import SelectOptions from "./SelectOptions";
 
 const FormCreatCourse = () => {
-  // const validation = yup.object().shape({
-  //   title: yup.string().required("لطفا عنوان مورد نظر را وارد نمایید"),
-  //   technology: yup.string().required("لطفا تکنولوژی یاد گیری را وارد نمایید"),
-  //   status: yup.string().required("لطفا وضعیت  کلاس را مشخص کنید"),
-  //   level: yup.string().required("لطفا سطح کلاس را وارد نمایید."),
-  //   type: yup.string().required("لطفا نوع کلاس را مشخص کنید"),
-  //   term: yup.string().required("لطفا ترم کلاس مربوطه را مشخص کنید"),
-  //   capacity: yup.string().required("ظرفیت کلاس را مشخص کنید"),
-  //   describe: yup.string().required("لطفا توضیحات  را وارد نمایید"),
-  // });
+  const validation = yup.object().shape({
+    title: yup.string().required("لطفا عنوان مورد نظر را وارد نمایید"),
+    technology: yup.string().required("لطفا تکنولوژی یاد گیری را وارد نمایید"),
+    status: yup.string().required("لطفا وضعیت  کلاس را مشخص کنید"),
+    level: yup.string().required("لطفا سطح کلاس را وارد نمایید."),
+    type: yup.string().required("لطفا نوع کلاس را مشخص کنید"),
+    term: yup.string().required("لطفا ترم کلاس مربوطه را مشخص کنید"),
+    capacity: yup.string().required("ظرفیت کلاس را مشخص کنید"),
+    describe: yup.string().required("لطفا توضیحات  را وارد نمایید"),
+  });
 
   // ** Hooks
   const { reset } = useForm({ mode: "onChange" });
@@ -54,7 +54,8 @@ const FormCreatCourse = () => {
       Capacity: values.Capacity,
       CourseTypeId: values.CourseTypeId,
       SessionNumber: values.SessionNumber,
-      CurrentCoursePaymentNumber: values.CurrentCoursePaymentNumber,
+      CurrentCoursePaymentNumber: 0,
+      CoursePrerequisiteId:null,
       TremId: values.TremId,
       ClassId: values.ClassId,
       CourseLvlId: values.CourseLvlId,
@@ -64,12 +65,13 @@ const FormCreatCourse = () => {
       ShortLink: values.ShortLink,
       TumbImageAddress: values.TumbImageAddress,
       ImageAddress: values.ImageAddress,
+    
     };
     const keys = Object.keys(setCourses);
     keys.forEach((key) => {
       const item = setCourses[key];
       dataForm.append(key, item);
-      console.log(data);
+      console.log(dataForm);
     });
     const res = await http.post(`/Course`, dataForm);
     return res;
@@ -104,7 +106,7 @@ const FormCreatCourse = () => {
           TumbImageAddress: "",
           ImageAddress: "",
         }}
-        // validationSchema={validation}
+        validationSchema={validation}
         onSubmit={CreatCourse}
       >
         {({ values, handleSubmit, handleChange }) => (
