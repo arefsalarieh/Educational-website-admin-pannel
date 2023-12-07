@@ -24,8 +24,14 @@ const MyNavbar = () => {
         <Collapse isOpen={isOpen} navbar>
           <div className='profile-tabs d-flex justify-content-between flex-wrap mt-1 mt-md-0'>
             <Nav className='mb-0' pills>
-              <NavItem onClick={()=>navigate("/UsersList/AdminTable")}>
+              <NavItem onClick={()=>navigate("/UsersList/AllUsers")}>
                 <NavLink className='fw-bold' active={true} onClick={hclick} >
+                  <span className='d-none d-md-block'> تمام کاربران</span>
+                  <Rss className='d-block d-md-none' size={14} />
+                </NavLink>
+              </NavItem>              
+              <NavItem onClick={()=>navigate("/UsersList/AdminTable")}>
+                <NavLink className='fw-bold'  onClick={hclick} >
                   <span className='d-none d-md-block'>ادمین ها</span>
                   <Rss className='d-block d-md-none' size={14} />
                 </NavLink>

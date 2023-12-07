@@ -19,6 +19,7 @@ import { isObjEmpty } from "@utils";
 
 
 
+
 const getLayout = {
   blank: <BlankLayout />,
   vertical: <VerticalLayout />,
@@ -32,8 +33,9 @@ const TemplateTitle = "%s - Vuexy React Admin Template";
 const DefaultRoute = "/login";
 
 const Home = lazy(() => import("../../pages/Home"));
-const AdminTable = lazy(() => import("../../@core/components/UserTable/AdminTable"));
 const News = lazy(() => import("../../@core/components/news/News"));
+const AllUsers = lazy(() => import("../../@core/components/UserTable/AllUsers"));
+const AdminTable = lazy(() => import("../../@core/components/UserTable/AdminTable"));
 const TeacherTable = lazy(() => import("../../@core/components/UserTable/TeacherTable"));
 const StudentTable = lazy(() => import("../../@core/components/UserTable/StudentTable"));
 const FreeUserTable = lazy(() => import("../../@core/components/UserTable/FreeUserTable"));
@@ -59,6 +61,10 @@ const Routes = [
     element: <Home />,
   },
   {
+    path: "/UsersList/AllUsers",
+    element: <AllUsers />,
+  },    
+  {
     path: "/UsersList/AdminTable",
     element: <AdminTable />,
   },  
@@ -81,7 +87,8 @@ const Routes = [
   {
     path: "/UsersList/CreateUser",
     element: <CreateUser />,
-  },   
+  },  
+
   {
     path: '/pages/profile',
     element: <Profile />

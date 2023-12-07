@@ -25,7 +25,7 @@ const MultipleColumnForm = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle tag='h4'>Multiple Column</CardTitle>
+        <CardTitle tag='h4'>ایجاد کاربر </CardTitle>
       </CardHeader>
 
       <CardBody>

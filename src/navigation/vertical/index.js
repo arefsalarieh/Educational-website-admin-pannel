@@ -37,7 +37,7 @@ export default [
         id: "AdminTable",
         title: " لیست کاربران",
         icon: <Circle size={12} />,
-        navLink: "/UsersList/AdminTable",
+        navLink: "/UsersList/AllUsers",
       },
       {
         id: "CreateUser",
