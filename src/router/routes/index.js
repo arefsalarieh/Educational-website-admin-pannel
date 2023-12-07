@@ -12,6 +12,11 @@ import PublicRoute from "@components/routes/PublicRoute";
 
 // ** Utils
 import { isObjEmpty } from "@utils";
+
+
+
+
+
 import CreatCourse from "../../pages/CreatCourse";
 import DetailCourse from "../../pages/DetailCourse";
 import EditCourse from "../../pages/EditCourse";
@@ -31,6 +36,13 @@ const TemplateTitle = "%s - Vuexy React Admin Template";
 const DefaultRoute = "/login";
 
 const Home = lazy(() => import("../../pages/Home"));
+const AdminTable = lazy(() => import("../../@core/components/UserTable/AdminTable"));
+const News = lazy(() => import("../../@core/components/news/News"));
+const TeacherTable = lazy(() => import("../../@core/components/UserTable/TeacherTable"));
+const StudentTable = lazy(() => import("../../@core/components/UserTable/StudentTable"));
+const FreeUserTable = lazy(() => import("../../@core/components/UserTable/FreeUserTable"));
+const MentorsTable = lazy(() => import("../../@core/components/UserTable/MentorsTable"));
+const Profile = lazy(() => import('../../@core/components/profile'))
 const CoursesList = lazy(() => import("../../pages/CoursesList"));
 const SecondPage = lazy(() => import("../../pages/SecondPage"));
 const Login = lazy(() => import("../../pages/Login"));
@@ -51,6 +63,34 @@ const Routes = [
     element: <Home />,
   },
   {
+    path: "/UsersList/AdminTable",
+    element: <AdminTable />,
+  },  
+  {
+    path: "/UsersList/TeacherTable",
+    element: <TeacherTable />,
+  },  
+  {
+    path: "/UsersList/StudentTable",
+    element: <StudentTable />,
+  },   
+  {
+    path: "/UsersList/FreeUserTable",
+    element: <FreeUserTable />,
+  }, 
+  {
+    path: "/UsersList/MentorsTable",
+    element: <MentorsTable />,
+  }, 
+  {
+    path: '/pages/profile',
+    element: <Profile />
+  },
+  {
+    path: '/pages/profile/:id',
+    element: <Profile />
+  },
+  {
     path: "/CoursesList",
     element: <CoursesList />,
   },
@@ -69,11 +109,17 @@ const Routes = [
   {
     path: "/DetailCourse/:id",
     element: <DetailCourse/>,
-  },      
+  },        
   {
     path: "/sample",
     element: <Sample />,
   },
+  //
+  {
+    path: "/news",
+    element: <News />,
+  },
+  //
   {
     path: "/second-page",
     element: <SecondPage />,
