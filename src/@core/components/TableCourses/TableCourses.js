@@ -23,17 +23,16 @@ const TableCourses = () => {
   const [search, setSearch] = useState("");
 
   const handleSearch = (e) => {
-     console.log(e.target.value);
-    if(e.target.value){
-       setSearch(e.target.value);
-    }
-    else{
-      setSearch("");
-    }
-   
-    console.log(search);
-  
-    console.log(search);
+    //  console.log(e.target.value);
+    // if(e.target.value){
+    //    setSearch(e.target.value);
+    // }
+    // else{
+    //   setSearch("");
+    // }
+    console.log(e.target.value);
+    e.target.value && setSearch(e.target.value);
+    !e.target.value && setSearch("");
   };
   const getAllCourses = async () => {
     const result = await http.get(
