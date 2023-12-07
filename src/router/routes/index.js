@@ -14,6 +14,8 @@ import PublicRoute from "@components/routes/PublicRoute";
 import { isObjEmpty } from "@utils";
 import CreatCourse from "../../pages/CreatCourse";
 import DetailCourse from "../../pages/DetailCourse";
+import EditCourse from "../../pages/EditCourse";
+import UsersList from "../../@core/components/ListCourse/list";
 
 
 const getLayout = {
@@ -53,9 +55,17 @@ const Routes = [
     element: <CoursesList />,
   },
   {
+    element: <UsersList />,
+    path: '/UsersList'
+  },
+  {
     path: "/CreatCourse",
     element: <CreatCourse />,
   }, 
+  {
+    path: "/EditCourse",
+    element: <EditCourse />,
+  },
   {
     path: "/DetailCourse/:id",
     element: <DetailCourse/>,
