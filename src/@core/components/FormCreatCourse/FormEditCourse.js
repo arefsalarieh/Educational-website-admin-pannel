@@ -27,7 +27,8 @@ import {
 } from "reactstrap";
 
 import http from "../../interceptor";
-import { Formik} from "formik";
+import { Formik } from "formik";
+import { useParams } from "react-router-dom";
 
 const FormEditCourse = () => {
   const validation = yup.object().shape({
@@ -87,9 +88,10 @@ const FormEditCourse = () => {
     });
     const res = await http.put(`/Course`, dataForm);
     return res;
-  }
+  };
 
-  // const { setFieldValue } = useFormikContext();
+  const courseEdit = useParams();
+  console.log(courseEdit);
 
   return (
     <Formik
@@ -114,8 +116,9 @@ const FormEditCourse = () => {
       }}
       validationSchema={validation}
       onSubmit={editCourse}
+      enableReinitialize={true}
     >
-      {({ values, handleSubmit, handleChange,setFieldValue }) => (
+      {({ values, handleSubmit, handleChange, setFieldValue }) => (
         <Card>
           <CardHeader>
             <CardTitle tag="h4"> ویرایش دوره </CardTitle>
@@ -130,9 +133,8 @@ const FormEditCourse = () => {
                     name="Title"
                     className="react-select"
                     classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("Title", val.target.value)
-                    }
+                    onChange={(val) => setFieldValue("Title", val.target.value)}
+                    setInitialValues={courseEdit.Title}
                   />
                 </Col>
                 <Col className="mb-1" md="6" sm="12">
@@ -145,6 +147,7 @@ const FormEditCourse = () => {
                     onChange={(val) =>
                       setFieldValue("Describe", val.target.value)
                     }
+                    setInitialValues={courseEdit.Title}
                   />
                 </Col>
               </Row>
@@ -159,6 +162,7 @@ const FormEditCourse = () => {
                     onChange={(val) =>
                       setFieldValue("MiniDescribe", val.target.value)
                     }
+                    setInitialValues={courseEdit.MiniDescribe}
                   />
                 </Col>
                 <Col className="mb-1" md="6" sm="12">
@@ -171,6 +175,7 @@ const FormEditCourse = () => {
                     onChange={(val) =>
                       setFieldValue("Capacity", val.target.value)
                     }
+                    setInitialValues={courseEdit.Capacity}
                   />
                 </Col>
               </Row>
@@ -185,10 +190,11 @@ const FormEditCourse = () => {
                     onChange={(val) =>
                       setFieldValue("CourseTypeId", val.target.value)
                     }
+                    setInitialValues={courseEdit.CourseTypeId}
                   />
                 </Col>
                 <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> شماره تماس </Label>
+                  <Label className="form-label"> تعداد جلسه </Label>
                   <Input
                     value={values.SessionNumber}
                     name="SessionNumber"
@@ -197,6 +203,7 @@ const FormEditCourse = () => {
                     onChange={(val) =>
                       setFieldValue("SessionNumber", val.target.value)
                     }
+                    setInitialValues={courseEdit.SessionNumber}
                   />
                 </Col>
               </Row>
@@ -209,8 +216,12 @@ const FormEditCourse = () => {
                     className="react-select"
                     classNamePrefix="select"
                     onChange={(val) =>
-                      setFieldValue("CurrentCoursePaymentNumber", val.target.value)
+                      setFieldValue(
+                        "CurrentCoursePaymentNumber",
+                        val.target.value
+                      )
                     }
+                    setInitialValues={courseEdit.CurrentCoursePaymentNumber}
                   />
                 </Col>
                 <Col className="mb-1" md="6" sm="12">
@@ -223,6 +234,7 @@ const FormEditCourse = () => {
                     onChange={(val) =>
                       setFieldValue("TremId", val.target.value)
                     }
+                    setInitialValues={courseEdit.TremId}
                   />
                 </Col>
               </Row>
@@ -237,6 +249,7 @@ const FormEditCourse = () => {
                     onChange={(val) =>
                       setFieldValue("ClassId", val.target.value)
                     }
+                    setInitialValues={courseEdit.ClassId}
                   />
                 </Col>
                 <Col className="mb-1" md="6" sm="12">
@@ -249,6 +262,7 @@ const FormEditCourse = () => {
                     onChange={(val) =>
                       setFieldValue("CourseLvlId", val.target.value)
                     }
+                    setInitialValues={courseEdit.CourseLvlId}
                   />
                 </Col>
               </Row>
@@ -263,6 +277,7 @@ const FormEditCourse = () => {
                     onChange={(val) =>
                       setFieldValue("TeacherId", val.target.value)
                     }
+                    setInitialValues={courseEdit.TeacherId}
                   />
                 </Col>
                 <Col className="mb-1" md="6" sm="12">
@@ -272,9 +287,8 @@ const FormEditCourse = () => {
                     name="Cost"
                     className="react-select"
                     classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("Cost", val.target.value)
-                    }
+                    onChange={(val) => setFieldValue("Cost", val.target.value)}
+                    setInitialValues={courseEdit.Cost}
                   />
                 </Col>
               </Row>
@@ -289,6 +303,7 @@ const FormEditCourse = () => {
                     onChange={(val) =>
                       setFieldValue("UniqeUrlString", val.target.value)
                     }
+                    setInitialValues={courseEdit.UniqeUrlString}
                   />
                 </Col>
                 <Col className="mb-1" md="6" sm="12">
@@ -298,9 +313,8 @@ const FormEditCourse = () => {
                     name="Image"
                     className="react-select"
                     classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("Image", val.target.value)
-                    }
+                    onChange={(val) => setFieldValue("Image", val.target.value)}
+                    setInitialValues={courseEdit.Image}
                   />
                 </Col>
               </Row>
@@ -315,6 +329,7 @@ const FormEditCourse = () => {
                     onChange={(val) =>
                       setFieldValue("StartTime", val.target.value)
                     }
+                    setInitialValues={courseEdit.StartTime}
                   />
                 </Col>
                 <Col className="mb-1" md="6" sm="12">
@@ -327,12 +342,13 @@ const FormEditCourse = () => {
                     onChange={(val) =>
                       setFieldValue("EndTime", val.target.value)
                     }
+                    setInitialValues={courseEdit.EndTime}
                   />
                 </Col>
               </Row>
               <Row>
                 <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label">  شمای گوگل </Label>
+                  <Label className="form-label"> شمای گوگل </Label>
                   <Input
                     value={values.GoogleSchema}
                     name="GoogleSchema"
@@ -341,10 +357,11 @@ const FormEditCourse = () => {
                     onChange={(val) =>
                       setFieldValue("GoogleSchema", val.target.value)
                     }
+                    setInitialValues={courseEdit.GoogleSchema}
                   />
                 </Col>
                 <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label">عنوان گوگل  </Label>
+                  <Label className="form-label">عنوان گوگل </Label>
                   <Input
                     value={values.GoogleTitle}
                     name="GoogleTitle"
@@ -353,12 +370,13 @@ const FormEditCourse = () => {
                     onChange={(val) =>
                       setFieldValue("GoogleTitle", val.target.value)
                     }
+                    setInitialValues={courseEdit.GoogleTitle}
                   />
                 </Col>
               </Row>
               <Row>
                 <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label">  پیش نیاز دوره </Label>
+                  <Label className="form-label"> پیش نیاز دوره </Label>
                   <Input
                     value={values.CoursePrerequisiteId}
                     name="CoursePrerequisiteId"
@@ -367,10 +385,11 @@ const FormEditCourse = () => {
                     onChange={(val) =>
                       setFieldValue("CoursePrerequisiteId", val.target.value)
                     }
+                    setInitialValues={courseEdit.CoursePrerequisiteId}
                   />
                 </Col>
                 <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label">  لینک کوتاه </Label>
+                  <Label className="form-label"> لینک کوتاه </Label>
                   <Input
                     value={values.ShortLink}
                     name="ShortLink"
@@ -379,12 +398,13 @@ const FormEditCourse = () => {
                     onChange={(val) =>
                       setFieldValue("ShortLink", val.target.value)
                     }
+                    setInitialValues={courseEdit.ShortLink}
                   />
                 </Col>
               </Row>
               <Row>
                 <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> عکس کوچک  </Label>
+                  <Label className="form-label"> عکس کوچک </Label>
                   <Input
                     value={values.TumbImageAddress}
                     name="TumbImageAddress"
@@ -393,10 +413,11 @@ const FormEditCourse = () => {
                     onChange={(val) =>
                       setFieldValue("TumbImageAddress", val.target.value)
                     }
+                    setInitialValues={courseEdit.TumbImageAddress}
                   />
                 </Col>
                 <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label">   آدرس عکس</Label>
+                  <Label className="form-label"> آدرس عکس</Label>
                   <Input
                     value={values.ImageAddress}
                     name="ImageAddress"
@@ -405,6 +426,7 @@ const FormEditCourse = () => {
                     onChange={(val) =>
                       setFieldValue("ImageAddress", val.target.value)
                     }
+                    setInitialValues={courseEdit.ImageAddress}
                   />
                 </Col>
               </Row>
