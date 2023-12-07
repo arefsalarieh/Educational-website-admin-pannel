@@ -1,20 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MoreVertical, Edit, Trash } from 'react-feather'
 import { Table, Badge, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap'
 import { Button } from 'reactstrap'
 import { useNavigate } from 'react-router-dom';
+import http from '../../../@core/interceptor'
+import {useQuery} from 'react-query'
+import HandleReserve from './HandleReserve';
 
 
-const ReserveCourseItem = ({id=0 , courseName}) => {
+const ReserveCourseItem = ({ courseName , reserverDate }) => {
 
 
-    const navigate = useNavigate()
 
-    const goDetail = () =>{
-        navigate('/pages/profile/' + id)
-    }
 
-    
 
   return (
     <tr>
@@ -23,14 +21,13 @@ const ReserveCourseItem = ({id=0 , courseName}) => {
         </td>
 
         <td>
-            <Button.Ripple onClick={goDetail} color='primary'> مشاهده جزئیات</Button.Ripple>
-
-        </td>  
+            <span className='align-middle fw-bold'> {reserverDate}</span>
+        </td>        
 
         <td>
-            <Button.Ripple onClick={goDetail} color='primary'>قبول کردن</Button.Ripple>
-            <Button.Ripple onClick={goDetail} color='danger'>رد کردن</Button.Ripple>
-        </td>   
+            <Button.Ripple  color='primary'> مشاهده جزئیات</Button.Ripple>
+        </td>  
+
 
 
      

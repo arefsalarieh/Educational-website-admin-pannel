@@ -159,7 +159,7 @@ const Profile = () => {
 
             <Row>
               <Col lg='6'>
-                 {data && <UserReservedCourse coursesReseves={data.coursesReseves}/>}              
+                 {data && <UserReservedCourse coursesReseves={data.coursesReseves} userId={data.id}/>}              
               </Col>
 
               <Col lg='6'>
