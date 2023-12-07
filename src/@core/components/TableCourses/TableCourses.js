@@ -8,24 +8,44 @@ import {
   DropdownItem,
   DropdownToggle,
   Button,
+  InputGroupText,
+  InputGroup,
+  Input,
 } from "reactstrap";
 import http from "../../interceptor";
 import { useQuery } from "react-query";
 import CourseItem from "./CourseItem";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import Search from "antd/es/input/Search";
 
 const TableCourses = () => {
+  const [search, setSearch] = useState("");
+
+  const handleSearch = (e) => {
+     console.log(e.target.value);
+    if(e.target.value){
+       setSearch(e.target.value);
+    }
+    else{
+      setSearch("");
+    }
+   
+    console.log(search);
   
+    console.log(search);
+  };
   const getAllCourses = async () => {
     const result = await http.get(
-      `/Course/CourseList?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=Expire&Query`
+      `/Course/CourseList?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=Expire&Query=${search}`
     );
+    console.log(result);
     return result;
   };
 
-  const { data, status , refetch } = useQuery("getAllCourses", getAllCourses);
+  const { data, status, refetch } = useQuery("getAllCourses", getAllCourses);
 
-  data && console.log(data.courseDtos[0].isdelete)
+  data && console.log(data.courseDtos[0].isdelete);
 
   const navigate = useNavigate();
 
@@ -42,24 +62,27 @@ const TableCourses = () => {
         ایجاد دوره جدید
       </Button>
 
+      <InputGroup className="mb-2 mt-8">
+        <Search size={14} placeholder="جستجو..." onChange={handleSearch} />
+      </InputGroup>
+
       <Table responsive>
         <thead>
           <tr>
-            <th  className='text-nowrap '>نام دوره</th>
-            <th  className='text-nowrap '>عنوان دوره</th>
+            <th className="text-nowrap ">نام دوره</th>
+            <th className="text-nowrap ">عنوان دوره</th>
             {/* <th  className='text-nowrap '>سطح دوره</th> */}
             {/* <th  className='text-nowrap '>وضعیت دوره</th> */}
-            <th  className='text-nowrap '>نوع دوره</th>
-            <th  className='text-nowrap '>قیمت</th>
+            <th className="text-nowrap ">نوع دوره</th>
+            <th className="text-nowrap ">قیمت</th>
           </tr>
         </thead>
         <tbody>
           {status === "success" &&
             data.courseDtos.map((item, index) => {
               return (
-                item.isdelete=== false && (
-
-                  <CourseItem               
+                item.isdelete === false && (
+                  <CourseItem
                     key={index}
                     id={item.courseId}
                     fullName={item.fullName}
