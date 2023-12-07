@@ -47,6 +47,7 @@ import telegramImage from '../../../../src/assets/images/NewImage/telegram.png'
 import phoneImage from '../../../../src/assets/images/NewImage/phone.png'
 import UserReservedCourse from './UserReservedCourse'
 import UserAcceptCourse from './UserAcceptCourse'
+import ChangeRole from './ChangeRole'
 
 const Profile = () => {
 
@@ -168,6 +169,8 @@ const Profile = () => {
             </Row>
 
 
+            {/* change role */}
+            {data && <ChangeRole  roles={data.roles}/>} 
 
           </section>
         </div>
