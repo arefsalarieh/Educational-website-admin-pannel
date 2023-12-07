@@ -13,7 +13,6 @@ import {useQuery} from 'react-query'
 
 const Home = () => {
 
-
   return (
     <div>
       <Card>

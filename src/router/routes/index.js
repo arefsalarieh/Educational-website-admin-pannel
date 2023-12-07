@@ -32,6 +32,7 @@ const DefaultRoute = "/login";
 
 const Home = lazy(() => import("../../pages/Home"));
 const AdminTable = lazy(() => import("../../@core/components/UserTable/AdminTable"));
+const News = lazy(() => import("../../@core/components/news/News"));
 const TeacherTable = lazy(() => import("../../@core/components/UserTable/TeacherTable"));
 const StudentTable = lazy(() => import("../../@core/components/UserTable/StudentTable"));
 const FreeUserTable = lazy(() => import("../../@core/components/UserTable/FreeUserTable"));
@@ -87,6 +88,12 @@ const Routes = [
     path: "/sample",
     element: <Sample />,
   },
+  //
+  {
+    path: "/news",
+    element: <News />,
+  },
+  //
   {
     path: "/second-page",
     element: <SecondPage />,
