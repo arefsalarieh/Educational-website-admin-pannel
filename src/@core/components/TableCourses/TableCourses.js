@@ -23,16 +23,19 @@ const TableCourses = () => {
   const [search, setSearch] = useState("");
 
   const handleSearch = (e) => {
-    //  console.log(e.target.value);
-    // if(e.target.value){
-    //    setSearch(e.target.value);
-    // }
-    // else{
-    //   setSearch("");
-    // }
-    console.log(e.target.value);
-    e.target.value && setSearch(e.target.value);
-    !e.target.value && setSearch("");
+     console.log(e.target.value);
+    if(e.target.value){
+      console.log(e.target.value);
+       setSearch(e.target.value);
+       console.log(search);
+    }
+    else{
+      console.log(e.target.value);
+      setSearch("");
+    }
+    // console.log(e.target.value);
+    // e.target.value && setSearch(e.target.value);
+    // !e.target.value && setSearch("");
   };
   const getAllCourses = async () => {
     const result = await http.get(
@@ -44,7 +47,7 @@ const TableCourses = () => {
 
   const { data, status, refetch } = useQuery("getAllCourses", getAllCourses);
 
-  data && console.log(data.courseDtos[0].isdelete);
+  // data && console.log(data.courseDtos[0].isdelete);
 
   const navigate = useNavigate();
 
