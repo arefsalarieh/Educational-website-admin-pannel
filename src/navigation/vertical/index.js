@@ -35,34 +35,17 @@ export default [
     children: [
       {
         id: "AdminTable",
-        title: "ادمین ها",
+        title: " لیست کاربران",
         icon: <Circle size={12} />,
         navLink: "/UsersList/AdminTable",
       },
       {
-        id: "TeacherTable",
-        title: "مدرسان",
+        id: "CreateUser",
+        title: "ایجاد کاربر جدید",
         icon: <Circle size={12} />,
-        navLink: "/UsersList/TeacherTable",
+        navLink: "/UsersList/CreateUser",
       },   
-      {
-        id: "StudentTable",
-        title: "دانشجویان",
-        icon: <Circle size={12} />,
-        navLink: "/UsersList/StudentTable",
-      }, 
-      {
-        id: "FreeUserTable",
-        title: "  داوران",
-        icon: <Circle size={12} />,
-        navLink: "/UsersList/FreeUserTable",
-      },
-      {
-        id: "MentorsTable",
-        title: "  منتور ها",
-        icon: <Circle size={12} />,
-        navLink: "/UsersList/MentorsTable",
-      },                        
+                       
     ],    
   },
   {

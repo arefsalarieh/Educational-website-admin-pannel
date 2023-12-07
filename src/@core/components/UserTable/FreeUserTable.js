@@ -7,6 +7,7 @@ import http from '../../../@core/interceptor'
 import { Row, Col } from 'reactstrap'
 import StatsVertical from '../StatsVertical/StatsVertical'
 import Earnings from '../Earnings/Earnings'
+import MyNavbar from './MyNavbar'
 
 const FreeUserTable = () => {
     const getFreeUsers =async () =>{
@@ -39,12 +40,13 @@ const FreeUserTable = () => {
   return (
         <div>
       <Row>
-        <Col xl='3' md='4' sm='6'>
+      <MyNavbar/>
+        {/* <Col xl='3' md='4' sm='6'>
           <StatsVertical stats={data && Percent} statTitle='درصد تکمیل اطلاعات  داوران'/>
         </Col>
         <Col lg='4' md='6' xs='12'>
               {data && <Earnings all={ data?.listUser.length} mensCount={mensCount} wemenCount={wemenCount}/>}
-        </Col>
+        </Col> */}
                   
       </Row>
 

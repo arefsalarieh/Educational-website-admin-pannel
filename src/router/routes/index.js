@@ -18,6 +18,7 @@ import { isObjEmpty } from "@utils";
 
 
 
+
 const getLayout = {
   blank: <BlankLayout />,
   vertical: <VerticalLayout />,
@@ -37,6 +38,7 @@ const TeacherTable = lazy(() => import("../../@core/components/UserTable/Teacher
 const StudentTable = lazy(() => import("../../@core/components/UserTable/StudentTable"));
 const FreeUserTable = lazy(() => import("../../@core/components/UserTable/FreeUserTable"));
 const MentorsTable = lazy(() => import("../../@core/components/UserTable/MentorsTable"));
+const CreateUser = lazy(() => import("../../@core/components/CreateUser/CreateUser"));
 const Profile = lazy(() => import('../../@core/components/profile'))
 const SecondPage = lazy(() => import("../../pages/SecondPage"));
 const Login = lazy(() => import("../../pages/Login"));
@@ -76,6 +78,10 @@ const Routes = [
     path: "/UsersList/MentorsTable",
     element: <MentorsTable />,
   }, 
+  {
+    path: "/UsersList/CreateUser",
+    element: <CreateUser />,
+  },   
   {
     path: '/pages/profile',
     element: <Profile />

@@ -1,15 +1,17 @@
-import React from 'react'
-import { MoreVertical, Edit, Trash } from 'react-feather'
-import { Table, Badge, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap'
+import React, { useState } from 'react'
+import { AlignJustify, Rss, Info, Image, Users, Edit } from 'react-feather'
+import {Card, CardImg, Collapse, Table, Badge, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle , Navbar, Nav, NavItem, NavLink, Button } from 'reactstrap'
 import UserItem from './UserItem'
 import {useQuery} from 'react-query'
 import http from '../../../@core/interceptor'
 import { Row, Col } from 'reactstrap'
 import StatsVertical from '../StatsVertical/StatsVertical'
 import Earnings from '../Earnings/Earnings'
+import MyNavbar from './MyNavbar'
 
 
 const AdminTable = () => {
+  const [isOpen, setIsOpen] = useState(false)
 
   const getAdmins =async () =>{
     const result = await http.get("/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&Query=&IsActiveUser=true&IsDeletedUser=true&roleId=1")
@@ -40,13 +42,16 @@ const AdminTable = () => {
     return (
         <div>
         <Row>
-          <Col xl='3' md='4' sm='6'>
+              <MyNavbar/>          
+          {/* <Col xl='3' md='4' sm='6'>
             <StatsVertical stats={data && Percent} statTitle='درصد تکمیل اطلاعات ادمین ها'/>
           </Col>
           <Col lg='4' md='6' xs='12'>
                 {data && <Earnings all={ data?.listUser.length} mensCount={mensCount} wemenCount={wemenCount}/>}
           </Col>
-                    
+                     */}
+
+
         </Row>
 
           <Table responsive>

@@ -1,8 +1,11 @@
 import React from 'react'
+import MultipleColumnForm from '../MultipleColumnForm/MultipleColumnForm'
 
 const CreateUser = () => {
   return (
-    <div>CreateUser</div>
+    <div>
+      <MultipleColumnForm/>
+    </div>
   )
 }
 
