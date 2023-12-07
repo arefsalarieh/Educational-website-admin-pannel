@@ -135,6 +135,7 @@ const FormCreatCourse = () => {
         }}
         validationSchema={validation}
         onSubmit={CreatCourse}
+
       >
         {({ values, handleSubmit, handleChange }) => (
           <Card>
@@ -142,8 +143,8 @@ const FormCreatCourse = () => {
               <CardTitle tag="h4">ایجاد دوره جدید </CardTitle>
             </CardHeader>
             <CardBody>
-              <form onSubmit={handleSubmit}>
-                <SelectOptions values={values}/>
+              <form onSubmit={handleSubmit} >
+                <SelectOptions values={values} />
               </form>
 
               <div className="d-flex">
