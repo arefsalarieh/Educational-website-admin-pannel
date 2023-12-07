@@ -65,7 +65,7 @@ const TableCourses = () => {
       </Button>
 
       <InputGroup className="mb-2 mt-8">
-        <Search size={14} placeholder="جستجو..." onChange={handleSearch} />
+        <Search size={14} placeholder="جستجو..." onChange={handleSearch}  />
       </InputGroup>
 
       <Table responsive>
