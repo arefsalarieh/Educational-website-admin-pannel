@@ -27,8 +27,9 @@ import {
 } from "reactstrap";
 
 import http from "../../interceptor";
-import { Formik } from "formik";
+import { ErrorMessage, Field, Formik } from "formik";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 
 const FormEditCourse = () => {
   const validation = yup.object().shape({
@@ -45,19 +46,38 @@ const FormEditCourse = () => {
   // ** Hooks
   const { reset } = useForm({ mode: "onChange" });
 
-  const handleReset = () => {
-    reset({
-      title: "",
-      technology: "",
-      status: "",
-      level: "",
-      type: "",
-      term: "",
-      capacity: "",
-      describe: "",
-    });
+  const [courseEdit, setCourseEdit] = useState({
+    Title: "",
+    Describe: "",
+    MiniDescribe: "",
+    Capacity: "",
+    CourseTypeId: "",
+    SessionNumber: "",
+    CurrentCoursePaymentNumber: "",
+    TremId: "",
+    ClassId: "",
+    CourseLvlId: "",
+    TeacherId: "",
+    Cost: "",
+    UniqeUrlString: "",
+    ShortLink: "",
+    TumbImageAddress: "",
+    ImageAddress: "",
+  });
+
+  const { id } = useParams();
+  console.log(id);
+
+
+  const getCourseInfo = async () => {
+    const result = await http.get(`/Course/${id}`);
+    console.log(result);
+    if (result) setCourseEdit(result);
+    return result;
+
   };
 
+  console.log(courseEdit.Title);
   const editCourse = async (values) => {
     const dataForm = new FormData();
 
@@ -86,12 +106,9 @@ const FormEditCourse = () => {
       dataForm.append(key, item);
       console.log(dataForm);
     });
-    const res = await http.put(`/Course`, dataForm);
+    const res = await http.put(`/Course/`, dataForm);
     return res;
   };
-
-  const courseEdit = useParams();
-  console.log(courseEdit);
 
   return (
     <Formik
@@ -119,333 +136,585 @@ const FormEditCourse = () => {
       enableReinitialize={true}
     >
       {({ values, handleSubmit, handleChange, setFieldValue }) => (
-        <Card>
-          <CardHeader>
-            <CardTitle tag="h4"> ویرایش دوره </CardTitle>
-          </CardHeader>
-          <CardBody>
-            <form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
+          <Card>
+            <CardHeader>
+              <CardTitle tag="h4"> ویرایش دوره </CardTitle>
+            </CardHeader>
+            <CardBody>
               <Row>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> عنوان </Label>
-                  <Input
-                    value={values.Title}
-                    name="Title"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) => setFieldValue("Title", val.target.value)}
-                    setInitialValues={courseEdit.Title}
-                  />
+                <Col>
+                  <div>
+                    <Label className="form-label"> عنوان </Label>
+                    <div>
+                      <Field name="Title">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              // value={values.Title}
+                              className="react-select"
+                              classNamePrefix="select"
+                              // onChange={(val) => setFieldValue("Title", val.target.value)}
+                              type="text"
+                              {...field}
+                              placeholder="عنوان را وارد کنید..."
+                              setInitialValues={courseEdit.Title}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="Title"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
                 </Col>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> توضیحات </Label>
-                  <Input
-                    value={values.Describe}
-                    name="Describe"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("Describe", val.target.value)
-                    }
-                    setInitialValues={courseEdit.Title}
-                  />
+                <Col>
+                  <div>
+                    <Label className="form-label"> توضیحات </Label>
+                    <div>
+                      <Field name="Describe">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text-area"
+                              {...field}
+                              placeholder="لطفا توضیحات را وارد کنید..."
+                              setInitialValues={courseEdit.Describe}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="Describe"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
                 </Col>
               </Row>
               <Row>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> مینی توضیحات </Label>
-                  <Input
-                    value={values.MiniDescribe}
-                    name="MiniDescribe"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("MiniDescribe", val.target.value)
-                    }
-                    setInitialValues={courseEdit.MiniDescribe}
-                  />
+                <Col>
+                  <div className="fieldAdd">
+                    <Label className="form-label"> مینی توضیحات </Label>
+                    <div>
+                      <Field name="MiniDescribe">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text-area"
+                              {...field}
+                              placeholder="مینی توضیحات را وارد نمایید ..."
+                              setInitialValues={courseEdit.MiniDescribe}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="MiniDescribe"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
                 </Col>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> ظرفیت </Label>
-                  <Input
-                    value={values.Capacity}
-                    name="Capacity"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("Capacity", val.target.value)
-                    }
-                    setInitialValues={courseEdit.Capacity}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> نوع درس </Label>
-                  <Input
-                    value={values.CourseTypeId}
-                    name="CourseTypeId"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("CourseTypeId", val.target.value)
-                    }
-                    setInitialValues={courseEdit.CourseTypeId}
-                  />
-                </Col>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> تعداد جلسه </Label>
-                  <Input
-                    value={values.SessionNumber}
-                    name="SessionNumber"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("SessionNumber", val.target.value)
-                    }
-                    setInitialValues={courseEdit.SessionNumber}
-                  />
+                <Col>
+                  <div>
+                    <Label className="form-label"> ظرفیت </Label>
+                    <div>
+                      <Field name="Capacity">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder="لطفا ظرفیت دوره مربوطه را وارد نمایید ..."
+                              setInitialValues={courseEdit.Capacity}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="Capacity"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
                 </Col>
               </Row>
               <Row>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> شماره پرداخت دوره جاری </Label>
-                  <Input
-                    value={values.CurrentCoursePaymentNumber}
-                    name="CurrentCoursePaymentNumber"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue(
-                        "CurrentCoursePaymentNumber",
-                        val.target.value
-                      )
-                    }
-                    setInitialValues={courseEdit.CurrentCoursePaymentNumber}
-                  />
+                <Col>
+                  <div>
+                    <Label className="form-label"> نوع کلاس </Label>
+                    <div>
+                      <Field name="CourseTypeId">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder=" لطفا نوع کلاس را وارد نمایید..."
+                              setInitialValues={courseEdit.CourseTypeId}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="CourseTypeId"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
                 </Col>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> ترم </Label>
-                  <Input
-                    value={values.TremId}
-                    name="TremId"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("TremId", val.target.value)
-                    }
-                    setInitialValues={courseEdit.TremId}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> آی دی کلاس </Label>
-                  <Input
-                    value={values.ClassId}
-                    name="ClassId"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("ClassId", val.target.value)
-                    }
-                    setInitialValues={courseEdit.ClassId}
-                  />
-                </Col>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> سطح دوره </Label>
-                  <Input
-                    value={values.CourseLvlId}
-                    name="CourseLvlId"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("CourseLvlId", val.target.value)
-                    }
-                    setInitialValues={courseEdit.CourseLvlId}
-                  />
+                <Col>
+                  <div>
+                    <Label className="form-label"> تعداد جلسه </Label>
+                    <div>
+                      <Field name="SessionNumber">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              className="Input"
+                              type="text"
+                              {...field}
+                              placeholder=" لطفا تعداد جلسه را وارد نمایید..."
+                              setInitialValues={courseEdit.SessionNumber}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="SessionNumber"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
                 </Col>
               </Row>
               <Row>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> استاد آی دی </Label>
-                  <Input
-                    value={values.TeacherId}
-                    name="TeacherId"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("TeacherId", val.target.value)
-                    }
-                    setInitialValues={courseEdit.TeacherId}
-                  />
+                <Col>
+                  <div>
+                    <Label className="form-label">
+                      شماره پرداخت دوره جاری{" "}
+                    </Label>
+                    <div>
+                      <Field name="CurrentCoursePaymentNumber">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder=" شماره پرداخت جاری..."
+                              setInitialValues={
+                                courseEdit.CurrentCoursePaymentNumber
+                              }
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="CurrentCoursePaymentNumber"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
                 </Col>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> قیمت </Label>
-                  <Input
-                    value={values.Cost}
-                    name="Cost"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) => setFieldValue("Cost", val.target.value)}
-                    setInitialValues={courseEdit.Cost}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> یوآرال </Label>
-                  <Input
-                    value={values.UniqeUrlString}
-                    name="UniqeUrlString"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("UniqeUrlString", val.target.value)
-                    }
-                    setInitialValues={courseEdit.UniqeUrlString}
-                  />
-                </Col>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> عکس </Label>
-                  <Input
-                    value={values.Image}
-                    name="Image"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) => setFieldValue("Image", val.target.value)}
-                    setInitialValues={courseEdit.Image}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> شروع دوره </Label>
-                  <Input
-                    value={values.StartTime}
-                    name="StartTime"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("StartTime", val.target.value)
-                    }
-                    setInitialValues={courseEdit.StartTime}
-                  />
-                </Col>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> تاریخ پایان دوره </Label>
-                  <Input
-                    value={values.EndTime}
-                    name="EndTime"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("EndTime", val.target.value)
-                    }
-                    setInitialValues={courseEdit.EndTime}
-                  />
+                <Col>
+                  <div>
+                    <Label className="form-label"> ترم </Label>
+                    <div>
+                      <Field name="TremId">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder="ترم "
+                              setInitialValues={courseEdit.TremId}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="TremId"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
                 </Col>
               </Row>
               <Row>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> شمای گوگل </Label>
-                  <Input
-                    value={values.GoogleSchema}
-                    name="GoogleSchema"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("GoogleSchema", val.target.value)
-                    }
-                    setInitialValues={courseEdit.GoogleSchema}
-                  />
+                <Col>
+                  <div>
+                    <Label className="form-label"> آی دی کلاس </Label>
+                    <div>
+                      <Field name="ClassId">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder="آی دی کلاس ..."
+                              setInitialValues={courseEdit.ClassId}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="ClassId"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
                 </Col>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label">عنوان گوگل </Label>
-                  <Input
-                    value={values.GoogleTitle}
-                    name="GoogleTitle"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("GoogleTitle", val.target.value)
-                    }
-                    setInitialValues={courseEdit.GoogleTitle}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> پیش نیاز دوره </Label>
-                  <Input
-                    value={values.CoursePrerequisiteId}
-                    name="CoursePrerequisiteId"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("CoursePrerequisiteId", val.target.value)
-                    }
-                    setInitialValues={courseEdit.CoursePrerequisiteId}
-                  />
-                </Col>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> لینک کوتاه </Label>
-                  <Input
-                    value={values.ShortLink}
-                    name="ShortLink"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("ShortLink", val.target.value)
-                    }
-                    setInitialValues={courseEdit.ShortLink}
-                  />
+                <Col>
+                  <div>
+                    <Label className="form-label"> عنوان </Label>
+                    <div>
+                      <Field name="CourseLvlId">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder=" سطح دوره"
+                              setInitialValues={courseEdit.CourseLvlId}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="CourseLvlId"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
                 </Col>
               </Row>
               <Row>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> عکس کوچک </Label>
-                  <Input
-                    value={values.TumbImageAddress}
-                    name="TumbImageAddress"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("TumbImageAddress", val.target.value)
-                    }
-                    setInitialValues={courseEdit.TumbImageAddress}
-                  />
+                <Col>
+                  <div className="fieldAdd">
+                    <Label className="form-label"> آی دی استاد </Label>
+                    <div>
+                      <Field name="TeacherId">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder=" آی دی استاد"
+                              setInitialValues={courseEdit.TeacherId}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="TeacherId"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
                 </Col>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> آدرس عکس</Label>
-                  <Input
-                    value={values.ImageAddress}
-                    name="ImageAddress"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("ImageAddress", val.target.value)
-                    }
-                    setInitialValues={courseEdit.ImageAddress}
-                  />
+                <Col>
+                  <div className="fieldAdd">
+                    <Label className="form-label"> قیمت </Label>
+                    <div>
+                      <Field name="Cost">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              className="Input"
+                              type="text"
+                              {...field}
+                              placeholder="قیمت  ..."
+                              setInitialValues={courseEdit.Cost}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="Cost"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
                 </Col>
               </Row>
-            </form>
-            <div className="d-flex">
-              <Button className="me-1" color="primary" type="submit">
-                ویرایش
-              </Button>
-              <Button
-                outline
-                color="secondary"
-                type="reset"
-                onClick={handleReset}
-              >
-                ریست
-              </Button>
-            </div>
-          </CardBody>
-        </Card>
+              <Row>
+                <Col>
+                  <div>
+                    <Label className="form-label"> یو آر ال </Label>
+                    <div>
+                      <Field name="UniqeUrlString">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder="یو آر ال ..."
+                              setInitialValues={courseEdit.UniqeUrlString}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="UniqeUrlString"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
+                </Col>
+                <Col>
+                  <div className="fieldAdd">
+                    <Label className="form-label"> عنوان </Label>
+                    <div>
+                      <Field name="Image">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder="تصویر "
+                              setInitialValues={courseEdit.Image}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="Image"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <div className="fieldAdd">
+                    <Label className="form-label"> شروع دوره </Label>
+                    <div>
+                      <Field name="StartTime">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              className="Input"
+                              type="text"
+                              {...field}
+                              placeholder="شروع دوره "
+                              setInitialValues={courseEdit.StartTime}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="StartTime"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
+                </Col>
+                <Col>
+                  <div>
+                    <Label className="form-label"> پایان دوره </Label>
+                    <div>
+                      <Field name="EndTime">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder="پایان دوره"
+                              setInitialValues={courseEdit.EndTime}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="EndTime"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <div className="fieldAdd">
+                    <Label className="form-label"> شمای گوگل </Label>
+                    <div>
+                      <Field name="GoogleSchema">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              className="Input"
+                              type="text"
+                              {...field}
+                              placeholder="شمای گوگل ..."
+                              setInitialValues={courseEdit.GoogleSchema}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="GoogleSchema"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
+                </Col>
+                <Col>
+                  <div>
+                    <Label className="form-label"> گوگل عنوان </Label>
+                    <div>
+                      <Field name="GoogleTitle">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder=" عنوان گوگل"
+                              setInitialValues={courseEdit.GoogleTitle}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="GoogleTitle"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <div>
+                    <Label className="form-label"> پیش نیاز دوره </Label>
+                    <div>
+                      <Field name="CoursePrerequisiteId">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder="پیش نیاز دوره"
+                              setInitialValues={courseEdit.CoursePrerequisiteId}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="CoursePrerequisiteId"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
+                </Col>
+                <Col>
+                  <div className="fieldAdd">
+                    <Label className="form-label"> لینک کوتاه </Label>
+                    <div>
+                      <Field name="ShortLink">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder=" لینک کوتاه"
+                              setInitialValues={courseEdit.ShortLink}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="ShortLink"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <div>
+                    <Label className="form-label"> عکس کوچک شده </Label>
+                    <div>
+                      <Field name="TumbImageAddress">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder="عکس کوچک"
+                              setInitialValues={courseEdit.TumbImageAddress}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="TumbImageAddress"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
+                </Col>
+                <Col>
+                  <div>
+                    <Label className="form-label"> عکس </Label>
+                    <div>
+                      <Field name="ImageAddress">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder=" عکس"
+                              setInitialValues={courseEdit.ImageAddress}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="ImageAddress"
+                        component={"p"}
+                        className="error"
+                      />
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+              <div className="d-flex">
+                <Button className="me-1" color="primary" type="submit">
+                  ویرایش
+                </Button>
+                <Button outline color="secondary" type="reset">
+                  ریست
+                </Button>
+              </div>
+            </CardBody>
+          </Card>
+        </Form>
       )}
     </Formik>
   );
