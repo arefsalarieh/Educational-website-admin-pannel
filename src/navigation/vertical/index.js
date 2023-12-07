@@ -31,6 +31,12 @@ export default [
         icon: <List  size={12} />,
         navLink: "/CoursesList",
       },
+      {
+        id: "courdseList",
+        title: "222لیست دوره ها",
+        icon: <List  size={12} />,
+        navLink: "/UsersList",
+      },
     ],
   },
 ];
