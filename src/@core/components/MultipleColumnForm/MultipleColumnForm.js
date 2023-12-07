@@ -5,10 +5,23 @@ import http from '../../../@core/interceptor'
 
 const MultipleColumnForm = () => {
 
-  const onSubmit = (values) =>{
-    console.log(values);
+  const onSubmit =async (values) =>{
+    const userObj = {
+      lastName : values.lastName,
+      firstName : values.firstName,
+      gmail : values.gmail,
+      password : values.password,
+      phoneNumber : values.phoneNumber,
+      isStudent : values.isStudent,
+      isTeacher : values.isTeacher
+      
+    }
+
+    const result = await http.post(`/User/CreateUser` , userObj)
+
+    console.log(result);
   }
-  
+
   return (
     <Card>
       <CardHeader>
@@ -16,15 +29,15 @@ const MultipleColumnForm = () => {
       </CardHeader>
 
       <CardBody>
-        <Formik onSubmit={onSubmit} initialValues={{lName : '' , firstName : '' , gmail : '' , password : '' , phoneNumber : '' , isStudent : true , isTeacher : false}}>
+        <Formik onSubmit={onSubmit} initialValues={{lastName : '' , firstName : '' , gmail : '' , password : '' , phoneNumber : '' , isStudent : true , isTeacher : false}}>
           {({values , handleSubmit, handleChange , setFieldValue }) => (
             <form onSubmit={handleSubmit}>
               <Row>
                 <Col md='6' sm='12' className='mb-1'>
-                  <Label className='form-label' for='lName'>
+                  <Label className='form-label' for='lastName'>
      
                   </Label>
-                  <Input onChange={handleChange} value={values.lName} type='text' name='lName' id='lName' placeholder='نام خانوادگی' />
+                  <Input onChange={handleChange} value={values.lastName} type='text' name='lastName' id='lastName' placeholder='نام خانوادگی' />
                 </Col>
 
                 <Col md='6' sm='12' className='mb-1'>
