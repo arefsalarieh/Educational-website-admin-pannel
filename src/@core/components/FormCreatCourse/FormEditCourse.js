@@ -68,13 +68,11 @@ const FormEditCourse = () => {
   const { id } = useParams();
   console.log(id);
 
-
   const getCourseInfo = async () => {
     const result = await http.get(`/Course/${id}`);
     console.log(result);
     if (result) setCourseEdit(result);
     return result;
-
   };
 
   console.log(courseEdit.Title);
@@ -166,7 +164,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="Title"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -190,7 +188,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="Describe"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -216,7 +214,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="MiniDescribe"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -240,7 +238,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="Capacity"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -266,7 +264,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="CourseTypeId"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -291,7 +289,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="SessionNumber"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -321,7 +319,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="CurrentCoursePaymentNumber"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -345,7 +343,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="TremId"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -371,7 +369,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="ClassId"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -395,7 +393,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="CourseLvlId"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -421,7 +419,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="TeacherId"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -446,7 +444,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="Cost"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -472,7 +470,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="UniqeUrlString"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -496,7 +494,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="Image"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -523,7 +521,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="StartTime"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -547,7 +545,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="EndTime"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -574,7 +572,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="GoogleSchema"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -598,7 +596,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="GoogleTitle"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -624,7 +622,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="CoursePrerequisiteId"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -648,7 +646,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="ShortLink"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -674,7 +672,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="TumbImageAddress"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
@@ -698,7 +696,7 @@ const FormEditCourse = () => {
                       <ErrorMessage
                         name="ImageAddress"
                         component={"p"}
-                        className="error"
+                        className="text-danger"
                       />
                     </div>
                   </div>
