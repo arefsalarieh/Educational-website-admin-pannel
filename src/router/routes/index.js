@@ -103,7 +103,7 @@ const Routes = [
     element: <CreatCourse />,
   }, 
   {
-    path: "/EditCourse",
+    path: "/EditCourse/:id",
     element: <EditCourse />,
   },
   {
