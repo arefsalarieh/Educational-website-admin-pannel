@@ -97,7 +97,7 @@ function CourseItem({
               <span
                 className="align-middle"
                 onClick={() => {
-                  navigate("/EditCourse");
+                  navigate("/EditCourse/"+ id);
                 }}
               >
                 ویرایش
