@@ -1,5 +1,7 @@
 import React from 'react'
 import { Button, Card, CardTitle, CardBody, CardText, CardSubtitle, CardLink, CardImg, Row, Col  } from 'reactstrap'
+import DeleteRoleItem from './DeleteRoleItem';
+import AddRoleItem from './AddRoleItem';
 
 const ChangeRole = ({roles}) => {
     //  console.log(roles);
@@ -71,41 +73,30 @@ const ChangeRole = ({roles}) => {
     ]
 
 
-    const allRoleTitle = [];
-    const allRoleNum = [];
-
+    var myRoleArr = [];
+    var myRoleId = []
+   
 
     for (let i = 0; i < allRoleArr.length; i++) {
-        // console.log(allRoleArr[i].roleName);
-        allRoleTitle.push(allRoleArr[i].roleName)
-        allRoleNum.push(allRoleArr[i].roleNumber)
+        for (let j = 0; j < roles.length; j++) {
+            if (allRoleArr[i].id === roles[j].id ) {
+                myRoleArr.push(allRoleArr[i])
+            }
+
+        }
+        
     }
 
-
-    const myRoleTitle = [];
-    const myRoleNum = [];
-
-    for (let i = 0; i < roles.length; i++) {
-        // console.log(roles[i].roleName);
-        myRoleTitle.push(roles[i].roleName)
-        myRoleNum.push(roles[i].id) 
+    for (let i = 0; i < myRoleArr.length; i++) {
+        myRoleId.push(myRoleArr[i].id)
+        
     }
 
-    const dontRoleTitle = allRoleTitle.filter((item)=>{
-        return(
-            !myRoleTitle.includes(item)
-        )
-    })
-
-    const dontRoleNum = allRoleNum.filter((item)=>{
-        return(
-            !myRoleNum.includes(item)
-        )
-    })    
-
-    console.log(dontRoleTitle);
-    console.log(dontRoleNum);
-
+ const dontRoleArr = allRoleArr.filter((item)=>{
+    return(!myRoleId.includes(item.id))
+ })
+ 
+ 
 
 
    
@@ -113,14 +104,25 @@ const ChangeRole = ({roles}) => {
   return (
     <div>
         <Row>
-            <Col lg='3' md='6'>
-                <h2>دسترسی های کاربر</h2>
-                {roles.map((item , index)=>{
+            <Col lg='6' md='6'>
+                <h2> حذف دسترسی های کاربر</h2>
+                {myRoleArr.map((item , index)=>{
                     return(
-                        <div key={index}>{item.roleName}</div>
+                        <DeleteRoleItem key={index} roleName={item.roleName} roleId={item.id}/>
                     )
                 })}
             </Col>
+
+            <Col lg='6' md='6'>
+              <h2> افزودن دسترسی  کاربر</h2>
+                {dontRoleArr.map((item , index)=>{
+                    return(
+                        <AddRoleItem key={index}  roleName={item.roleName} roleId={item.id}/>
+                    )
+                })}            
+            </Col>
+
+
         </Row>
     </div>
   )
