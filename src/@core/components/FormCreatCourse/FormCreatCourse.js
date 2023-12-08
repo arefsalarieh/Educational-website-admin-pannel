@@ -38,7 +38,6 @@ const FormCreatCourse = () => {
     courseterm: yup.string().required("لطفا ترم کلاس مربوطه را مشخص کنید"),
     Capacity: yup.string().required("ظرفیت کلاس را مشخص کنید"),
     Describe: yup.string().required("لطفا توضیحات  را وارد نمایید"),
-    Title: yup.string().required("لطفا عنوان مورد نظر را وارد نمایید"),
     courseroom: yup.string().required("لطفاشماره کلاس را وارد نمایید"),
     courseteach: yup.string().required("لطفاشماره استاد   را مشخص کنید"),
     MiniDescribe: yup.string().required("لطفا مینی توضیح  را وارد نمایید."),
