@@ -1,5 +1,5 @@
 // ** React Imports
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 
 // ** Third Party Components
 import * as yup from "yup";
@@ -53,6 +53,8 @@ const FormEditCourse = () => {
     TumbImageAddress: yup.string().required("لطفا عکس کوچک  را وارد نمایید"),
     ImageAddress: yup.string().required("لطفا آدرس عکس  را وارد نمایید"),
     Image: yup.string().required("لطفا  تصویر  را وارد نمایید"),
+    StartTime: yup.string().required("تاریخ شروع وارد شود"),
+    EndTime: yup.string().required("تاریخ پایان وارد شود"),
   });
 
   // ** Hooks
@@ -74,6 +76,8 @@ const FormEditCourse = () => {
     ShortLink: "",
     TumbImageAddress: "",
     ImageAddress: "",
+    StartTime: "",
+    EndTime: "",
   });
 
   const { id } = useParams();
@@ -85,12 +89,17 @@ const FormEditCourse = () => {
   };
 
   const { data, status } = useQuery(["courseInfo", id], getCourseInfo);
-console.log(data)
-  {
-    status === "success" &&  setCourseEdit(data);
-  }
-  console.log(courseEdit)
+  console.log(data);
+  // {
+  //   status === "success" &&  setCourseEdit(data);
+  // }
+  useEffect(() => {
+    if (status === "success") {
+      setCourseEdit({ data });
+    }
+  }, [status, data]);
 
+  console.log(courseEdit);
 
   const editCourse = async (values) => {
     const dataForm = new FormData();
@@ -113,6 +122,8 @@ console.log(data)
       ShortLink: values.ShortLink,
       TumbImageAddress: values.TumbImageAddress,
       ImageAddress: values.ImageAddress,
+      StartTime: values.StartTime,
+      EndTime: values.EndTime,
     };
     const keys = Object.keys(setCourses);
     keys.forEach((key) => {
@@ -128,24 +139,26 @@ console.log(data)
   return (
     <Formik
       initialValues={{
-        Id:courseEdit.Id,
+        Id: courseEdit.Id,
         Title: courseEdit.Title,
-        Describe:courseEdit.Describe,
-        MiniDescribe:courseEdit.MiniDescribe,
+        Describe: courseEdit.Describe,
+        MiniDescribe: courseEdit.MiniDescribe,
         Capacity: courseEdit.Capacity,
-        CourseTypeId:courseEdit.CourseTypeId,
+        CourseTypeId: courseEdit.CourseTypeId,
         SessionNumber: courseEdit.SessionNumber,
         CurrentCoursePaymentNumber: 0,
         TremId: courseEdit.TremId,
-        ClassId:courseEdit.ClassId,
+        ClassId: courseEdit.ClassId,
         CourseLvlId: courseEdit.CourseLvlId,
-        TeacherId:courseEdit.TeacherId,
+        TeacherId: courseEdit.TeacherId,
         Cost: courseEdit.Cost,
-        UniqeUrlString:courseEdit.UniqeUrlString,
-        ShortLink:courseEdit.ShortLink,
+        UniqeUrlString: courseEdit.UniqeUrlString,
+        ShortLink: courseEdit.ShortLink,
         TumbImageAddress: courseEdit.TumbImageAddress,
         ImageAddress: courseEdit.ImageAddress,
         Image: courseEdit.Image,
+        StartTime: courseEdit.StartTime,
+        EndTime: courseEdit.EndTime,
       }}
       validationSchema={validation}
       onSubmit={editCourse}
@@ -167,14 +180,12 @@ console.log(data)
                         {({ field }) => (
                           <div>
                             <Input
-                              // value={values.Title}
                               className="react-select"
                               classNamePrefix="select"
-                              // onChange={(val) => setFieldValue("Title", val.target.value)}
                               type="text"
                               {...field}
                               placeholder="عنوان را وارد کنید..."
-                              setInitialValues={courseEdit.Title}
+                              // setInitialValues={courseEdit.Title}
                             />
                           </div>
                         )}
@@ -198,7 +209,7 @@ console.log(data)
                               type="text-area"
                               {...field}
                               placeholder="لطفا توضیحات را وارد کنید..."
-                              setInitialValues={courseEdit.Describe}
+                              // setInitialValues={courseEdit.Describe}
                             />
                           </div>
                         )}
@@ -224,7 +235,7 @@ console.log(data)
                               type="text-area"
                               {...field}
                               placeholder="مینی توضیحات را وارد نمایید ..."
-                              setInitialValues={courseEdit.MiniDescribe}
+                              // setInitialValues={courseEdit.MiniDescribe}
                             />
                           </div>
                         )}
@@ -248,7 +259,7 @@ console.log(data)
                               type="text"
                               {...field}
                               placeholder="لطفا ظرفیت دوره مربوطه را وارد نمایید ..."
-                              setInitialValues={courseEdit.Capacity}
+                              // setInitialValues={courseEdit.Capacity}
                             />
                           </div>
                         )}
@@ -274,7 +285,7 @@ console.log(data)
                               type="text"
                               {...field}
                               placeholder=" لطفا نوع کلاس را وارد نمایید..."
-                              setInitialValues={courseEdit.CourseTypeId}
+                              // setInitialValues={courseEdit.CourseTypeId}
                             />
                           </div>
                         )}
@@ -299,7 +310,7 @@ console.log(data)
                               type="text"
                               {...field}
                               placeholder=" لطفا تعداد جلسه را وارد نمایید..."
-                              setInitialValues={courseEdit.SessionNumber}
+                              // setInitialValues={courseEdit.SessionNumber}
                             />
                           </div>
                         )}
@@ -325,7 +336,7 @@ console.log(data)
                               type="text"
                               {...field}
                               placeholder=" لینک کوتاه"
-                              setInitialValues={courseEdit.ShortLink}
+                              // setInitialValues={courseEdit.ShortLink}
                             />
                           </div>
                         )}
@@ -349,7 +360,7 @@ console.log(data)
                               type="text"
                               {...field}
                               placeholder="ترم "
-                              setInitialValues={courseEdit.TremId}
+                              // setInitialValues={courseEdit.TremId}
                             />
                           </div>
                         )}
@@ -375,7 +386,7 @@ console.log(data)
                               type="text"
                               {...field}
                               placeholder="آی دی کلاس ..."
-                              setInitialValues={courseEdit.ClassId}
+                              // setInitialValues={courseEdit.ClassId}
                             />
                           </div>
                         )}
@@ -399,7 +410,7 @@ console.log(data)
                               type="text"
                               {...field}
                               placeholder=" سطح دوره"
-                              setInitialValues={courseEdit.CourseLvlId}
+                              // setInitialValues={courseEdit.CourseLvlId}
                             />
                           </div>
                         )}
@@ -425,7 +436,7 @@ console.log(data)
                               type="text"
                               {...field}
                               placeholder=" آی دی استاد"
-                              setInitialValues={courseEdit.TeacherId}
+                              // setInitialValues={courseEdit.TeacherId}
                             />
                           </div>
                         )}
@@ -450,7 +461,7 @@ console.log(data)
                               type="text"
                               {...field}
                               placeholder="قیمت  ..."
-                              setInitialValues={courseEdit.Cost}
+                              // setInitialValues={courseEdit.Cost}
                             />
                           </div>
                         )}
@@ -476,7 +487,7 @@ console.log(data)
                               type="text"
                               {...field}
                               placeholder="یو آر ال ..."
-                              setInitialValues={courseEdit.UniqeUrlString}
+                              // setInitialValues={courseEdit.UniqeUrlString}
                             />
                           </div>
                         )}
@@ -500,7 +511,7 @@ console.log(data)
                               type="text"
                               {...field}
                               placeholder="تصویر "
-                              setInitialValues={courseEdit.Image}
+                              // setInitialValues={courseEdit.Image}
                             />
                           </div>
                         )}
@@ -526,7 +537,7 @@ console.log(data)
                               type="text"
                               {...field}
                               placeholder="عکس کوچک"
-                              setInitialValues={courseEdit.TumbImageAddress}
+                              // setInitialValues={courseEdit.TumbImageAddress}
                             />
                           </div>
                         )}
@@ -550,13 +561,63 @@ console.log(data)
                               type="text"
                               {...field}
                               placeholder=" عکس"
-                              setInitialValues={courseEdit.ImageAddress}
+                              // setInitialValues={courseEdit.ImageAddress}
                             />
                           </div>
                         )}
                       </Field>
                       <ErrorMessage
                         name="ImageAddress"
+                        component={"p"}
+                        className="text-danger"
+                      />
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <div>
+                    <Label className="form-label"> تاریخ شروع دوره</Label>
+                    <div>
+                      <Field name="StartTime">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder="عکس کوچک"
+                              // setInitialValues={courseEdit.StartTime}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="StartTime"
+                        component={"p"}
+                        className="text-danger"
+                      />
+                    </div>
+                  </div>
+                </Col>
+                <Col>
+                  <div>
+                    <Label className="form-label"> تاریخ پایان دوره </Label>
+                    <div>
+                      <Field name="EndTime">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder=" عکس"
+                              // setInitialValues={courseEdit.EndTime}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="EndTime"
                         component={"p"}
                         className="text-danger"
                       />
