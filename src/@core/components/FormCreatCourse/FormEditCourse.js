@@ -372,7 +372,7 @@ const FormEditCourse = () => {
                 </Col>
                 <Col>
                   <div>
-                    <Label className="form-label"> عنوان </Label>
+                    <Label className="form-label"> سطح دوره </Label>
                     <div>
                       <Field name="CourseLvlId">
                         {({ field }) => (
