@@ -39,7 +39,7 @@ const TableCourses = () => {
   };
   const getAllCourses = async () => {
     const result = await http.get(
-      `/Course/CourseList?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=Expire&Query=${search}`
+      `/Course/CourseList?PageNumber=1&RowsOfPage=200&SortingCol=DESC&SortType=Expire&Query=${search}`
     );
     console.log(result);
     return result;
