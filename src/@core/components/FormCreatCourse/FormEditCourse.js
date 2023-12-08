@@ -296,28 +296,24 @@ const FormEditCourse = () => {
                 </Col>
               </Row>
               <Row>
-                <Col>
-                  <div>
-                    <Label className="form-label">
-                      شماره پرداخت دوره جاری{" "}
-                    </Label>
+              <Col>
+                  <div className="fieldAdd">
+                    <Label className="form-label"> لینک کوتاه </Label>
                     <div>
-                      <Field name="CurrentCoursePaymentNumber">
+                      <Field name="ShortLink">
                         {({ field }) => (
                           <div>
                             <Input
                               type="text"
                               {...field}
-                              placeholder=" شماره پرداخت جاری..."
-                              setInitialValues={
-                                courseEdit.CurrentCoursePaymentNumber
-                              }
+                              placeholder=" لینک کوتاه"
+                              setInitialValues={courseEdit.ShortLink}
                             />
                           </div>
                         )}
                       </Field>
                       <ErrorMessage
-                        name="CurrentCoursePaymentNumber"
+                        name="ShortLink"
                         component={"p"}
                         className="text-danger"
                       />
@@ -603,24 +599,24 @@ const FormEditCourse = () => {
                 </Col>
               </Row>
               <Row>
-                <Col>
-                  <div>
-                    <Label className="form-label"> پیش نیاز دوره </Label>
+              <Col>
+                  <div className="fieldAdd">
+                    <Label className="form-label"> لینک کوتاه </Label>
                     <div>
-                      <Field name="CoursePrerequisiteId">
+                      <Field name="ShortLink">
                         {({ field }) => (
                           <div>
                             <Input
                               type="text"
                               {...field}
-                              placeholder="پیش نیاز دوره"
-                              setInitialValues={courseEdit.CoursePrerequisiteId}
+                              placeholder=" لینک کوتاه"
+                              setInitialValues={courseEdit.ShortLink}
                             />
                           </div>
                         )}
                       </Field>
                       <ErrorMessage
-                        name="CoursePrerequisiteId"
+                        name="ShortLink"
                         component={"p"}
                         className="text-danger"
                       />
