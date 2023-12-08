@@ -94,7 +94,7 @@ const FormEditCourse = () => {
     const dataForm = new FormData();
 
     const setCourses = {
-      Id: values.Id,
+      Id: id,
       Title: values.Title,
       Describe: values.Describe,
       MiniDescribe: values.MiniDescribe,
@@ -262,7 +262,7 @@ const FormEditCourse = () => {
               <Row>
                 <Col>
                   <div>
-                    <Label className="form-label"> نوع کلاس </Label>
+                    <Label className="form-label">  آی دی نوع کلاس </Label>
                     <div>
                       <Field name="CourseTypeId">
                         {({ field }) => (
