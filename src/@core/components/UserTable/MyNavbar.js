@@ -23,16 +23,16 @@ const MyNavbar = () => {
           <div className='profile-tabs d-flex justify-content-between flex-wrap mt-1 mt-md-0'>
             <Nav className='mb-0' pills>
               <NavItem >
-                <NavLink className='fw-bold'  to="/UsersList/AllUsers"  >
-                  <Link>
+                <NavLink className='fw-bold'    >
+                  <Link to="/UsersList/AllUsers">
                       <span className='d-none d-md-block'> تمام کاربران</span>
                   </Link>
                   <Rss className='d-block d-md-none' size={14} />
                 </NavLink>
               </NavItem>              
               <NavItem >
-                <NavLink className='fw-bold' to="/UsersList/AdminTable"   >
-                  <Link>
+                <NavLink className='fw-bold'   >
+                  <Link to="/UsersList/TeacherTable">
                     <span className='d-none d-md-block'>ادمین ها</span>                  
                   </Link>
                   <Rss className='d-block d-md-none' size={14} />

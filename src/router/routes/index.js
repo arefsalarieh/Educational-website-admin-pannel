@@ -43,7 +43,7 @@ const FreeUserTable = lazy(() => import("../../@core/components/UserTable/FreeUs
 const MentorsTable = lazy(() => import("../../@core/components/UserTable/MentorsTable"));
 const CreateUser = lazy(() => import("../../@core/components/CreateUser/CreateUser"));
 const Profile = lazy(() => import('../../@core/components/profile'))
-const UpdadeUsre = lazy(() => import('../../@core/components/profile/UpdadeUsre'))
+const UpdadeUsre = lazy(() => import('../../@core/components/UpdadeUsre/UpdadeUsre'))
 const SecondPage = lazy(() => import("../../pages/SecondPage"));
 const Login = lazy(() => import("../../pages/Login"));
 const Register = lazy(() => import("../../pages/Register"));
