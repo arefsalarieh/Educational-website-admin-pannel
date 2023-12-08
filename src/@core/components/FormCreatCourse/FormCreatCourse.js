@@ -98,7 +98,7 @@ const FormCreatCourse = () => {
         initialValues={{
           Title: "",
           technology: "",
-          // status: "",
+          courseStatus: "",
           CourseLvlId: "",
           CourseTypeId: "",
           TremId: "",
