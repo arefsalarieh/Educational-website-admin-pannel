@@ -12,14 +12,9 @@ import Breadcrumbs from '@components/breadcrumbs'
 import { Button, Card, CardTitle, CardBody, CardText, CardSubtitle, CardLink, CardImg, Row, Col  } from 'reactstrap'
 
 // ** Demo Components
-import ProfilePoll from './ProfilePolls'
+
 import ProfileAbout from './ProfileAbout'
-import ProfilePosts from './ProfilePosts'
 import ProfileHeader from './ProfileHeader'
-import ProfileTwitterFeeds from './ProfileTwitterFeeds'
-import ProfileLatestPhotos from './ProfileLatestPhotos'
-import ProfileSuggestedPages from './ProfileSuggestedPages'
-import ProfileFriendsSuggestions from './ProfileFriendsSuggestions'
 import { useParams } from "react-router-dom";
 import http from '../../../@core/interceptor'
 import {useQuery} from 'react-query'

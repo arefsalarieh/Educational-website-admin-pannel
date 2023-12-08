@@ -31,7 +31,11 @@ const show = (values) =>{
 
       {data &&       <CardBody>
         <Formik onSubmit={show} initialValues={{firstName : data.fName , lastName : data.lName , userName : data.userName , gmail : data.gmail ,
-           phoneNumber : data.phoneNumber , isStudent : true , isTeacher : false}}>
+           phoneNumber : data.phoneNumber , active : data.active , isDelete : data.isDelete , isTecher : data.isTecher , isStudent : data.isStudent , 
+           recoveryEmail : data.recoveryEmail , twoStepAuth : data.twoStepAuth , userAbout : data.userAbout , currentPictureAddress : data.currentPictureAddress ,
+           linkdinProfile : data.linkdinProfile , telegramLink : data.telegramLink , receiveMessageEvent : data.receiveMessageEvent , homeAdderess:data.homeAdderess,
+           nationalCode : data.nationalCode , gender:data.gender , latitude : data.latitude , longitude : data.longitude , insertDate:data.insertDate ,
+           birthDay :data.birthDay , roles : data.roles , courses : data.courses , coursesReseves:data.coursesReseves , userProfileId:data.id}}>
 
           {({values , handleSubmit, handleChange , setFieldValue }) => (
             <form onSubmit={handleSubmit}>
@@ -71,31 +75,49 @@ const show = (values) =>{
                   phoneNumber
                   </Label>
                   <Input onChange={handleChange} value={values.phoneNumber} type='text' name='phoneNumber' id='phoneNumber' placeholder='شماره تماس' />
-                </Col>
+                </Col>                     
+
+              </Row>
 
 
-
-
-
-
-
+              <Row>
                 
+                <Col md='1' sm='12' className='mb-1'>
+                  <Label className='form-label' for='active'>
+                     فعال
+                  </Label>
+                  <Input onChange={handleChange} value={values.active} type='checkbox' defaultChecked id='active' />
+                </Col>  
 
-                <Col md='3' sm='12' className='mb-1'>
+                <Col md='1' sm='12' className='mb-1'>
+                  <Label className='form-label' for='isDelete'>
+                  isDelete
+                  </Label>
+                  <Input onChange={handleChange} value={values.isDelete} type='checkbox' id='isDelete' />
+                </Col>  
+
+                <Col md='1' sm='12' className='mb-1'>
+                  <Label className='form-label' for='isTecher'>
+                     مدرس
+                  </Label>
+                  <Input onChange={handleChange} value={values.isTecher} type='checkbox'  id='isTecher' />
+                </Col>    
+
+
+                <Col md='1' sm='12' className='mb-1'>
                   <Label className='form-label' for='isStudent'>
                     دانش آموز
                   </Label>
                   <Input onChange={handleChange} value={values.isStudent} type='checkbox' defaultChecked id='isStudent' />
                 </Col>   
                 
-                <Col md='3' sm='12' className='mb-1'>
-                  <Label className='form-label' for='isTeacher'>
-                     مدرس
+                <Col md='2' sm='12' className='mb-1'>
+                  <Label className='form-label' for='twoStepAuth'>
+                  twoStepAuth
                   </Label>
-                  <Input onChange={handleChange} value={values.isTeacher} type='checkbox'  id='isTeacher' />
-                </Col>                              
-                                              
-
+                  <Input onChange={handleChange} value={values.twoStepAuth} type='checkbox' defaultChecked id='twoStepAuth' />
+                </Col>                             
+                         
               </Row>
 
                 <Button className='me-1' color='primary' type='submit' >
