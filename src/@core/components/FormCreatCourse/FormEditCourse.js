@@ -185,7 +185,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder="عنوان را وارد کنید..."
-                              // setInitialValues={courseEdit.Title}
+                              setInitialValues={courseEdit.Title}
                             />
                           </div>
                         )}
@@ -209,7 +209,7 @@ const FormEditCourse = () => {
                               type="text-area"
                               {...field}
                               placeholder="لطفا توضیحات را وارد کنید..."
-                              // setInitialValues={courseEdit.Describe}
+                              setInitialValues={courseEdit.Describe}
                             />
                           </div>
                         )}
@@ -235,7 +235,7 @@ const FormEditCourse = () => {
                               type="text-area"
                               {...field}
                               placeholder="مینی توضیحات را وارد نمایید ..."
-                              // setInitialValues={courseEdit.MiniDescribe}
+                              setInitialValues={courseEdit.MiniDescribe}
                             />
                           </div>
                         )}
@@ -259,7 +259,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder="لطفا ظرفیت دوره مربوطه را وارد نمایید ..."
-                              // setInitialValues={courseEdit.Capacity}
+                              setInitialValues={courseEdit.Capacity}
                             />
                           </div>
                         )}
@@ -285,7 +285,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder=" لطفا نوع کلاس را وارد نمایید..."
-                              // setInitialValues={courseEdit.CourseTypeId}
+                              setInitialValues={courseEdit.CourseTypeId}
                             />
                           </div>
                         )}
@@ -310,7 +310,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder=" لطفا تعداد جلسه را وارد نمایید..."
-                              // setInitialValues={courseEdit.SessionNumber}
+                              setInitialValues={courseEdit.SessionNumber}
                             />
                           </div>
                         )}
@@ -336,7 +336,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder=" لینک کوتاه"
-                              // setInitialValues={courseEdit.ShortLink}
+                              setInitialValues={courseEdit.ShortLink}
                             />
                           </div>
                         )}
@@ -360,7 +360,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder="ترم "
-                              // setInitialValues={courseEdit.TremId}
+                              setInitialValues={courseEdit.TremId}
                             />
                           </div>
                         )}
@@ -386,7 +386,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder="آی دی کلاس ..."
-                              // setInitialValues={courseEdit.ClassId}
+                              setInitialValues={courseEdit.ClassId}
                             />
                           </div>
                         )}
@@ -410,7 +410,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder=" سطح دوره"
-                              // setInitialValues={courseEdit.CourseLvlId}
+                              setInitialValues={courseEdit.CourseLvlId}
                             />
                           </div>
                         )}
@@ -436,7 +436,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder=" آی دی استاد"
-                              // setInitialValues={courseEdit.TeacherId}
+                              setInitialValues={courseEdit.TeacherId}
                             />
                           </div>
                         )}
@@ -461,7 +461,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder="قیمت  ..."
-                              // setInitialValues={courseEdit.Cost}
+                              setInitialValues={courseEdit.Cost}
                             />
                           </div>
                         )}
@@ -487,7 +487,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder="یو آر ال ..."
-                              // setInitialValues={courseEdit.UniqeUrlString}
+                              setInitialValues={courseEdit.UniqeUrlString}
                             />
                           </div>
                         )}
@@ -511,7 +511,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder="تصویر "
-                              // setInitialValues={courseEdit.Image}
+                              setInitialValues={courseEdit.Image}
                             />
                           </div>
                         )}
@@ -537,7 +537,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder="عکس کوچک"
-                              // setInitialValues={courseEdit.TumbImageAddress}
+                              setInitialValues={courseEdit.TumbImageAddress}
                             />
                           </div>
                         )}
@@ -561,7 +561,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder=" عکس"
-                              // setInitialValues={courseEdit.ImageAddress}
+                              setInitialValues={courseEdit.ImageAddress}
                             />
                           </div>
                         )}
@@ -587,7 +587,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder="عکس کوچک"
-                              // setInitialValues={courseEdit.StartTime}
+                              setInitialValues={courseEdit.StartTime}
                             />
                           </div>
                         )}
@@ -611,7 +611,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder=" عکس"
-                              // setInitialValues={courseEdit.EndTime}
+                              setInitialValues={courseEdit.EndTime}
                             />
                           </div>
                         )}
