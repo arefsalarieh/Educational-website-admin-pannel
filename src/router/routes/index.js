@@ -12,6 +12,7 @@ import PublicRoute from "@components/routes/PublicRoute";
 
 // ** Utils
 import { isObjEmpty } from "@utils";
+import UpdadeUsre from "../../@core/components/profile/UpdadeUsre";
 
 
 
@@ -88,15 +89,14 @@ const Routes = [
     path: "/UsersList/CreateUser",
     element: <CreateUser />,
   },  
-
-  {
-    path: '/pages/profile',
-    element: <Profile />
-  },
   {
     path: '/pages/profile/:id',
     element: <Profile />
-  },  
+  },
+  {
+    path: '/pages/UpdadeUsre/:id',
+    element: <UpdadeUsre />
+  },
   {
     path: "/sample",
     element: <Sample />,

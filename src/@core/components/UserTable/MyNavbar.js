@@ -7,15 +7,13 @@ import http from '../../interceptor'
 import { Row, Col } from 'reactstrap'
 import StatsVertical from '../StatsVertical/StatsVertical'
 import Earnings from '../Earnings/Earnings'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , Link } from 'react-router-dom';
 
 
 const MyNavbar = () => {
     const navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(false)
-    const hclick = (e) =>{
-      // console.log(e.currentTarget);
-    }
+
   return (
     <Navbar container={false} className='justify-content-end justify-content-md-between w-100' expand='md' light>
         <Button color='' className='btn-icon navbar-toggler' >
@@ -24,39 +22,55 @@ const MyNavbar = () => {
         <Collapse isOpen={isOpen} navbar>
           <div className='profile-tabs d-flex justify-content-between flex-wrap mt-1 mt-md-0'>
             <Nav className='mb-0' pills>
-              <NavItem onClick={()=>navigate("/UsersList/AllUsers")}>
-                <NavLink className='fw-bold' active={true} onClick={hclick} >
-                  <span className='d-none d-md-block'> تمام کاربران</span>
+              <NavItem >
+                <NavLink className='fw-bold'  to="/UsersList/AllUsers"  >
+                  <Link>
+                      <span className='d-none d-md-block'> تمام کاربران</span>
+                  </Link>
                   <Rss className='d-block d-md-none' size={14} />
                 </NavLink>
               </NavItem>              
-              <NavItem onClick={()=>navigate("/UsersList/AdminTable")}>
-                <NavLink className='fw-bold'  onClick={hclick} >
-                  <span className='d-none d-md-block'>ادمین ها</span>
+              <NavItem >
+                <NavLink className='fw-bold' to="/UsersList/AdminTable"   >
+                  <Link>
+                    <span className='d-none d-md-block'>ادمین ها</span>                  
+                  </Link>
                   <Rss className='d-block d-md-none' size={14} />
                 </NavLink>
               </NavItem>
-              <NavItem onClick={()=>navigate("/UsersList/TeacherTable")}>
+              <NavItem>
                 <NavLink className='fw-bold'>
-                  <span className='d-none d-md-block'>مدرسان</span>
+                  <Link to="/UsersList/TeacherTable">
+                    <span className='d-none d-md-block'>مدرسان</span>                  
+                  </Link>
+
                   <Info className='d-block d-md-none' size={14} />
                 </NavLink>
               </NavItem>
-              <NavItem onClick={()=>navigate("/UsersList/StudentTable")}>
+              <NavItem >
                 <NavLink className='fw-bold'>
-                  <span className='d-none d-md-block'>دانشجویان</span>
+                  <Link to="/UsersList/StudentTable">
+                       <span className='d-none d-md-block'>دانشجویان</span>
+                  </Link>
+
                   <Image className='d-block d-md-none' size={14} />
                 </NavLink>
               </NavItem>
-              <NavItem onClick={()=>navigate("/UsersList/FreeUserTable")}>
+              <NavItem>
                 <NavLink className='fw-bold'>
-                  <span className='d-none d-md-block'>داوران</span>
+                  <Link to="/UsersList/FreeUserTable">
+                     <span className='d-none d-md-block'>داوران</span>                  
+                  </Link>
+
                   <Users className='d-block d-md-none' size={14} />
                 </NavLink>
               </NavItem>
-              <NavItem onClick={()=>navigate("/UsersList/MentorsTable")}>
+              <NavItem >
                 <NavLink className='fw-bold'>
-                  <span className='d-none d-md-block'>منتور ها</span>
+                  <Link to="/UsersList/MentorsTable">
+                      <span className='d-none d-md-block'>منتور ها</span>              
+                  </Link>
+
                   <Users className='d-block d-md-none' size={14} />
                 </NavLink>
               </NavItem>              

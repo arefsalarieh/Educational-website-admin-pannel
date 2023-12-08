@@ -48,10 +48,14 @@ import phoneImage from '../../../../src/assets/images/NewImage/phone.png'
 import UserReservedCourse from './UserReservedCourse'
 import UserAcceptCourse from './UserAcceptCourse'
 import ChangeRole from './ChangeRole'
+import ProfileAbout2 from './ProfileAbout2'
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
 
   const {id} = useParams();
+
+  const navigate = useNavigate()
 
 
   const getUsersInfo =async () =>{
@@ -76,18 +80,35 @@ const Profile = () => {
           <section id='profile-info'>
             <Row>
               
-              <Col lg={{ size: 4, order: 1 }} sm={{ size: 12 }} xs={{ order: 1 }}>
-                {data &&  <ProfileAbout  id={data.id} gender={data.gender} birthDay={data.birthDay} insertDate={data.insertDate}  roles={data.roles} />}
+              <Col lg={{ size: 6, order: 1 }} sm={{ size: 12 }} xs={{ order: 1 }}>
+                <Row>
+                  <Col lg='6' md='6'>
+                    {data &&  <ProfileAbout  id={data.id} gender={data.gender} birthDay={data.birthDay} insertDate={data.insertDate}  roles={data.roles} />}
+                  </Col>
+
+                  <Col lg='6' md='6'>
+                    {data &&  <ProfileAbout2 nationalCode={data.nationalCode}  active={data.active} isDelete={data.isDelete} twoStepAuth={data.twoStepAuth} receiveMessageEvent={data.receiveMessageEvent}  phoneNumber={data.phoneNumber} />}
+                  </Col>                  
+                </Row>
               </Col>
 
-              <Col lg={{ size: 8, order: 1 }} sm={{ size: 12 }} xs={{ order: 2 }}>
+
+
+              <Col lg={{ size: 6, order: 1 }} sm={{ size: 12 }} xs={{ order: 2 }}>
                 <Row lg={{ size: 4, order: 1 }} sm={{ size: 12 }} xs={{ order: 2 }}>
                   {data && <StatsVertical icon={<Eye size={21} />}   stats='آدرس' statTitle={data.homeAdderess}/> } 
                 </Row>
 
                 <Row lg={{ size: 4, order: 1 }} sm={{ size: 12 }} xs={{ order: 3 }}>
                   {data && <StatsVertical icon={<ShoppingBag size={21} />} stats='توضیحات' statTitle={data.userAbout}/> } 
-                </Row>  
+                </Row >  
+
+                <Row lg='8'>
+                  <Col lg='4'>
+                    {data && <Button.Ripple onClick={() => navigate('/pages/UpdadeUsre/' + data.id )} color='info'>بروز رسانی کاربر</Button.Ripple>   }               
+                  </Col>
+
+                </Row>
               </Col>
 
             </Row>
