@@ -65,7 +65,7 @@ const FormCreatCourse = () => {
       ShortLink: values.ShortLink,
       TumbImageAddress: values.TumbImageAddress,
       ImageAddress: values.ImageAddress,
-    
+      Image: values.Image,
     };
     const keys = Object.keys(setCourses);
     keys.forEach((key) => {
@@ -105,6 +105,7 @@ const FormCreatCourse = () => {
           ShortLink: "",
           TumbImageAddress: "",
           ImageAddress: "",
+          Image: "",
         }}
         validationSchema={validation}
         onSubmit={CreatCourse}
