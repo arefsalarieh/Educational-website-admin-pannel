@@ -89,7 +89,6 @@ const FormEditCourse = () => {
     return result;
   };
 
-  console.log(courseEdit.Title);
   const editCourse = async (values) => {
     const dataForm = new FormData();
 
@@ -119,7 +118,9 @@ const FormEditCourse = () => {
       console.log(dataForm);
     });
     const res = await http.put(`/Course/`, dataForm);
+    refetch();
     return res;
+
   };
 
   return (
@@ -151,7 +152,7 @@ const FormEditCourse = () => {
       {({ values, handleSubmit, handleChange, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
           <Card>
-            <CardHeader>
+            <CardHeader className="mb-2 mt-2">
               <CardTitle tag="h4"> ویرایش دوره </CardTitle>
             </CardHeader>
             <CardBody>
@@ -663,8 +664,8 @@ const FormEditCourse = () => {
                   </div>
                 </Col>
               </Row>
-              <div className="d-flex">
-                <Button className="me-1" color="primary" type="submit">
+              <div className="d-flex mt-2">
+                <Button className="me-1 " color="primary" type="submit">
                   ویرایش
                 </Button>
                 <Button outline color="secondary" type="reset">
