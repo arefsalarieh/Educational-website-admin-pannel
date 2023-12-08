@@ -425,7 +425,7 @@ const SelectOptions = ({ values }) => {
             />
             <ErrorMessage name="EndTime">
               {(errMsg) => {
-                return <p className="text-danger">{errMsg}</p>;
+                return <p className="text-danger">{errMsg}</p>
               }}
             </ErrorMessage>
           </Col>
@@ -443,7 +443,7 @@ const SelectOptions = ({ values }) => {
             />
             <ErrorMessage name="GoogleSchema">
               {(errMsg) => {
-                return <p className="text-danger">{errMsg}</p>;
+                return <p className="text-danger">{errMsg}</p>
               }}
             </ErrorMessage>
           </Col>
@@ -459,7 +459,7 @@ const SelectOptions = ({ values }) => {
             />
             <ErrorMessage name="GoogleTitle">
               {(errMsg) => {
-                return <p className="text-danger">{errMsg}</p>;
+                return <p className="text-danger">{errMsg}</p>
               }}
             </ErrorMessage>
           </Col>
@@ -477,7 +477,7 @@ const SelectOptions = ({ values }) => {
             />
             <ErrorMessage name="ImageAddress">
               {(errMsg) => {
-                return <p className="text-danger">{errMsg}</p>;
+                return <p className="text-danger">{errMsg}</p>
               }}
             </ErrorMessage>
           </Col>
@@ -495,7 +495,7 @@ const SelectOptions = ({ values }) => {
             />
             <ErrorMessage name="TumbImageAddress">
               {(errMsg) => {
-                return <p className="text-danger">{errMsg}</p>;
+                return <p className="text-danger">{errMsg}</p>
               }}
             </ErrorMessage>
           </Col>
@@ -511,7 +511,7 @@ const SelectOptions = ({ values }) => {
             />
             <ErrorMessage name="ShortLink">
               {(errMsg) => {
-                return <p className="text-danger">{errMsg}</p>;
+                return <p className="text-danger">{errMsg}</p>
               }}
             </ErrorMessage>
           </Col>
@@ -527,7 +527,7 @@ const SelectOptions = ({ values }) => {
             />
             <ErrorMessage name="Image">
               {(errMsg) => {
-                return <p className="text-danger">{errMsg}</p>;
+                return <p className="text-danger">{errMsg}</p>
               }}
             </ErrorMessage>
           </Col>
@@ -543,7 +543,7 @@ const SelectOptions = ({ values }) => {
             />
             <ErrorMessage name="Cost">
               {(errMsg) => {
-                return <p className="text-danger">{errMsg}</p>;
+                return <p className="text-danger">{errMsg}</p>
               }}
             </ErrorMessage>
           </Col>
@@ -561,7 +561,7 @@ const SelectOptions = ({ values }) => {
             />
             <ErrorMessage name="SessionNumber">
               {(errMsg) => {
-                return <p className="text-danger">{errMsg}</p>;
+                return <p className="text-danger">{errMsg}</p>
               }}
             </ErrorMessage>
           </Col>
@@ -579,7 +579,7 @@ const SelectOptions = ({ values }) => {
             />
             <ErrorMessage name="UniqeUrlString">
               {(errMsg) => {
-                return <p className="text-danger">{errMsg}</p>;
+                return <p className="text-danger">{errMsg}</p>
               }}
             </ErrorMessage>
           </Col>
@@ -595,7 +595,7 @@ const SelectOptions = ({ values }) => {
             />
             <ErrorMessage name="Title">
               {(errMsg) => {
-                return <p className="text-danger">{errMsg}</p>;
+                return <p className="text-danger">{errMsg}</p>
               }}
             </ErrorMessage>
           </Col>
