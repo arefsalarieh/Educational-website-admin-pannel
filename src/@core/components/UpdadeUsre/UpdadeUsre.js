@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState , useEffect } from 'react'
 import { useParams } from "react-router-dom";
 import http from '../../interceptor'
 import {useQuery} from 'react-query'
@@ -9,25 +9,41 @@ import UpdadeUsreRoles from './UpdadeUsreRoles';
 
 
 const UpdadeUsre = () => {
+    const [data , setData] = useState()
+    const [rolesList , setRolesList] = useState()
+    const [coursesList , setCoursesList] = useState()
     const {id} = useParams();
+    
 
     const getUsersProf =async () =>{
         const result = await http.get(`/User/UserDetails/${id}`)
-        return result;
-      }
+        setData(result)
+        setRolesList(result.roles)
+        setCoursesList(result.courses)
+    }
+
+    coursesList && console.log(coursesList);
     
-      const {data , status} = useQuery(['userProf' , id] , getUsersProf )
+  
+    useEffect(()=>{
+      getUsersProf()
+      
+    } , [])
 
-      // data && console.log(data);
 
+    
+      
 
-const show =async (values) =>{
-  //  const result =await http.put('/User/UpdateUser' , values)
-    values.courses = [...values.courses]
-    console.log(values)
-}
+    const show =async (values) =>{
+      
+      const result =await http.put('/User/UpdateUser' , values)
+      console.log(result);
+        
+        
+    }
 
   return (
+   
     <Card>
       <CardHeader>
         <CardTitle tag='h4'>بروز رسانی کاربر </CardTitle>
@@ -39,7 +55,7 @@ const show =async (values) =>{
            recoveryEmail : data.recoveryEmail , twoStepAuth : data.twoStepAuth , userAbout : data.userAbout , currentPictureAddress : data.currentPictureAddress ,
            linkdinProfile : data.linkdinProfile , telegramLink : data.telegramLink , receiveMessageEvent : data.receiveMessageEvent , homeAdderess:data.homeAdderess,
            nationalCode : data.nationalCode , gender:data.gender , latitude : data.latitude , longitude : data.longitude , insertDate:data.insertDate ,
-           birthDay :data.birthDay , roles : data.roles , courses : data.courses , coursesReseves:data.coursesReseves , userProfileId:data.id}}>
+           birthDay :data.birthDay , roles : [] , courses : data.courses , coursesReseves:data.coursesReseves , userProfileId:data.id}}>
 
           {({values , handleSubmit, handleChange , setFieldValue }) => (
             <form onSubmit={handleSubmit}>
@@ -201,8 +217,8 @@ const show =async (values) =>{
 
               <Row>
 
-                <Col md='3'>
-                  <UpdadeUsreRoles roles={data.roles}/>
+                <Col md='4'>
+                 {data && <UpdadeUsreRoles  rolesList={rolesList} setRolesList={setRolesList}/>} 
                 </Col>
               </Row>
 

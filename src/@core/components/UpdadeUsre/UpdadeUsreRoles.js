@@ -2,23 +2,32 @@ import React from 'react'
 import { Card, CardHeader, CardTitle, CardBody, Row, Col, Input, Form, Button, Label } from 'reactstrap'
 import { Formik } from 'formik'
 
-const UpdadeUsreRoles = ({roles}) => {
+const UpdadeUsreRoles = ({rolesList , setRolesList}) => {
 
-    console.log(roles);
+    // rolesList && console.log(rolesList);
+
+    const handleClick = (x) =>{
+       const newRolesList = rolesList.filter(item => item.id !=x)
+       setRolesList(newRolesList)
+    }
+    
   return (
-    <div>
-        <Formik>
-            {({values , handleSubmit, handleChange , setFieldValue }) => (
-                <form  onSubmit={handleSubmit}>
-
-                </form>
-            )}
-        </Formik>
-        <Row>
-            <Col lg='3'>
-                .cyii
-            </Col>
-        </Row>
+    <div style={{ marginTop:'20px' , border:'1px solid #ccc'}}>
+        <h2>دسترسی های کاربر</h2>
+        {rolesList.map((item , index)=>{
+            return(
+                <div key={index} id={item.id} roleParentName={item.roleParentName}
+                 style={{margin:'5px' , backgroundColor:'#ccc ' , width:'80%' , display:'flex' , color:'black'}}>
+                    <div>
+                         {item.roleName}                        
+                    </div>
+                
+                    <Button.Ripple onClick={()=>handleClick(item.id)} color='danger' outline style={{marginRight:'auto'}}>
+                        Delete
+                    </Button.Ripple>
+                </div>
+            )
+        })}
     </div>
   )
 }
