@@ -124,6 +124,7 @@ const FormEditCourse = () => {
       ImageAddress: values.ImageAddress,
       StartTime: values.StartTime,
       EndTime: values.EndTime,
+      CoursePrerequisiteId:null
     };
     const keys = Object.keys(setCourses);
     keys.forEach((key) => {
