@@ -54,8 +54,6 @@ function CourseItem({
     <tr>
       <td className="text-nowrap ">{fullName}</td>
       <td className="text-nowrap ">{title}</td>
-      {/* <td className="text-nowrap ">{levelName}</td> */}
-      {/* <td className="text-nowrap ">{statusName}</td> */}
       <td className="text-nowrap ">{typeName}</td>
       <td className="text-nowrap ">{cost}</td>
       <td>

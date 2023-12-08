@@ -30,6 +30,7 @@ import http from "../../interceptor";
 import { ErrorMessage, Field, Formik } from "formik";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { useQuery } from "react-query";
 
 const FormEditCourse = () => {
   const validation = yup.object().shape({
@@ -51,11 +52,7 @@ const FormEditCourse = () => {
     ShortLink: yup.string().required("لطفا لینک کوتاه  را وارد نمایید"),
     TumbImageAddress: yup.string().required("لطفا عکس کوچک  را وارد نمایید"),
     ImageAddress: yup.string().required("لطفا آدرس عکس  را وارد نمایید"),
-
     Image: yup.string().required("لطفا  تصویر  را وارد نمایید"),
-    // ShortLink: yup.string().required("لطفا لینک کوتاه  را وارد نمایید"),
-    // TumbImageAddress:yup.string().required("لطفا عکس کوچک  را وارد نمایید"),
-    // ImageAddress:yup.string().required("لطفا آدرس عکس  را وارد نمایید"),
   });
 
   // ** Hooks
@@ -84,10 +81,16 @@ const FormEditCourse = () => {
 
   const getCourseInfo = async () => {
     const result = await http.get(`/Course/${id}`);
-    console.log(result);
-    if (result) setCourseEdit(result);
     return result;
   };
+
+  const { data, status } = useQuery(["courseInfo", id], getCourseInfo);
+
+  {
+    status === "success" && setCourseEdit(data);
+  }
+  console.log(courseEdit.Describe)
+
 
   const editCourse = async (values) => {
     const dataForm = new FormData();
@@ -120,7 +123,6 @@ const FormEditCourse = () => {
     const res = await http.put(`/Course/`, dataForm);
     refetch();
     return res;
-
   };
 
   return (
@@ -263,7 +265,7 @@ const FormEditCourse = () => {
               <Row>
                 <Col>
                   <div>
-                    <Label className="form-label">  آی دی نوع کلاس </Label>
+                    <Label className="form-label"> آی دی نوع کلاس </Label>
                     <div>
                       <Field name="CourseTypeId">
                         {({ field }) => (
@@ -388,7 +390,7 @@ const FormEditCourse = () => {
                 </Col>
                 <Col>
                   <div>
-                    <Label className="form-label">  آی دی سطح دوره </Label>
+                    <Label className="form-label"> آی دی سطح دوره </Label>
                     <div>
                       <Field name="CourseLvlId">
                         {({ field }) => (
@@ -512,108 +514,6 @@ const FormEditCourse = () => {
                   </div>
                 </Col>
               </Row>
-              {/* <Row>
-                <Col>
-                  <div className="fieldAdd">
-                    <Label className="form-label"> شروع دوره </Label>
-                    <div>
-                      <Field name="StartTime">
-                        {({ field }) => (
-                          <div>
-                            <Input
-                              className="Input"
-                              type="text"
-                              {...field}
-                              placeholder="شروع دوره "
-                              setInitialValues={courseEdit.StartTime}
-                            />
-                          </div>
-                        )}
-                      </Field>
-                      <ErrorMessage
-                        name="StartTime"
-                        component={"p"}
-                        className="text-danger"
-                      />
-                    </div>
-                  </div>
-                </Col>
-                <Col>
-                  <div>
-                    <Label className="form-label"> پایان دوره </Label>
-                    <div>
-                      <Field name="EndTime">
-                        {({ field }) => (
-                          <div>
-                            <Input
-                              type="text"
-                              {...field}
-                              placeholder="پایان دوره"
-                              setInitialValues={courseEdit.EndTime}
-                            />
-                          </div>
-                        )}
-                      </Field>
-                      <ErrorMessage
-                        name="EndTime"
-                        component={"p"}
-                        className="text-danger"
-                      />
-                    </div>
-                  </div>
-                </Col>
-              </Row> */}
-              {/* <Row>
-                <Col>
-                  <div className="fieldAdd">
-                    <Label className="form-label"> شمای گوگل </Label>
-                    <div>
-                      <Field name="GoogleSchema">
-                        {({ field }) => (
-                          <div>
-                            <Input
-                              className="Input"
-                              type="text"
-                              {...field}
-                              placeholder="شمای گوگل ..."
-                              setInitialValues={courseEdit.GoogleSchema}
-                            />
-                          </div>
-                        )}
-                      </Field>
-                      <ErrorMessage
-                        name="GoogleSchema"
-                        component={"p"}
-                        className="text-danger"
-                      />
-                    </div>
-                  </div>
-                </Col>
-                <Col>
-                  <div>
-                    <Label className="form-label"> گوگل عنوان </Label>
-                    <div>
-                      <Field name="GoogleTitle">
-                        {({ field }) => (
-                          <div>
-                            <Input
-                              type="text"
-                              {...field}
-                              placeholder=" عنوان گوگل"
-                              setInitialValues={courseEdit.GoogleTitle}
-                            />
-                          </div>
-                        )}
-                      </Field>
-                      <ErrorMessage
-                        name="GoogleTitle"
-                        component={"p"}
-                        className="text-danger"
-                      />
-                    </div>
-                  </div>
-                </Col>
-              </Row> */}
               <Row>
                 <Col>
                   <div>
