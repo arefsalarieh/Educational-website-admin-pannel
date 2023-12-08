@@ -85,9 +85,9 @@ const FormEditCourse = () => {
   };
 
   const { data, status } = useQuery(["courseInfo", id], getCourseInfo);
-
+console.log(data)
   {
-    status === "success" && setCourseEdit(data);
+    status === "success" &&  setCourseEdit(data);
   }
   console.log(courseEdit.Describe)
 
