@@ -38,10 +38,6 @@ const FormDetailCourse = () => {
             <h5 className="mb-75"> تاریخ ثبت دوره :</h5>
             <CardText>{data.insertDate}</CardText>
           </div>
-          {/* <div className="mt-2">
-            <h5 className="mb-75"> تصویر :</h5>
-            <CardText>{data.imageAddress}</CardText>
-          </div> */}
           <div className="mt-2">
             <h5 className="mb-75"> قیمت دوره :</h5>
             <CardText>{data.cost}</CardText>
@@ -70,11 +66,6 @@ const FormDetailCourse = () => {
             <h5 className="mb-75"> تکنولوژی برای آموزش :</h5>
             <CardText>{data.courseTeches}</CardText>
           </div>
-          {/* <div className="mt-2">
-          <h5 className="mb-75">  زمانبندی کلاسها :</h5>
-          <CardText>{data.courseSchedules.map.map((item, index) => { key={index}
-                  startDate={item.startDate}})}</CardText>
-        </div>  */}
         </CardBody>
       )}
     </Card>
