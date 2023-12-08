@@ -127,7 +127,7 @@ const FormCreatCourse = () => {
         onSubmit={CreatCourse}
       >
         {({ values, handleSubmit, handleChange }) => (
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Card>
               <CardHeader>
                 <CardTitle tag="h4">ایجاد دوره جدید </CardTitle>
@@ -135,7 +135,7 @@ const FormCreatCourse = () => {
               <CardBody>
                 <SelectOptions values={values} />
                 <div className="d-flex">
-                  <Button className="me-1" color="primary" type="submit"  onSubmit={CreatCourse}>
+                  <Button className="me-1" color="primary" type="submit" >
                     اضافه کردن
                   </Button>
                   <Button
