@@ -89,7 +89,7 @@ console.log(data)
   {
     status === "success" &&  setCourseEdit(data);
   }
-  console.log(courseEdit.Describe)
+  console.log(courseEdit)
 
 
   const editCourse = async (values) => {
