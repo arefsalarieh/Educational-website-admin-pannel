@@ -33,10 +33,12 @@ const TableCourses = () => {
       console.log(e.target.value);
       setSearch("");
     }
+
     // console.log(e.target.value);
     // e.target.value && setSearch(e.target.value);
     // !e.target.value && setSearch("");
   };
+
   const getAllCourses = async () => {
     const result = await http.get(
       `/Course/CourseList?PageNumber=1&RowsOfPage=200&SortingCol=DESC&SortType=Expire&Query=${search}`
