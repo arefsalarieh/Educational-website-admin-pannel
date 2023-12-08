@@ -33,14 +33,29 @@ import { useState } from "react";
 
 const FormEditCourse = () => {
   const validation = yup.object().shape({
-    title: yup.string().required("لطفا عنوان مورد نظر را وارد نمایید"),
-    technology: yup.string().required("لطفا تکنولوژی یاد گیری را وارد نمایید"),
-    status: yup.string().required("لطفا وضعیت  کلاس را مشخص کنید"),
-    level: yup.string().required("لطفا سطح کلاس را وارد نمایید."),
-    type: yup.string().required("لطفا نوع کلاس را مشخص کنید"),
-    term: yup.string().required("لطفا ترم کلاس مربوطه را مشخص کنید"),
-    capacity: yup.string().required("ظرفیت کلاس را مشخص کنید"),
-    describe: yup.string().required("لطفا توضیحات  را وارد نمایید"),
+    Title: yup.string().required("لطفا عنوان مورد نظر را وارد نمایید"),
+    MiniDescribe: yup
+      .string()
+      .required("لطفا تکنولوژی یاد گیری را وارد نمایید"),
+    SessionNumber: yup.string().required("لطفا وضعیت  کلاس را مشخص کنید"),
+    CourseLvlId: yup.string().required("لطفا سطح کلاس را وارد نمایید."),
+    CourseTypeId: yup.string().required("لطفا نوع کلاس را مشخص کنید"),
+    TremId: yup.string().required("لطفا ترم کلاس مربوطه را مشخص کنید"),
+    Capacity: yup.string().required("ظرفیت کلاس را مشخص کنید"),
+    Describe: yup.string().required("لطفا توضیحات  را وارد نمایید"),
+    SessionNumber: yup.string().required("لطفا شماره کلاس  را وارد نمایید"),
+    ClassId: yup.string().required("لطفا آی دی کلاس  را وارد نمایید"),
+    TeacherId: yup.string().required("لطفا آی دی استاد  را وارد نمایید"),
+    Cost: yup.string().required("لطفا قیمت  را وارد نمایید"),
+    UniqeUrlString: yup.string().required("لطفا یو آر ال  را وارد نمایید"),
+    ShortLink: yup.string().required("لطفا لینک کوتاه  را وارد نمایید"),
+    TumbImageAddress: yup.string().required("لطفا عکس کوچک  را وارد نمایید"),
+    ImageAddress: yup.string().required("لطفا آدرس عکس  را وارد نمایید"),
+
+    Image: yup.string().required("لطفا  تصویر  را وارد نمایید"),
+    // ShortLink: yup.string().required("لطفا لینک کوتاه  را وارد نمایید"),
+    // TumbImageAddress:yup.string().required("لطفا عکس کوچک  را وارد نمایید"),
+    // ImageAddress:yup.string().required("لطفا آدرس عکس  را وارد نمایید"),
   });
 
   // ** Hooks
@@ -53,7 +68,6 @@ const FormEditCourse = () => {
     Capacity: "",
     CourseTypeId: "",
     SessionNumber: "",
-    CurrentCoursePaymentNumber: "",
     TremId: "",
     ClassId: "",
     CourseLvlId: "",
@@ -87,7 +101,7 @@ const FormEditCourse = () => {
       Capacity: values.Capacity,
       CourseTypeId: values.CourseTypeId,
       SessionNumber: values.SessionNumber,
-      CurrentCoursePaymentNumber: values.CurrentCoursePaymentNumber,
+      CurrentCoursePaymentNumber: 0,
       TremId: values.TremId,
       ClassId: values.ClassId,
       CourseLvlId: values.CourseLvlId,
@@ -128,6 +142,7 @@ const FormEditCourse = () => {
         ShortLink: "",
         TumbImageAddress: "",
         ImageAddress: "",
+        Image: "",
       }}
       validationSchema={validation}
       onSubmit={editCourse}
@@ -296,7 +311,7 @@ const FormEditCourse = () => {
                 </Col>
               </Row>
               <Row>
-              <Col>
+                <Col>
                   <div className="fieldAdd">
                     <Label className="form-label"> لینک کوتاه </Label>
                     <div>
@@ -322,7 +337,7 @@ const FormEditCourse = () => {
                 </Col>
                 <Col>
                   <div>
-                    <Label className="form-label"> ترم </Label>
+                    <Label className="form-label"> آی دی ترم </Label>
                     <div>
                       <Field name="TremId">
                         {({ field }) => (
@@ -372,7 +387,7 @@ const FormEditCourse = () => {
                 </Col>
                 <Col>
                   <div>
-                    <Label className="form-label"> سطح دوره </Label>
+                    <Label className="form-label">  آی دی سطح دوره </Label>
                     <div>
                       <Field name="CourseLvlId">
                         {({ field }) => (
@@ -473,7 +488,7 @@ const FormEditCourse = () => {
                 </Col>
                 <Col>
                   <div className="fieldAdd">
-                    <Label className="form-label"> عنوان </Label>
+                    <Label className="form-label"> تصویر </Label>
                     <div>
                       <Field name="Image">
                         {({ field }) => (
@@ -496,7 +511,7 @@ const FormEditCourse = () => {
                   </div>
                 </Col>
               </Row>
-              <Row>
+              {/* <Row>
                 <Col>
                   <div className="fieldAdd">
                     <Label className="form-label"> شروع دوره </Label>
@@ -546,8 +561,8 @@ const FormEditCourse = () => {
                     </div>
                   </div>
                 </Col>
-              </Row>
-              <Row>
+              </Row> */}
+              {/* <Row>
                 <Col>
                   <div className="fieldAdd">
                     <Label className="form-label"> شمای گوگل </Label>
@@ -597,57 +612,7 @@ const FormEditCourse = () => {
                     </div>
                   </div>
                 </Col>
-              </Row>
-              <Row>
-              <Col>
-                  <div className="fieldAdd">
-                    <Label className="form-label"> لینک کوتاه </Label>
-                    <div>
-                      <Field name="ShortLink">
-                        {({ field }) => (
-                          <div>
-                            <Input
-                              type="text"
-                              {...field}
-                              placeholder=" لینک کوتاه"
-                              setInitialValues={courseEdit.ShortLink}
-                            />
-                          </div>
-                        )}
-                      </Field>
-                      <ErrorMessage
-                        name="ShortLink"
-                        component={"p"}
-                        className="text-danger"
-                      />
-                    </div>
-                  </div>
-                </Col>
-                <Col>
-                  <div className="fieldAdd">
-                    <Label className="form-label"> لینک کوتاه </Label>
-                    <div>
-                      <Field name="ShortLink">
-                        {({ field }) => (
-                          <div>
-                            <Input
-                              type="text"
-                              {...field}
-                              placeholder=" لینک کوتاه"
-                              setInitialValues={courseEdit.ShortLink}
-                            />
-                          </div>
-                        )}
-                      </Field>
-                      <ErrorMessage
-                        name="ShortLink"
-                        component={"p"}
-                        className="text-danger"
-                      />
-                    </div>
-                  </div>
-                </Col>
-              </Row>
+              </Row> */}
               <Row>
                 <Col>
                   <div>

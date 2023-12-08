@@ -121,6 +121,7 @@ const FormCreatCourse = () => {
           TumbImageAddress: "",
           ImageAddress: "",
           Image: "",
+          UniqeUrlString: "",
         }}
         validationSchema={validation}
         onSubmit={CreatCourse}
