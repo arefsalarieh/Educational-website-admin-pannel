@@ -30,14 +30,30 @@ import SelectOptions from "./SelectOptions";
 
 const FormCreatCourse = () => {
   const validation = yup.object().shape({
-    title: yup.string().required("لطفا عنوان مورد نظر را وارد نمایید"),
-    technology: yup.string().required("لطفا تکنولوژی یاد گیری را وارد نمایید"),
-    status: yup.string().required("لطفا وضعیت  کلاس را مشخص کنید"),
-    level: yup.string().required("لطفا سطح کلاس را وارد نمایید."),
-    type: yup.string().required("لطفا نوع کلاس را مشخص کنید"),
-    term: yup.string().required("لطفا ترم کلاس مربوطه را مشخص کنید"),
-    capacity: yup.string().required("ظرفیت کلاس را مشخص کنید"),
-    describe: yup.string().required("لطفا توضیحات  را وارد نمایید"),
+    Title: yup.string().required("لطفا عنوان مورد نظر را وارد نمایید"),
+    coursetechnol: yup.string().required("لطفا تکنولوژی یاد گیری را وارد نمایید"),
+    courseStatus: yup.string().required("لطفا وضعیت  کلاس را مشخص کنید"),
+    courseLvl: yup.string().required("لطفا سطح کلاس را وارد نمایید."),
+    courseType: yup.string().required("لطفا نوع کلاس را مشخص کنید"),
+    courseterm: yup.string().required("لطفا ترم کلاس مربوطه را مشخص کنید"),
+    Capacity: yup.string().required("ظرفیت کلاس را مشخص کنید"),
+    Describe: yup.string().required("لطفا توضیحات  را وارد نمایید"),
+    Title: yup.string().required("لطفا عنوان مورد نظر را وارد نمایید"),
+    courseroom: yup.string().required("لطفاشماره کلاس را وارد نمایید"),
+    courseteach: yup.string().required("لطفاشماره استاد   را مشخص کنید"),
+    MiniDescribe: yup.string().required("لطفا مینی توضیح  را وارد نمایید."),
+    TeacherId: yup.string().required("لطفاآی دی  را مشخص کنید"),
+    StartTime: yup.string().required("لطفا زمان شروع دورهرا مشخص کنید"),
+    EndTime: yup.string().required(" زمان پایان دوره را مشخص کنید"),
+    GoogleSchema: yup.string().required("لطفا شمای گوگل  را وارد نمایید"),
+    GoogleTitle: yup.string().required("لطفا عنوان کلاس را مشخص کنید"),
+    ImageAddress: yup.string().required("لطفا آدرس عکس را مشخص کنید"),
+    TumbImageAddress: yup.string().required(" عکس کوچک شده را مشخص کنید"),
+    ShortLink: yup.string().required("لطفا لینک کوتاه  را وارد نمایید"),
+    Image: yup.string().required("لطفا نوع کلاس را مشخص کنید"),
+    Cost: yup.string().required("لطفا قیمت   را مشخص کنید"),
+    SessionNumber: yup.string().required(" تعداد جلسات را مشخص کنید"),
+    UniqeUrlString: yup.string().required("لطفا یوآر ال  را وارد نمایید"),
   });
 
   // ** Hooks
@@ -119,7 +135,7 @@ const FormCreatCourse = () => {
               <CardBody>
                 <SelectOptions values={values} />
                 <div className="d-flex">
-                  <Button className="me-1" color="primary" type="submit">
+                  <Button className="me-1" color="primary" type="submit"  onSubmit={CreatCourse}>
                     اضافه کردن
                   </Button>
                   <Button
