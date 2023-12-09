@@ -178,6 +178,7 @@ const FormCreatCourse = () => {
         courseStatus: "",
       }}
       onSubmit={CreatCourse}
+      validationSchema={validation}
     >
       {({ values, handleSubmit, handleChange, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
