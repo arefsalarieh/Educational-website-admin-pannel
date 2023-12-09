@@ -22,10 +22,11 @@ import {
   Label,
   Input,
   FormFeedback,
+  Col,
 } from "reactstrap";
 import { useQuery } from "react-query";
 import http from "../../interceptor";
-import { Formik, Form } from "formik";
+import { Formik, Form, ErrorMessage, Field } from "formik";
 
 const FormReserveCourse = () => {
   const validation = yup.object().shape({
@@ -37,113 +38,115 @@ const FormReserveCourse = () => {
   // ** Hooks
   const { reset } = useForm({ mode: "onChange" });
 
-  const CreatCourse = async (values) => {
-    const dataForm = new FormData();
-
-    const setCourses = {
-      Title: values.Title,
-      Describe: values.Describe,
-      MiniDescribe: values.MiniDescribe,
-      Capacity: values.Capacity,
-      CourseTypeId: values.CourseTypeId,
-      SessionNumber: values.SessionNumber,
-      CurrentCoursePaymentNumber: 0,
-      CoursePrerequisiteId: null,
-      TremId: values.TremId,
-      ClassId: values.ClassId,
-      CourseLvlId: values.CourseLvlId,
-      TeacherId: values.TeacherId,
-      Cost: values.Cost,
-      UniqeUrlString: values.UniqeUrlString,
-      ShortLink: values.ShortLink,
-      TumbImageAddress: values.TumbImageAddress,
-      ImageAddress: values.ImageAddress,
-      Image: values.Image,
-    };
-    const keys = Object.keys(setCourses);
-    keys.forEach((key) => {
-      const item = setCourses[key];
-      dataForm.append(key, item);
-      console.log(dataForm);
-    });
-    const res = await http.post(`/Course`, dataForm);
-    return res;
-  };
-
   const reseveCourseFnc = async (values) => {
-    const userobj = {
+    const reserveObj = {
       courseId: values.courseId,
       courseGroupId: values.courseGroupId,
       studentId: values.studentId,
     };
-
-    console.log(values.remember);
-    console.log(userobj);
-    const user = await loginAPI(userobj);
-    console.log(user);
-    setItem("token", user.token);
-    if (user.success === true) {
-      // toast.success(user.message);
-      swal(user.message, "", "success");
-      setTimeout(() => {
-        navigate("/studentPanel");
-      }, "2000");
-    } else {
-      // toast.error(user.message);
-      sweetAlert("", user.message, "error");
-    }
+    console.log(reserveObj);
+    const res = await http.post(
+      `/CourseReserve/SendReserveToCourse`,
+      reserveObj
+    );
+    refetch();
+    return res;
   };
+
   {
     return (
       <Formik
         initialValues={{
-          Title: "",
-          technology: "",
-          courseStatus: "",
-          CourseLvlId: "",
-          CourseTypeId: "",
-          TremId: "",
-          Describe: "",
-          MiniDescribe: "",
-          Capacity: "",
-          CourseTypeId: "",
-          SessionNumber: "",
-          CurrentCoursePaymentNumber: "",
-          ClassId: "",
-          CourseLvlId: "",
-          TeacherId: "",
-          Cost: "",
-          StartTime: "",
-          EndTime: "",
-          GoogleSchema: "",
-          GoogleTitle: "",
-          CoursePrerequisiteId: "",
-          ShortLink: "",
-          TumbImageAddress: "",
-          ImageAddress: "",
-          Image: "",
-          UniqeUrlString: "",
+          courseId: "",
+          courseGroupId: "",
+          studentId: "",
         }}
         validationSchema={validation}
-        onSubmit={CreatCourse}
+        onSubmit={reseveCourseFnc}
       >
         {({ values, handleSubmit, handleChange }) => (
           <Form onSubmit={handleSubmit}>
             <Card>
               <CardHeader>
-                <CardTitle tag="h4">ایجاد دوره جدید </CardTitle>
+                <CardTitle tag="h4"> رزرو دوره </CardTitle>
               </CardHeader>
               <CardBody>
-                <div className="d-flex">
-                  <Button className="me-1" color="primary" type="submit">
-                    اضافه کردن
-                  </Button>
-                  <Button outline color="secondary" type="reset">
-                    ffffffffffffffffffffffffffffffffffff
-                  </Button>
-                </div>
+                <Col>
+                  <div>
+                    <Label className="form-label"> آی دی درس </Label>
+                    <div>
+                      <Field name="courseId">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text-area"
+                              {...field}
+                              placeholder="لطفا درس مربوطه را وارد کنید..."
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="courseId"
+                        component={"p"}
+                        className="text-danger"
+                      />
+                    </div>
+                  </div>
+                </Col>
+                <Col>
+                  <div>
+                    <Label className="form-label"> آی دی گروه </Label>
+                    <div>
+                      <Field name="courseGroupId">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text-area"
+                              {...field}
+                              placeholder="لطفا گروه درسی را وارد کنید..."
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="courseGroupId"
+                        component={"p"}
+                        className="text-danger"
+                      />
+                    </div>
+                  </div>
+                </Col>
+                <Col>
+                  <div>
+                    <Label className="form-label"> آی دی دانشجو </Label>
+                    <div>
+                      <Field name="studentId">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text-area"
+                              {...field}
+                              placeholder="لطفا دانشجو را وارد کنید..."
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="studentId"
+                        component={"p"}
+                        className="text-danger"
+                      />
+                    </div>
+                  </div>
+                </Col>
               </CardBody>
             </Card>
+            <div className="d-flex mt-2">
+              <Button className="me-1 " color="primary" type="submit">
+                رزرو دوره
+              </Button>
+            </div>
           </Form>
         )}
       </Formik>
