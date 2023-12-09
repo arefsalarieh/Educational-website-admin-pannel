@@ -42,10 +42,10 @@ const FormCreatCourse = () => {
     courseLvl: yup.string().required("لطفا سطح دوره را وارد کنید"),
     courseType: yup.string().required("لطفا نوع دوره را انتخاب کنید"),
     courseterm: yup.string().required("لطفا ترم دوره را وارد کنید"),
-    // Capacity: yup.required(),
+    Capacity: yup.number().required("ظرفیت دوره کمتر از 100000 باشد"),
     Describe: yup.string().required("لطفا توضیحات  را وارد نمایید"),
     courseroom: yup.string().required("رلطفا کلاس دوره را وارد کنید "),
-    courseteach: yup.number().min(6).required("لطفاشماره استادرا مشخص کنید"),
+    courseteach: yup.number().required("لطفاشماره استادرا مشخص کنید"),
     MiniDescribe: yup.string().required("لطفا مینی توضیح  را وارد نمایید."),
     TeacherId: yup.string().required("لطفاآی دی  را مشخص کنید"),
     StartTime: yup
@@ -154,7 +154,7 @@ const FormCreatCourse = () => {
         coursetechnol: "",
         courseStatus: "",
         courseLvl: "",
-        courseType: null,
+        courseType: "",
         courseroom: "",
         courseroom: "",
         courseteach: "",
@@ -192,6 +192,7 @@ const FormCreatCourse = () => {
                 <Col className="mb-1" md="6" sm="12">
                   <Label className="form-label"> نوع کلاس </Label>
                   <Select
+                    style={{  width: "480px", height: "40px" }}
                     options={courseType}
                     className="react-select"
                     classNamePrefix="select"
@@ -207,6 +208,7 @@ const FormCreatCourse = () => {
                 <Col className="mb-1" md="6" sm="12">
                   <Label className="form-label"> سطح دوره </Label>
                   <Select
+                    style={{ width: "480px", height: "40px" }}
                     options={courseLvl}
                     className="react-select"
                     classNamePrefix="select"
@@ -221,6 +223,7 @@ const FormCreatCourse = () => {
                 <Col className="mb-1" md="6" sm="12">
                   <Label className="form-label"> وضعیت دوره </Label>
                   <Select
+                    style={{ width: "480px", height: "40px" }}
                     options={courseStatus}
                     className="react-select"
                     classNamePrefix="select"
@@ -237,6 +240,7 @@ const FormCreatCourse = () => {
                 <Col className="mb-1" md="6" sm="12">
                   <Label className="form-label"> شماره کلاس </Label>
                   <Select
+                    style={{ width: "480px", height: "40px" }}
                     options={courseroom}
                     className="react-select"
                     classNamePrefix="select"
@@ -252,6 +256,7 @@ const FormCreatCourse = () => {
                 <Col className="mb-1" md="6" sm="12">
                   <Label className="form-label"> شماره استاد </Label>
                   <Select
+                    style={{ width: "480px", height: "40px" }}
                     options={courseteach}
                     className="react-select"
                     classNamePrefix="select"
@@ -267,6 +272,7 @@ const FormCreatCourse = () => {
                 <Col className="mb-1" md="6" sm="12">
                   <Label className="form-label"> ترم </Label>
                   <Select
+                    style={{ width: "480px", height: "40px" }}
                     options={courseterm}
                     className="react-select"
                     classNamePrefix="select"
@@ -282,6 +288,7 @@ const FormCreatCourse = () => {
                 <Col className="mb-1" md="6" sm="12">
                   <Label className="form-label">آموزش و یادگیری</Label>
                   <Select
+                    style={{  width: "480px", height: "40px" }}
                     options={coursetechnol}
                     className="react-select"
                     classNamePrefix="select"
