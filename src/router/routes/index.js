@@ -14,6 +14,7 @@ import PublicRoute from "@components/routes/PublicRoute";
 import { isObjEmpty } from "@utils";
 
 
+import GetReserveCourse from "../../pages/GetReserveCourse";
 import ReserveCourse from "../../pages/ReserveCourse";
 import CreatCourse from "../../pages/CreatCourse";
 import DetailCourse from "../../pages/DetailCourse";
@@ -111,7 +112,11 @@ const Routes = [
   },
   {
     path: "/ReserveCourse",
-    element: <ReserveCourse/>,
+    element: <ReserveCourse />,
+  },
+  {
+    path: "/GetReserveCourse",
+    element: <GetReserveCourse/>,
   },
   {
     path: "/EditCourse/:id",
