@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Search from "antd/es/input/Search";
 import MyNavbar from "./MyNavbar";
+import CourseGroup from "./CourseGroup/CourseGroup";
 
 const TableCourses = () => {
   const [search, setSearch] = useState("");

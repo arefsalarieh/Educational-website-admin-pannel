@@ -12,6 +12,7 @@ import http from "../../../interceptor";
 import { useQuery } from "react-query";
 import { useFormikContext } from "formik";
 import { Button } from 'reactstrap'
+import { Accordion, AccordionBody, AccordionHeader, AccordionItem } from 'reactstrap'
 
 
 
@@ -39,7 +40,11 @@ const ReserveItem = ({courseName , studentName , studentId , reserverDate , acce
                 >
                   جزییات
                 </Button>
-            </td>
+          </td>
+
+          <td>
+            
+          </td>
         </tr>
       
   )

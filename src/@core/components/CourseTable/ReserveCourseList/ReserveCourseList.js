@@ -38,6 +38,8 @@ const {data , status} = useQuery('getReserve' , getReserveCourse)
                     <th className="text-nowrap ">زمان رزرو</th>
                     <th className="text-nowrap ">وضعیت</th>
                 </tr>
+
+                
             </thead>
             <tbody>
                 {data && data.map((item , index)=>{
