@@ -25,39 +25,17 @@ import {
 } from "reactstrap";
 import { useQuery } from "react-query";
 import http from "../../interceptor";
-import { Formik,Form } from "formik";
-import SelectOptions from "./SelectOptions";
+import { Formik, Form } from "formik";
 
-const FormCreatCourse = () => {
+const FormReserveCourse = () => {
   const validation = yup.object().shape({
-    Title: yup.string().required("لطفا عنوان مورد نظر را وارد نمایید"),
-    coursetechnol: yup.string().required("لطفا تکنولوژی یاد گیری را وارد نمایید"),
-    courseStatus: yup.string().required("لطفا وضعیت  کلاس را مشخص کنید"),
-    courseLvl: yup.string().required("لطفا سطح کلاس را وارد نمایید."),
-    courseType: yup.string().required("لطفا نوع کلاس را مشخص کنید"),
-    courseterm: yup.string().required("لطفا ترم کلاس مربوطه را مشخص کنید"),
-    Capacity: yup.string().required("ظرفیت کلاس را مشخص کنید"),
-    Describe: yup.string().required("لطفا توضیحات  را وارد نمایید"),
-    courseroom: yup.string().required("لطفاشماره کلاس را وارد نمایید"),
-    courseteach: yup.string().required("لطفاشماره استاد   را مشخص کنید"),
-    MiniDescribe: yup.string().required("لطفا مینی توضیح  را وارد نمایید."),
-    TeacherId: yup.string().required("لطفاآی دی  را مشخص کنید"),
-    StartTime: yup.string().required("لطفا زمان شروع دورهرا مشخص کنید"),
-    EndTime: yup.string().required(" زمان پایان دوره را مشخص کنید"),
-    GoogleSchema: yup.string().required("لطفا شمای گوگل  را وارد نمایید"),
-    GoogleTitle: yup.string().required("لطفا عنوان کلاس را مشخص کنید"),
-    ImageAddress: yup.string().required("لطفا آدرس عکس را مشخص کنید"),
-    TumbImageAddress: yup.string().required(" عکس کوچک شده را مشخص کنید"),
-    ShortLink: yup.string().required("لطفا لینک کوتاه  را وارد نمایید"),
-    Image: yup.string().required("لطفا نوع کلاس را مشخص کنید"),
-    Cost: yup.string().required("لطفا قیمت   را مشخص کنید"),
-    SessionNumber: yup.string().required(" تعداد جلسات را مشخص کنید"),
-    UniqeUrlString: yup.string().required("لطفا یوآر ال  را وارد نمایید"),
+    courseId: yup.string().required("لطفا درس برای رزرو مشخص کنید"),
+    courseGroupId: yup.string().required("لطفا   گروه درسی را وارد نمایید"),
+    studentId: yup.string().required("لطفادانشجویی که درس را رزر کردمشخص کنید"),
   });
 
   // ** Hooks
   const { reset } = useForm({ mode: "onChange" });
-
 
   const CreatCourse = async (values) => {
     const dataForm = new FormData();
@@ -70,7 +48,7 @@ const FormCreatCourse = () => {
       CourseTypeId: values.CourseTypeId,
       SessionNumber: values.SessionNumber,
       CurrentCoursePaymentNumber: 0,
-      CoursePrerequisiteId:"6c0a12ea-6a73-ee11-b6c7-ca6d3e095898",
+      CoursePrerequisiteId: null,
       TremId: values.TremId,
       ClassId: values.ClassId,
       CourseLvlId: values.CourseLvlId,
@@ -92,6 +70,29 @@ const FormCreatCourse = () => {
     return res;
   };
 
+  const reseveCourseFnc = async (values) => {
+    const userobj = {
+      courseId: values.courseId,
+      courseGroupId: values.courseGroupId,
+      studentId: values.studentId,
+    };
+
+    console.log(values.remember);
+    console.log(userobj);
+    const user = await loginAPI(userobj);
+    console.log(user);
+    setItem("token", user.token);
+    if (user.success === true) {
+      // toast.success(user.message);
+      swal(user.message, "", "success");
+      setTimeout(() => {
+        navigate("/studentPanel");
+      }, "2000");
+    } else {
+      // toast.error(user.message);
+      sweetAlert("", user.message, "error");
+    }
+  };
   {
     return (
       <Formik
@@ -116,7 +117,7 @@ const FormCreatCourse = () => {
           EndTime: "",
           GoogleSchema: "",
           GoogleTitle: "",
-          CoursePrerequisiteId:"0",
+          CoursePrerequisiteId: "",
           ShortLink: "",
           TumbImageAddress: "",
           ImageAddress: "",
@@ -133,17 +134,12 @@ const FormCreatCourse = () => {
                 <CardTitle tag="h4">ایجاد دوره جدید </CardTitle>
               </CardHeader>
               <CardBody>
-                <SelectOptions values={values} />
                 <div className="d-flex">
-                  <Button className="me-1" color="primary" type="submit" >
+                  <Button className="me-1" color="primary" type="submit">
                     اضافه کردن
                   </Button>
-                  <Button
-                    outline
-                    color="secondary"
-                    type="reset"
-                  >
-                    ریست
+                  <Button outline color="secondary" type="reset">
+                    ffffffffffffffffffffffffffffffffffff
                   </Button>
                 </div>
               </CardBody>
@@ -155,4 +151,4 @@ const FormCreatCourse = () => {
   }
 };
 
-export default FormCreatCourse;
+export default FormReserveCourse;
