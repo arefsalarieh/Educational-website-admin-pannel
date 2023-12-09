@@ -12,6 +12,9 @@ import PublicRoute from "@components/routes/PublicRoute";
 
 // ** Utils
 import { isObjEmpty } from "@utils";
+import TableCourses from "../../@core/components/CourseTable/TableCourses";
+import FormDetailCourse from "../../@core/components/DetailCourse/FormDetailCourse";
+// import ReserveCourselist from "../../@core/components/CourseTable/ReserveCourselist/ReserveCourselist";
 
 
 
@@ -33,7 +36,9 @@ const TemplateTitle = "%s - Vuexy React Admin Template";
 // ** Default Route
 const DefaultRoute = "/login";
 
+
 const Home = lazy(() => import("../../pages/Home"));
+const ReserveCourseList = lazy(() => import("../../@core/components/CourseTable/ReserveCourseList/ReserveCourseList"));
 const News = lazy(() => import("../../@core/components/news/News"));
 const AllUsers = lazy(() => import("../../@core/components/UserTable/AllUsers"));
 const AdminTable = lazy(() => import("../../@core/components/UserTable/AdminTable"));
@@ -97,6 +102,18 @@ const Routes = [
   {
     path: '/pages/UpdadeUsre/:id',
     element: <UpdadeUsre />
+  },
+  {
+    path: '/TableCourses',
+    element: <TableCourses />
+  },  
+  {
+    path: '/ReserveCourseList',
+    element: <ReserveCourseList />
+  },
+  {
+    path: "/DetailCourse/:id",
+    element: <FormDetailCourse />,
   },
   {
     path: "/sample",

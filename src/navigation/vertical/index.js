@@ -1,4 +1,4 @@
-import { Mail, Home, Airplay, Circle, FileText } from "react-feather";
+import { Mail, Home, Airplay, Circle, FileText , List } from "react-feather";
 
 export default [
   {
@@ -47,6 +47,32 @@ export default [
       },   
                        
     ],    
+  },
+  {
+    id: "CourseList",
+    title: " دوره های آموزشی",
+    icon: <Airplay size={20} />,
+    // navLink: "/sample",
+    children: [
+      {
+        id: "courdseList",
+        title: "لیست دوره ها",
+        icon: <List  size={12} />,
+        navLink: "/TableCourses",
+      },
+      {
+        id: "createCOurse",
+        title: " ایجاد دوره ",
+        icon: <List  size={12} />,
+        navLink: "/CreatCourse",
+      },      
+      // {
+      //   id: "courdseList",
+      //   title: "222لیست دوره ها",
+      //   icon: <List  size={12} />,
+      //   navLink: "/UsersList",
+      // },
+    ],
   },
   {
     id: "news",
