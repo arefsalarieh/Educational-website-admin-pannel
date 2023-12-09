@@ -66,6 +66,17 @@ const TableCourses = () => {
         ایجاد دوره جدید
       </Button>
 
+      <Button
+        className="me-1 mb-4 mt-2"
+        color="primary"
+        type="submit"
+        onClick={() => {
+          navigate("/GetReserveCourse");
+        }}
+      >
+          دوره های رزرو شده   
+      </Button>
+
       <InputGroup className="mb-2 mt-8">
         <Search size={14} placeholder="جستجو..." onChange={(e)=>handleSearch(e)}  />
       </InputGroup>
