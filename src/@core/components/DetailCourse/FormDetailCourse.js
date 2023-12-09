@@ -23,11 +23,11 @@ const FormDetailCourse = () => {
   const navigate = useNavigate();
 
  
-  var datax;
+
+
   const getCourseInfo2 = async () =>{
     let result = await http.get(`/Course/${id}`)
     setdata(result)
-    datax = result;
   }
 
 
