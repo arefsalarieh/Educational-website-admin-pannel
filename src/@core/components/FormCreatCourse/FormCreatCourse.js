@@ -551,7 +551,7 @@ const FormCreatCourse = () => {
                 </Col>
 
                 <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> یوآرال </Label>
+                  <Label className="form-label"> رشته ی یکتا </Label>
                   <Input
                     value={values.UniqeUrlString}
                     name="UniqeUrlString"
