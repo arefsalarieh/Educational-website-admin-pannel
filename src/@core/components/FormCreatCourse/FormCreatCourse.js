@@ -1,5 +1,5 @@
 // ** React Imports
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 // ** Third Party Components
 import * as yup from "yup";
@@ -34,92 +34,94 @@ import Select from 'react-select'
 import { selectThemeColors } from '@utils'
 
 const FormCreatCourse = () => {
+  const [courseType, setCourseType] = useState();
+  const [courseTerm, setCourseTerm] = useState();
+  const [courseRoom, setCourseRoom] = useState();
+  const [courseLevel, setCourseLevel] = useState();
+  const [courseTeacher, setCourseTeacher] = useState();  
+  // courseTeacher && console.log(courseTeacher);
+
+  const getCreateFunc =async () =>{
+    const result = await http.get("/Course/GetCreate")
+    setCourseType(result.courseTypeDtos)
+    setCourseTerm(result.termDtos)
+    setCourseRoom(result.classRoomDtos)
+    setCourseLevel(result.courseLevelDtos)
+    setCourseTeacher(result.teachers)
 
 
-  // ** Hooks
-  const { reset } = useForm({ mode: "onChange" });
+  }
 
 
-  const CreatCourse = async (values) => {
+  // const {data , status} = useQuery('getCreate' , getCreateFunc)
 
-    const dataForm = new FormData();
-
-    const setCourses = {
-      Title: values.Title,
-      Describe: values.Describe,
-      MiniDescribe: values.MiniDescribe,
-      Capacity: values.Capacity,
-      CourseTypeId: values.CourseTypeId,
-      SessionNumber: values.SessionNumber,
-      CurrentCoursePaymentNumber: 0,
-      CoursePrerequisiteId:"6c0a12ea-6a73-ee11-b6c7-ca6d3e095898",
-      TremId: values.TremId,
-      ClassId: values.ClassId,
-      CourseLvlId: values.CourseLvlId,
-      TeacherId: values.TeacherId,
-      Cost: values.Cost,
-      UniqeUrlString: values.UniqeUrlString,
-      ShortLink: values.ShortLink,
-      TumbImageAddress: values.TumbImageAddress,
-      ImageAddress: values.ImageAddress,
-      Image: values.Image,
-    };
-
-    const keys = Object.keys(setCourses);
-    keys.forEach((key) => {
-      const item = setCourses[key];
-      dataForm.append(key, item);
-      console.log(dataForm);
-    });
-    const res = await http.post(`/Course`, dataForm);
-    return res;
-  };
+  useEffect(() => {
+    getCreateFunc()
+  },[]);
 
 
-  const cours= [
-    {
-        "id": 1,
-        "typeName": "آنلاین-حضوری",
-        "insertDate": "2023-10-25T22:14:30.083"
-    },
-    {
-        "id": 2,
-        "typeName": "حضوری",
-        "insertDate": "2023-10-25T22:14:34.947"
+// course type
+const newCourseTypeDtos = []
+
+ for (let i = 0; i < courseType?.length; i++) {
+    var newObj ={
+      value : courseType[i].id,
+      label : courseType[i].typeName
     }
-]
+    newCourseTypeDtos.push(newObj)
+}
 
 
-  const courseTypeDtos = [
-    { value: 1, label: "آنلاین-حضوری"},
-    { value: 2, label: "حضوری" },
+const newTermDtos = [];
 
-  ]
+ for (let i = 0; i < courseTerm?.length; i++) {
+    var newObj ={
+      value : courseTerm[i].id,
+      label : courseTerm[i].termName
+    }
+    newTermDtos.push(newObj)
+}
 
-  const termDtos = [
-    { value: 1, label:"ترم پاییز 1402"},
-  ]
+
+const newClassRoomDtos = [];
+
+ for (let i = 0; i < courseRoom?.length; i++) {
+    var newObj ={
+      value : courseRoom[i].id,
+      label : courseRoom[i].classRoomName
+    }
+    newClassRoomDtos.push(newObj)
+}
+
+
+const newCourseLevelDtos = [];
+
+ for (let i = 0; i < courseLevel?.length; i++) {
+    var newObj ={
+      value : courseLevel[i].id,
+      label : courseLevel[i].levelName
+    }
+    newCourseLevelDtos.push(newObj)   
+}
+
+
+const newTeachers = [];
+
+ for (let i = 0; i < courseTeacher?.length; i++) {
+    var newObj ={
+      value : courseTeacher[i].userId,
+      label : courseTeacher[i].fullName
+    }
+    newTeachers.push(newObj)
+    
+    console.log(newTeachers);
+}
+
+
  
-  const classRoomDtos = [
-    { value: 1, label: "کلاس شماره 1"},
-    { value: 2, label: "کلاس شماره 2" },    
-  ]
 
-  const courseLevelDtos = [
-      { value: 1, label: "  مقدماتی"},
-      { value: 2, label: "متوسط" },     
-      { value: 3, label: "پیشرفته" },     
-  ]
 
-  const technologyDtos = [
-      { value: 2, label: "  Front-End"},
-      { value: 3, label: "ّReactJS" },     
-      { value: 4, label: "NextJs" },     
-      { value: 5, label: "JAVASCRIPTS" },     
-      { value: 6, label: "BackEnd" },     
-      { value: 7, label: "c#" },     
-      { value: 8, label: "sql" },       
-  ]
+
 
 
 
@@ -136,40 +138,10 @@ const FormCreatCourse = () => {
 
   
 
-const arr = [
-  {
-    id: 1,
-    levelName: "مقدماتی"
-  },
-  {
-      id: 2,
-      levelName: "متوسط"
-  },
-]
-
-const objj =   {
-      id: 2,
-      levelName: "متوسط"
-  }
 
 
 
-var arr2 = [];
 
-// for(let key in objj){
-//   console.log();
-// }
-
-
-// var newArr = [];
-
-// for (let i = 0; i < arr.length; i++) {
-//     arr[i].
-
-
-//   console.log(Item);
-  
-// }
 
 
 
@@ -253,11 +225,9 @@ var arr2 = [];
                             <Select
                               id='CourseTypeId'
                               name='CourseTypeId' 
-                              value={values.CourseTypeId}
                               className='react-select'
                               classNamePrefix='select'
-                              defaultValue={courseTypeDtos[0]}
-                              options={courseTypeDtos}
+                              options={newCourseTypeDtos && newCourseTypeDtos}
                               isClearable={false}
                               onChange={(value)=>{setFieldValue('CourseTypeId',value.value)}}
                             />
@@ -282,7 +252,7 @@ var arr2 = [];
                               name='TremId'
                               className='react-select'
                               classNamePrefix='select'
-                              options={termDtos}
+                              options={newTermDtos && newTermDtos}
                               isClearable={false}
                               onChange={(value)=>{setFieldValue('TremId',value.value)}}
                             />
@@ -295,7 +265,7 @@ var arr2 = [];
                               name='ClassId'
                               className='react-select'
                               classNamePrefix='select'
-                              options={classRoomDtos}
+                              options={newClassRoomDtos && newClassRoomDtos}
                               isClearable={false}
                               onChange={(value)=>{setFieldValue('ClassId',value.value)}}
                             />                         
@@ -309,7 +279,7 @@ var arr2 = [];
                               name='CourseLvlId'
                               className='react-select'
                               classNamePrefix='select'
-                              options={courseLevelDtos}
+                              options={newCourseLevelDtos && newCourseLevelDtos}
                               isClearable={false}
                               onChange={(value)=>{setFieldValue('CourseLvlId',value.value)}}
                             />                                                          
@@ -323,8 +293,8 @@ var arr2 = [];
                               name='TeacherId'                              
                               className='react-select'
                               classNamePrefix='select'
-                              defaultValue={teachers[0]}
-                              options={teachers}
+                             
+                              options={newTeachers && newTeachers}
                               isClearable={false}
                               onChange={(value)=>{setFieldValue('TeacherId',value.value)}}
                             />
