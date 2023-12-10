@@ -60,6 +60,7 @@ import { Link, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { ErrorMessage, Formik } from "formik";
 import * as yup from "yup";
+import ReplyComments from "./ReplyComments";
 
 const validation = yup.object().shape({
   title: yup.string().required("لطفا مقدار عنوان را وارد کنید"),
@@ -73,18 +74,19 @@ const validation = yup.object().shape({
 const BlogDetails = () => {
   // ** States
   const [replyParams, setReplyParams] = useState(null);
-  const [replyMsg, setReplyMsg] = useState(null);
   const param = useParams();
 
-  const { data: newsObj, status } = useQuery("newsObj", () =>
-    instance.get(`/News/${param?.id}`)
-  );
+  const {
+    data: newsObj,
+    status,
+    refetch,
+  } = useQuery("newsObj", () => instance.get(`/News/${param?.id}`));
 
   const addComment = useMutation((comment) =>
     instance.post("/News/CreateNewsComment", comment).then((res) => {
       res.success === true && toast.success("کامنت با موفقیت درج شد");
       res.error === true &&
-        toast.error("خطایی پیش آمده لطفا مجددا تلاش نمایید");
+        toast.error("خطایی پیش آمده لطفا مجددا تلاش نمایید" + res.message);
     })
   );
   addComment.isError && toast.error("خطایی پیش آمده لطفا مجددا تلاش نمایید");
@@ -93,7 +95,7 @@ const BlogDetails = () => {
     instance.post("/News/CreateNewsReplyComment", reply).then((res) => {
       res.success === true && toast.success("پاسخ به کامنت با موفقیت درج شد");
       res.error === true &&
-        toast.success("خطایی پیش آمده لطفا مجددا تلاش نمایید");
+        toast.success("خطایی پیش آمده لطفا مجددا تلاش نمایید" + res.error.message);
     })
   );
   addReplyComment.isError &&
@@ -108,6 +110,7 @@ const BlogDetails = () => {
       });
       console.log(replyParams);
       addReplyComment.mutate(replyParams);
+      refetch()
     } else {
       const comment = {
         newsId: param.id,
@@ -116,14 +119,79 @@ const BlogDetails = () => {
         userId: newsObj?.detailsNewsDto.userId,
       };
       addComment.mutate(comment);
+      refetch()
     }
   };
 
-  const getCommentReplies = useMutation({
-    mutationFn: (commentId) => {
-      return instance.get(`/News/GetRepliesComments?Id=${commentId}`);
-    },
-  });
+  const commentLike = useMutation((id, likeOrUnlike) =>
+    instance
+      .post(`/News/CommentLike/${id}&LikeType=${likeOrUnlike}`)
+      .then((res) => {
+        res.success === true && toast.success("پاسخ به کامنت با موفقیت درج شد");
+        res.error === true &&
+          toast.success("خطایی پیش آمده لطفا مجددا تلاش نمایید");
+      })
+  );
+
+  const likeNews = useMutation((id) =>
+    instance.post(`/News/NewsLike/${id}`).then((res) => {
+      res.success === true && toast.success("عملیات با موفقیت انجام شد");
+      res.error === true && toast.error("خطایی اتفاق افتاده، مجددا تلاش کنید.");
+    })
+  );
+  likeNews.isError &&
+    toast.error("خطایی در ارتباط با سرور اتفاق افتاده، مجددا تلاش کنید.");
+
+  const dislikeNews = useMutation((id) =>
+    instance.post(`/News/NewsDissLike/${id}`).then((res) => {
+      res.success === true && toast.success("عملیات با موفقیت انجام شد");
+      res.error === true && toast.error("خطایی اتفاق افتاده، مجددا تلاش کنید.");
+    })
+  );
+  dislikeNews.isError &&
+    toast.error("خطایی در ارتباط با سرور اتفاق افتاده، مجددا تلاش کنید.");
+
+  const onLikeNews = (id) => {
+    likeNews.mutate(id);
+    refetch();
+  };
+  const onDislikeNews = (id) => {
+    dislikeNews.mutate(id);
+    refetch();
+  };
+
+  const onLikeComment = (id) => {
+    // type > 0 ? commentLike.mutate(id, false) : commentLike.mutate(id, true);
+    // const like = type > 0 ? true : false
+    try {
+      const res = instance.post(`/News/CommentLike/${id}`);
+      res.success && toast.success(",ملیات با موفقیت انجام شد");
+      res.error && toast.error("خطایی رخ داده");
+      refetch();
+    } catch (error) {
+      toast.error("خطایی رخ داده" + error.message);
+    }
+  };
+
+  const onDislikeLikeComment = (id) => {
+    try {
+      const deleteId = { deleteEntityId: id };
+      const res = instance.post("News/DeleteCommentLikeNews", {
+        deleteEntityId: id,
+      });
+
+      res.success && toast.success(",ملیات با موفقیت انجام شد");
+      res.error && toast.error("خطایی رخ داده");
+    } catch (error) {
+      toast.error("خطایی رخ داده" + error.message);
+    }
+  };
+
+  // const getCommentReplies = useMutation({
+  //   mutationFn: (commentId) => {
+  //     return instance.get(`/News/GetRepliesComments?Id=${commentId}`);
+  //   },
+  // });
 
   const badgeColorsArr = {
     Quote: "light-info",
@@ -133,11 +201,11 @@ const BlogDetails = () => {
     Food: "light-success",
   };
 
-  const onShowCommentReplies = (id) => {
-    const replyComment = getCommentReplies.mutate(id);
-    console.log(replyComment);
-    return <p>hi</p>;
-  };
+  // const onShowCommentReplies = (id) => {
+  //   const replyComment = getCommentReplies.mutate(id);
+  //   console.log(replyComment);
+  //   return <p>hi</p>;
+  // };
 
   // const renderTags = () => {
   //   return newsObj?.detailsNewsDto?.keyword.map((tag, index) => {
@@ -195,11 +263,24 @@ const BlogDetails = () => {
                     </div>
                   </a>
                   <div className="d-flex justify-content-between">
-                    <Link className="d-inline-flex align-items-center">
+                    <Link
+                      className={
+                        comment.currentUserIsLike === true
+                          ? "text-success d-inline-flex align-items-center"
+                          : "text-primary d-inline-flex align-items-center"
+                      }
+                      onClick={() => onLikeComment(comment.id)}>
                       <ThumbsUp size={18} className="me-50" />
                       <span className="me-1">{comment.likeCount}</span>
                     </Link>
-                    <Link className="d-inline-flex align-items-center">
+
+                    <Link
+                      className={
+                        comment.currentUserIsDissLike === true
+                          ? "text-warning d-inline-flex align-items-center"
+                          : "text-primary d-inline-flex align-items-center"
+                      }
+                      onClick={() => onDislikeLikeComment(comment.id)}>
                       <ThumbsDown size={18} className="me-50" />
                       <span>{comment.dissLikeCount}</span>
                     </Link>
@@ -208,12 +289,9 @@ const BlogDetails = () => {
               </div>
             </div>
           </CardBody>
-          {comment.replyCount > 0
-            ? 
-            // onShowCommentReplies(comment.id)
-              // getCommentReplies.mutate(comment.id)
-              console.log(comment.id)
-            : null}
+          {comment.replyCount > 0 ? (
+            <ReplyComments parentId={comment.id} />
+          ) : null}
         </Card>
       );
     });
@@ -242,8 +320,43 @@ const BlogDetails = () => {
                       top
                     />
                     <CardBody>
-                      <CardTitle tag="h4">
-                        {newsObj?.detailsNewsDto?.title}
+                      <CardTitle
+                        className="d-flex justify-content-between"
+                        tag="h4">
+                        <div>{newsObj?.detailsNewsDto?.title}</div>
+                        <div className="d-flex justify-content-between">
+                          <Link
+                            className={
+                              newsObj?.detailsNewsDto.currentUserIsDissLike ===
+                              true
+                                ? "text-success d-inline-flex align-items-center"
+                                : "text-primary d-inline-flex align-items-center"
+                            }
+                            onClick={() =>
+                              onLikeNews(newsObj?.detailsNewsDto.id)
+                            }>
+                            <ThumbsUp size={18} className="me-50" />
+                            <span className="me-1">
+                              {newsObj?.detailsNewsDto.currentLikeCount}
+                            </span>
+                          </Link>
+
+                          <Link
+                            className={
+                              newsObj?.detailsNewsDto.currentUserIsDissLike ===
+                              true
+                                ? "text-warning d-inline-flex align-items-center"
+                                : "text-primary d-inline-flex align-items-center"
+                            }
+                            onClick={() =>
+                              onDislikeNews(newsObj?.detailsNewsDto.id)
+                            }>
+                            <ThumbsDown size={18} className="me-50" />
+                            <span>
+                              {newsObj?.detailsNewsDto.currentDissLikeCount}
+                            </span>
+                          </Link>
+                        </div>
                       </CardTitle>
                       <div className="d-flex">
                         <Avatar

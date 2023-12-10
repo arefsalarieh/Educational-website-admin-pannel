@@ -13,14 +13,13 @@ import {
 } from "reactstrap";
 import { Fragment, useEffect } from "react";
 import { useState } from "react";
-import { QueryClient, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import instance from "../../interceptor";
 import NewsItem from "./NewsItem";
 import ProjSpinner from "../common/Spinner";
 import DbError from "../common/DbError";
 import NoItemFromDb from "../common/NoItemFromDb";
 import IconPagination from "../common/PaginationIconsAndText";
-import AddNewModal from "../modal/AddNewModal";
 import { inputTimeout } from "../../utils/inputTimeOut";
 import { useNavigate } from "react-router-dom";
 
@@ -47,7 +46,7 @@ const News = () => {
   // }, [apiParam.PageNumber]);
 
   // ** call api news
-  const { data, status, refetch, queryKey } = useQuery({
+  const { data, status, refetch } = useQuery({
     queryKey: [
       "getAllNews",
       apiParam.PageNumber,
@@ -59,8 +58,6 @@ const News = () => {
         `/News/AdminNewsFilterList?PageNumber=${apiParam.PageNumber}&RowsOfPage=${apiParam.RowsOfPage}&SortingCol=${apiParam.SortingCol}&SortType=${apiParam.SortType}&Query=${apiParam.Query}&IsActive=${apiParam.IsActive}`
       ),
   });
-
-  // const qClient = new QueryClient();
 
   const handleFilter = (e) => {
     // inputTimeout(
@@ -164,7 +161,7 @@ const News = () => {
                         data={news}
                         setApiParam={setApiParam}
                         apiParam={apiParam}
-                        refetch={refetch()}
+                        refetch={() => refetch()}
                       />
                     );
                   })}
@@ -181,7 +178,6 @@ const News = () => {
           setApiParam={setApiParam}
         />
       </Card>
-      {/* <AddNewModal open={modal} handleModal={handleModal}  /> */}
     </Fragment>
   );
 };

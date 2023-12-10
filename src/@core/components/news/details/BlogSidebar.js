@@ -17,9 +17,9 @@ const BlogSidebar = () => {
   // ** States
   const [data, setData] = useState(null)
 
-  useEffect(() => {
-    axios.get('/blog/list/data/sidebar').then(res => setData(res.data))
-  }, [])
+  // useEffect(() => {
+  //   axios.get('/blog/list/data/sidebar').then(res => setData(res.data))
+  // }, [])
 
   const CategoryColorsArr = {
     Quote: 'light-info',

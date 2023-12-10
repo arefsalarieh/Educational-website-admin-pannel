@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Activity,
+  Delete,
   Edit,
   Eye,
   MoreVertical,
@@ -34,8 +35,8 @@ function NewsItem({ data, apiParam, setApiParam, onClick, refetch }) {
   const onNavigateDetailsPage = (e) => {
     e.preventDefault();
     navigate("/news/newsDetail/" + data?.id);
-  }
-  
+  };
+
   const onActiveDeactive = (e) => {
     e.preventDefault();
     const obj = {
@@ -46,12 +47,31 @@ function NewsItem({ data, apiParam, setApiParam, onClick, refetch }) {
     const newFormData = makeFormData(obj);
 
     activeDeactive.mutate(newFormData);
-    refetch;
+    refetch();
   };
 
   const onEdit = (e) => {
     e.preventDefault();
     navigate("/editNews/" + data?.id);
+  };
+
+  const deleteNews = useMutation((id) =>
+    instance.delete(`/News/DeleteNewsFile?fileId=${id}`)
+      .then((res) => {
+        res.success === true && toast.success("عملیات حذف با موفقیت انجام شد.");
+        res.error === false && toast.error("عملیات با ارور مواجه شد");
+      })
+  );
+
+  deleteNews.isError &&
+    toast.error(
+      "عملیات از سمت سرور با خطا مواجه شد، لطفا بعدا مجددا تلاش نمایید."
+    );
+
+  const onDelete = (e, id) => {
+    e.preventDefault(e);
+    deleteNews.mutate(id);
+    refetch()
   };
 
   // ** set active or deactive
@@ -135,6 +155,13 @@ function NewsItem({ data, apiParam, setApiParam, onClick, refetch }) {
             <DropdownItem href="/" onClick={(e) => onEdit(e)}>
               <Edit className="me-50" size={15} />{" "}
               <span className="align-middle">تغییرات</span>
+            </DropdownItem>
+            <DropdownItem
+              className="text-danger"
+              href="/"
+              onClick={(e) => onDelete(e, data?.id)}>
+              <Delete className="me-50" size={15} />{" "}
+              <span className="align-middle">حذف کامل خبر</span>
             </DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>
