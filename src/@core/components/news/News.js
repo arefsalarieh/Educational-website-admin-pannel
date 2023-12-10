@@ -60,7 +60,7 @@ const News = () => {
       ),
   });
 
-  const qClient = new QueryClient();
+  // const qClient = new QueryClient();
 
   const handleFilter = (e) => {
     // inputTimeout(

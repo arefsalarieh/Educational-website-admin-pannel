@@ -1,6 +1,6 @@
 // ** Reactstrap Imports
 import { Formik } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Row,
   Col,
@@ -34,29 +34,32 @@ const VerticalForm = () => {
     title: "",
     miniDesc: "",
     desc: "",
-    tags: "",
+    Keyword: "",
     sliderShow: true,
     image: null,
   });
 
+
+  // useEffect(()=>{
+  //   isEditing(param?.id)
+  // },[param?.id])
+
   const isEditing = (id) => {
-    const { data } = useQuery("getNewsDetial", () =>
+    const { data } = useQuery("getNewsDetail", () =>
       instance.get(`/News/${id}`).then((res) => {
         return res.detailsNewsDto;
       })
     );
 
-    // setInitialValues({
-    //   title: data?.title,
-    //   miniDesc: data?.miniDescribe,
-    //   desc: data?.describe,
-    //   tags: data?.Keyword,
-    //   sliderShow: data?.isSlider,
-    //   image: data?.currentImageAddress,
-    // });
+    setInitialValues({
+      title: data?.title,
+      miniDesc: data?.miniDescribe,
+      desc: data?.describe,
+      Keyword: data?.Keyword,
+      sliderShow: data?.isSlider,
+      image: data?.currentImageAddress,
+    });
   };
-
-  param.id ? isEditing(param.id) : null;
 
   const addNews = useMutation({
     mutationFn: (formNewsData) => {
@@ -86,7 +89,7 @@ const VerticalForm = () => {
         values.miniDesc,
       MiniDescribe: values.miniDesc,
       Describe: values.desc,
-      Keyword: values.tags,
+      Keyword: values.Keyword,
       IsSlider: values.sliderShow,
       NewsCatregoryId: 1,
       Image: values.Image,
@@ -169,13 +172,13 @@ const VerticalForm = () => {
                   />
                 </Col>
                 <Col sm="12" className=" mb-1">
-                  <Label className="form-label" for="tags">
+                  <Label className="form-label" for="Keyword">
                     کلمات کلیدی
                   </Label>
                   <Input
                     type="text"
-                    name="tags"
-                    id="tags"
+                    name="Keyword"
+                    id="Keyword"
                     placeholder="کلمات کلیدی"
                     value={values.Keyword}
                     onChange={handleChange}

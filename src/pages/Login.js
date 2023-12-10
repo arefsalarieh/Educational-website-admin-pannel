@@ -62,7 +62,7 @@ const Login = () => {
     }
 
     const result = await http.post(`/Sign/Login` , person)
-    console.log(result);
+    // console.log(result);
 
     if(result.roles?.includes("Administrator" || "Teacher" || "Referee" || "TournamentMentor")){
       navigate('/home')

@@ -33,7 +33,7 @@ const AdminTable = lazy(() => import("../../@core/components/UserTable/AdminTabl
 // ** start news imports
 const News = lazy(() => import("../../@core/components/news/News"));
 const AddNews = lazy(() => import("../../@core/components/news/AddNews"));
-// const NewsDetail = lazy(() => import("../../@core/components/news/newsDetail/NewsDetail"));
+const NewsDetail = lazy(() => import("../../@core/components/news/details"));
 //** end news imports
 const TeacherTable = lazy(() =>
   import("../../@core/components/UserTable/TeacherTable")
@@ -124,15 +124,15 @@ const Routes = [
     path: "/editNews/:id",
     element: <AddNews />,
   },
-  // {
-  //   path: "/news/newsDetail/",
-  //   element: <NewsDetail />,
-  // },
-  // ** end news routes
   {
-    path: "/second-page",
-    element: <SecondPage />,
+    path: "/news/newsDetail/:id",
+    element: <NewsDetail />,
   },
+  // ** end news routes
+  // {
+  //   path: "/second-page",
+  //   element: <SecondPage />,
+  // },
   {
     path: "/login",
     element: <Login />,
