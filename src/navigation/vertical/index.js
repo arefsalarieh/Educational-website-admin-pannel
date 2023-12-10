@@ -64,7 +64,7 @@ export default [
         id: "createCOurse",
         title: " ایجاد دوره ",
         icon: <List  size={12} />,
-        navLink: "/CreatCourse",
+        navLink: "/FormCreatCourse",
       },      
       // {
       //   id: "courdseList",
