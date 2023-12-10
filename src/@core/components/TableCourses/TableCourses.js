@@ -18,6 +18,7 @@ import CourseItem from "./CourseItem";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Search from "antd/es/input/Search";
+import MyNavbar from "./MyNavbar";
 
 const TableCourses = () => {
   const [search, setSearch] = useState("");
@@ -55,6 +56,9 @@ const TableCourses = () => {
 
   return (
     <>
+
+<MyNavbar/>
+
       <Button
         className="me-1 mb-4 mt-2"
         color="primary"
@@ -66,7 +70,7 @@ const TableCourses = () => {
         ایجاد دوره جدید
       </Button>
 
-      <Button
+      {/* <Button
         className="me-1 mb-4 mt-2"
         color="primary"
         type="submit"
@@ -75,7 +79,7 @@ const TableCourses = () => {
         }}
       >
           دوره های رزرو شده   
-      </Button>
+      </Button> */}
 
       <InputGroup className="mb-2 mt-8">
         <Search size={14} placeholder="جستجو..." onChange={(e)=>handleSearch(e)}  />
