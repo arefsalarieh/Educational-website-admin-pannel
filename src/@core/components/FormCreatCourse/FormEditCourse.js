@@ -91,9 +91,7 @@ const FormEditCourse = () => {
 
   const { data, status } = useQuery(["courseInfo", id], getCourseInfo);
   console.log(data);
-  // {
-  //   status === "success" &&  setCourseEdit(data);
-  // }
+
   useEffect(() => {
     if (status === "success") {
       setCourseEdit({ data });
