@@ -31,6 +31,7 @@ import { ErrorMessage, Field, Formik } from "formik";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useQuery } from "react-query";
+import { Select } from "antd";
 
 const FormEditCourse = () => {
   const validation = yup.object().shape({
@@ -48,7 +49,7 @@ const FormEditCourse = () => {
     ClassId: yup.string().required("لطفا آی دی کلاس  را وارد نمایید"),
     TeacherId: yup.string().required("لطفا آی دی استاد  را وارد نمایید"),
     Cost: yup.string().required("لطفا قیمت  را وارد نمایید"),
-    UniqeUrlString: yup.string().required("لطفا یو آر ال  را وارد نمایید"),
+    UniqeUrlString: yup.string().required("لطفا رشته ای که تکراری نباشد وارد کنید"),
     ShortLink: yup.string().required("لطفا لینک کوتاه  را وارد نمایید"),
     TumbImageAddress: yup.string().required("لطفا عکس کوچک  را وارد نمایید"),
     ImageAddress: yup.string().required("لطفا آدرس عکس  را وارد نمایید"),
@@ -57,8 +58,8 @@ const FormEditCourse = () => {
     EndTime: yup.string().required("تاریخ پایان وارد شود"),
   });
 
-  // ** Hooks
-  const { reset } = useForm({ mode: "onChange" });
+  // // ** Hooks
+  // const { reset } = useForm({ mode: "onChange" });
 
   const [courseEdit, setCourseEdit] = useState({
     Title: "",
@@ -100,6 +101,46 @@ const FormEditCourse = () => {
 
   console.log(courseEdit);
 
+  const [CourseLvlId, setCCourseLvlId] = useState([]);
+  const [CourseTypeId, setCourseType] = useState([]);
+  // const [courseStatus, setCourseStatus] = useState([]);
+  const [ClassId, setCourseRoom] = useState([]);
+  const [TeacherId, setCourseTeach] = useState([]);
+  const [TremId, setCourseTerm] = useState([]);
+  // const [coursetechnol, setCourseTechnol] = useState([]);
+
+  const getCourse = async () => {
+    const result = await http.get(`/Course/GetCreate`);
+
+    setCourseType(
+      result?.courseTypeDtos?.map((m) => ({ value: m.id, label: m.typeName }))
+    );
+    setCCourseLvlId(
+      result?.courseLevelDtos?.map((m) => ({ value: m.id, label: m.levelName }))
+    );
+    // setCourseStatus(
+    //   result?.statusDtos?.map((m) => ({ value: m.id, label: m.statusName }))
+    // );
+    setCourseRoom(
+      result?.classRoomDtos?.map((m) => ({
+        value: m.id,
+        label: m.classRoomName,
+      }))
+    );
+    setCourseTeach(
+      result?.teachers?.map((m) => ({ value: m.userId, label: m.fullName }))
+    );
+    setCourseTerm(
+      result?.termDtos?.map((m) => ({ value: m.id, label: m.termName }))
+    );
+    // setCourseTechnol(
+    //   result?.technologyDtos?.map((m) => ({ value: m.id, label: m.techName }))
+    // );
+
+    return result;
+  };
+  const { dataGet, statusGet } = useQuery("getCourse", getCourse);
+
   const editCourse = async (values) => {
     const dataForm = new FormData();
 
@@ -123,7 +164,7 @@ const FormEditCourse = () => {
       ImageAddress: values.ImageAddress,
       StartTime: values.StartTime,
       EndTime: values.EndTime,
-      CoursePrerequisiteId:"7b41aed7-2576-ee11-b6c7-ca6d3e095898"
+      CoursePrerequisiteId: "7b41aed7-2576-ee11-b6c7-ca6d3e095898",
     };
     const keys = Object.keys(setCourses);
     keys.forEach((key) => {
@@ -276,14 +317,19 @@ const FormEditCourse = () => {
               <Row>
                 <Col>
                   <div>
-                    <Label className="form-label"> آی دی نوع کلاس </Label>
+                    <Label className="form-label"> نوع کلاس </Label>
                     <div>
                       <Field name="CourseTypeId">
                         {({ field }) => (
                           <div>
-                            <Input
+                            <Select
+                              style={{ width: "480px", height: "40px" }}
+                              options={CourseTypeId}
                               type="text"
                               {...field}
+                              onChange={(val) =>
+                                setFieldValue("CourseTypeId", val)
+                              }
                               placeholder=" لطفا نوع کلاس را وارد نمایید..."
                               setInitialValues={courseEdit.CourseTypeId}
                             />
@@ -351,14 +397,19 @@ const FormEditCourse = () => {
                 </Col>
                 <Col>
                   <div>
-                    <Label className="form-label"> آی دی ترم </Label>
+                    <Label className="form-label"> ترم </Label>
                     <div>
                       <Field name="TremId">
                         {({ field }) => (
                           <div>
-                            <Input
+                            <Select
+                              style={{ width: "480px", height: "40px" }}
+                              options={TremId}
                               type="text"
                               {...field}
+                              onChange={(val) =>
+                                setFieldValue("TremId", val)
+                              }
                               placeholder="ترم "
                               setInitialValues={courseEdit.TremId}
                             />
@@ -377,15 +428,19 @@ const FormEditCourse = () => {
               <Row>
                 <Col>
                   <div>
-                    <Label className="form-label"> آی دی کلاس </Label>
+                    <Label className="form-label"> شماره کلاس </Label>
                     <div>
                       <Field name="ClassId">
                         {({ field }) => (
                           <div>
-                            <Input
-                              type="text"
+                            <Select
+                              style={{ width: "480px", height: "40px" }}
+                              options={ClassId}
                               {...field}
-                              placeholder="آی دی کلاس ..."
+                              onChange={(val) =>
+                                setFieldValue("ClassId", val)
+                              }
+                              placeholder="شماره کلاس ..."
                               setInitialValues={courseEdit.ClassId}
                             />
                           </div>
@@ -401,14 +456,19 @@ const FormEditCourse = () => {
                 </Col>
                 <Col>
                   <div>
-                    <Label className="form-label"> آی دی سطح دوره </Label>
+                    <Label className="form-label">سطح دوره </Label>
                     <div>
                       <Field name="CourseLvlId">
                         {({ field }) => (
                           <div>
-                            <Input
+                            <Select
+                              style={{ width: "480px", height: "40px" }}
+                              options={CourseLvlId}
                               type="text"
                               {...field}
+                              onChange={(val) =>
+                                setFieldValue("CourseLvlId", val)
+                              }
                               placeholder=" سطح دوره"
                               setInitialValues={courseEdit.CourseLvlId}
                             />
@@ -427,14 +487,19 @@ const FormEditCourse = () => {
               <Row>
                 <Col>
                   <div className="fieldAdd">
-                    <Label className="form-label"> آی دی استاد </Label>
+                    <Label className="form-label"> شماره تماس استاد </Label>
                     <div>
                       <Field name="TeacherId">
                         {({ field }) => (
                           <div>
-                            <Input
+                            <Select
+                              style={{ width: "480px", height: "40px" }}
+                              options={TeacherId}
                               type="text"
                               {...field}
+                              onChange={(val) =>
+                                setFieldValue("TeacherId", val)
+                              }
                               placeholder=" آی دی استاد"
                               setInitialValues={courseEdit.TeacherId}
                             />
@@ -478,7 +543,7 @@ const FormEditCourse = () => {
               <Row>
                 <Col>
                   <div>
-                    <Label className="form-label"> یو آر ال </Label>
+                    <Label className="form-label"> رشته ی یکتا</Label>
                     <div>
                       <Field name="UniqeUrlString">
                         {({ field }) => (
@@ -486,7 +551,7 @@ const FormEditCourse = () => {
                             <Input
                               type="text"
                               {...field}
-                              placeholder="یو آر ال ..."
+                              placeholder=" رشته ای که تکراری نباشد وارد کنید  ..."
                               setInitialValues={courseEdit.UniqeUrlString}
                             />
                           </div>

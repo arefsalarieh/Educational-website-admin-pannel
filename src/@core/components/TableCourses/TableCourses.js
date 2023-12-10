@@ -86,11 +86,11 @@ const TableCourses = () => {
       </InputGroup>
 
       <Table responsive>
-        <thead>
+        <thead  style={{ width: "1000px" }}>
           <tr>
             <th className="text-nowrap ">نام دوره</th>
             <th className="text-nowrap ">عنوان دوره</th>
-            <th className="text-nowrap ">نوع دوره</th>
+            {/* <th className="text-nowrap ">نوع دوره</th> */}
             <th className="text-nowrap ">قیمت</th>
           </tr>
         </thead>
@@ -103,7 +103,7 @@ const TableCourses = () => {
                     key={index}
                     id={item.courseId}
                     fullName={item.fullName}
-                    typeName={item.typeName}
+                    // typeName={item.typeName}
                     cost={item.cost}
                     title={item.title}
                     refetch={refetch}
