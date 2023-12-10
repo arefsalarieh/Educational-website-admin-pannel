@@ -49,7 +49,9 @@ const FormEditCourse = () => {
     ClassId: yup.string().required("لطفا آی دی کلاس  را وارد نمایید"),
     TeacherId: yup.string().required("لطفا آی دی استاد  را وارد نمایید"),
     Cost: yup.string().required("لطفا قیمت  را وارد نمایید"),
-    UniqeUrlString: yup.string().required("لطفا رشته ای که تکراری نباشد وارد کنید"),
+    UniqeUrlString: yup
+      .string()
+      .required("لطفا رشته ای که تکراری نباشد وارد کنید"),
     ShortLink: yup.string().required("لطفا لینک کوتاه  را وارد نمایید"),
     TumbImageAddress: yup.string().required("لطفا عکس کوچک  را وارد نمایید"),
     ImageAddress: yup.string().required("لطفا آدرس عکس  را وارد نمایید"),
@@ -86,12 +88,12 @@ const FormEditCourse = () => {
 
   const getCourseInfo = async () => {
     const result = await http.get(`/Course/${id}`);
-    refetch();
     return result;
   };
 
   const { data, status } = useQuery(["courseInfo", id], getCourseInfo);
-  console.log(data);
+
+  data && console.log(data);
 
   useEffect(() => {
     if (status === "success") {
@@ -398,9 +400,7 @@ const FormEditCourse = () => {
                               options={TremId}
                               type="text"
                               {...field}
-                              onChange={(val) =>
-                                setFieldValue("TremId", val)
-                              }
+                              onChange={(val) => setFieldValue("TremId", val)}
                               placeholder="ترم "
                               setInitialValues={courseEdit.TremId}
                             />
@@ -428,9 +428,7 @@ const FormEditCourse = () => {
                               style={{ width: "480px", height: "40px" }}
                               options={ClassId}
                               {...field}
-                              onChange={(val) =>
-                                setFieldValue("ClassId", val)
-                              }
+                              onChange={(val) => setFieldValue("ClassId", val)}
                               placeholder="شماره کلاس ..."
                               setInitialValues={courseEdit.ClassId}
                             />
