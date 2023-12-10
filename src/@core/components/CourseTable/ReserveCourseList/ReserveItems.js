@@ -13,36 +13,30 @@ import { useQuery } from "react-query";
 import { useFormikContext } from "formik";
 import { Button } from 'reactstrap'
 import { Accordion, AccordionBody, AccordionHeader, AccordionItem } from 'reactstrap'
-
+import ShareProjectExample from "./ShareProject";
+import { Row, Col } from 'reactstrap'
 
 
 
 const ReserveItem = ({courseName , studentName , studentId , reserverDate , accept , courseId}) => {
   const navigate = useNavigate();
-  const [courseInfo , setCourseInfo] = useState()
-  const [courseGroup , setCourseGroup] = useState()
-  const [rand , setRand] = useState(1)
+  const [courseGroup , setCourseGroup] = useState(0)
+  const [show, setShow] = useState(false)
+
 
 
   const getCourseInfo = async (courseId) =>{
     let result = await http.get(`/Course/${courseId}`)
-    setCourseInfo(result)
-    setTimeout(()=>{setRand(2)},1000) 
+    let result2 = await http.get(`CourseGroup/GetCourseGroup?TeacherId=${result.teacherId}&CourseId=${courseId}`)
+
+    setCourseGroup(result2)
+    setTimeout(setShow(true) , 1000)
   }
 
 
-  const getCourseGroup = async () =>{
-    let result = await http.get(`CourseGroup/GetCourseGroup?TeacherId=${courseInfo.teacherId}&CourseId=${courseId}`)
-    result && setCourseGroup(result)
-    result && console.log(result);
-
-    
-  }
 
 
-  useEffect(()=>{
-     rand !==1 &&  getCourseGroup()
-  } , [rand])
+ 
 
 
 
@@ -69,9 +63,11 @@ const ReserveItem = ({courseName , studentName , studentId , reserverDate , acce
                 </Button>
           </td>
 
-          <td>
-            <Button onClick={() => {getCourseInfo(courseId)}} pill color="primary" className="me-1">تایید رزرو</Button>
-          </td>
+
+
+          <td onClick={() => getCourseInfo(courseId)}>
+            <ShareProjectExample courseId={courseId} courseGroup={ courseGroup} studentId={studentId} show={show} setShow={setShow}/>
+          </td>        
         </tr>
       
   )

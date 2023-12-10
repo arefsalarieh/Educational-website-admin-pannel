@@ -10,70 +10,25 @@ import {
   CardTitle,
 } from "reactstrap";
 import { Row, Col } from 'reactstrap'
-import { useState , useEffect } from "react";
 
 
 
 const FormDetailCourse = () => {
-  const [data , setdata] = useState()
-  const [rand , setRand] = useState()
-  const [courseGrou , setCourseGrou] = useState()
-
   const { id } = useParams();
+
+  console.log(id);
+
+  const getCourseInfo = async () => {
+    const result = await http.get(`/Course/${id}`);
+    return result;
+  };
+
+  const { data, status } = useQuery(["courseInfo", id], getCourseInfo);
+
+  data && console.log(data);
+
   const navigate = useNavigate();
 
- 
-
-
-  const getCourseInfo2 = async () =>{
-    let result = await http.get(`/Course/${id}`)
-    setdata(result)
-  }
-
-
-
-
-const getCourseGroup2 = async () =>{
-  let result = await http.get(`CourseGroup/GetCourseGroup?TeacherId=${data.teacherId}&CourseId=${data.courseId}`)
-  result && setCourseGrou(result)
-}
-
-
-useEffect(()=>{
-  getCourseInfo2()
-  setTimeout(()=>{setRand(2)},1000) 
-} , [])
-
-useEffect(()=>{
-  getCourseGroup2()
-} , [rand])
-
-
-courseGrou && console.log(courseGrou);
-
-
-  // const getCourseInfo = async () => {
-  //   const result = await http.get(`/Course/${id}`);
-  //   return result;
-  // };
-
-  // const { data, status } = useQuery(["courseInfo", id], getCourseInfo);
-
-  
-
-
-  // const getCourseGroup = async ()=>{
-  //   const result = await http.get(`/CourseGroup/GetCourseGroup?TeacherId=2&CourseId=${data && data.courseId}`);
-  //   return result;    
-  // }
-
-  // const {data:courseGro , status:courseGroupStat} = useQuery('courseg' , getCourseGroup)
-
-  
-
-
-
- 
   return (
     <>
       {/* <Button
