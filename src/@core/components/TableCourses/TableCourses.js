@@ -86,7 +86,7 @@ const TableCourses = () => {
       </InputGroup>
 
       <Table responsive>
-        <thead  style={{ width: "1000px" }}>
+        <thead >
           <tr>
             <th className="text-nowrap ">نام دوره</th>
             <th className="text-nowrap ">عنوان دوره</th>
