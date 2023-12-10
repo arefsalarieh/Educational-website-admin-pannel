@@ -103,11 +103,9 @@ const FormEditCourse = () => {
 
   const [CourseLvlId, setCCourseLvlId] = useState([]);
   const [CourseTypeId, setCourseType] = useState([]);
-  // const [courseStatus, setCourseStatus] = useState([]);
   const [ClassId, setCourseRoom] = useState([]);
   const [TeacherId, setCourseTeach] = useState([]);
   const [TremId, setCourseTerm] = useState([]);
-  // const [coursetechnol, setCourseTechnol] = useState([]);
 
   const getCourse = async () => {
     const result = await http.get(`/Course/GetCreate`);
@@ -118,9 +116,6 @@ const FormEditCourse = () => {
     setCCourseLvlId(
       result?.courseLevelDtos?.map((m) => ({ value: m.id, label: m.levelName }))
     );
-    // setCourseStatus(
-    //   result?.statusDtos?.map((m) => ({ value: m.id, label: m.statusName }))
-    // );
     setCourseRoom(
       result?.classRoomDtos?.map((m) => ({
         value: m.id,
@@ -133,10 +128,6 @@ const FormEditCourse = () => {
     setCourseTerm(
       result?.termDtos?.map((m) => ({ value: m.id, label: m.termName }))
     );
-    // setCourseTechnol(
-    //   result?.technologyDtos?.map((m) => ({ value: m.id, label: m.techName }))
-    // );
-
     return result;
   };
   const { dataGet, statusGet } = useQuery("getCourse", getCourse);
@@ -694,9 +685,9 @@ const FormEditCourse = () => {
                 <Button className="me-1 " color="primary" type="submit">
                   ویرایش
                 </Button>
-                <Button outline color="secondary" type="reset">
+                {/* <Button outline color="secondary" type="reset">
                   ریست
-                </Button>
+                </Button> */}
               </div>
             </CardBody>
           </Card>
