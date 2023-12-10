@@ -85,6 +85,7 @@ const FormEditCourse = () => {
 
   const getCourseInfo = async () => {
     const result = await http.get(`/Course/${id}`);
+    refetch();
     return result;
   };
 

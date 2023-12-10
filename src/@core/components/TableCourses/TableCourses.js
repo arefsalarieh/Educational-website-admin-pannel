@@ -90,8 +90,6 @@ const TableCourses = () => {
           <tr>
             <th className="text-nowrap ">نام دوره</th>
             <th className="text-nowrap ">عنوان دوره</th>
-            {/* <th  className='text-nowrap '>سطح دوره</th> */}
-            {/* <th  className='text-nowrap '>وضعیت دوره</th> */}
             <th className="text-nowrap ">نوع دوره</th>
             <th className="text-nowrap ">قیمت</th>
           </tr>
@@ -106,8 +104,6 @@ const TableCourses = () => {
                     id={item.courseId}
                     fullName={item.fullName}
                     typeName={item.typeName}
-                    // statusName={item.statusName}
-                    // levelName={item.levelName}
                     cost={item.cost}
                     title={item.title}
                     refetch={refetch}

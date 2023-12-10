@@ -13,7 +13,7 @@ import PublicRoute from "@components/routes/PublicRoute";
 // ** Utils
 import { isObjEmpty } from "@utils";
 
-
+// import ReserveCourseList from "../../@core/common/CourseTable/ReserveCourseList/ReserveCourseList"
 import GetReserveCourse from "../../pages/GetReserveCourse";
 import ReserveCourse from "../../pages/ReserveCourse";
 import CreatCourse from "../../pages/CreatCourse";
@@ -59,6 +59,7 @@ const ForgotPassword = lazy(() => import("../../pages/ForgotPassword"));
 const Error = lazy(() => import("../../pages/Error"));
 const Sample = lazy(() => import("../../pages/Sample"));
 
+
 // ** Merge Routes
 const Routes = [
   {
@@ -102,6 +103,10 @@ const Routes = [
     path: "/CoursesList",
     element: <CoursesList />,
   },
+  // {
+  //   path: '/ReserveCourseList',
+  //   element: <ReserveCourseList/>
+  // },
   {
     element: <UsersList />,
     path: "/UsersList",
