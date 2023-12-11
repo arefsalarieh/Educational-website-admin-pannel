@@ -32,6 +32,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { Select } from "antd";
+import { Title } from "chart.js";
 
 const FormEditCourse = () => {
   const validation = yup.object().shape({
@@ -90,7 +91,6 @@ const FormEditCourse = () => {
     const result = await http.get(`/Course/${id}`);
     return result;
   };
-
   const { data, status } = useQuery(["courseInfo", id], getCourseInfo);
 
   data && console.log(data);
@@ -102,6 +102,8 @@ const FormEditCourse = () => {
   }, [status, data]);
 
   console.log(courseEdit);
+ 
+  console.log(courseEdit?courseEdit.ClassId:"");
 
   const [CourseLvlId, setCCourseLvlId] = useState([]);
   const [CourseTypeId, setCourseType] = useState([]);
@@ -133,6 +135,7 @@ const FormEditCourse = () => {
     return result;
   };
   const { dataGet, statusGet } = useQuery("getCourse", getCourse);
+
 
   const editCourse = async (values) => {
     const dataForm = new FormData();

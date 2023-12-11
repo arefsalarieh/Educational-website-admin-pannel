@@ -16,7 +16,7 @@ import http from "../../interceptor";
 import { useQuery } from "react-query";
 import CourseItem from "./CourseItem";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Search from "antd/es/input/Search";
 import MyNavbar from "./MyNavbar";
 
@@ -34,21 +34,31 @@ const TableCourses = () => {
       console.log(e.target.value);
       setSearch("");
     }
+    console.log(search);
 
     // console.log(e.target.value);
     // e.target.value && setSearch(e.target.value);
     // !e.target.value && setSearch("");
   };
+  console.log(search)
 
   const getAllCourses = async () => {
     const result = await http.get(
       `/Course/CourseList?PageNumber=1&RowsOfPage=200&SortingCol=DESC&SortType=Expire&Query=${search}`
     );
+    refetch();
     console.log(result);
     return result;
   };
 
+ 
   const { data, status, refetch } = useQuery("getAllCourses", getAllCourses);
+  
+  useEffect(() => {
+    if (status === "success") {
+      setSearch({ data });
+    }
+  }, [status, data]);
 
   // data && console.log(data.courseDtos[0].isdelete);
 

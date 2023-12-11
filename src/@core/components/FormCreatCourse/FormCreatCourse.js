@@ -136,7 +136,6 @@ const FormCreatCourse = () => {
     keys.forEach((key) => {
       const item = setCourses[key];
       dataForm.append(key, item);
-      dataForm.courseType = Number(dataForm.courseType);
       console.log(dataForm);
     });
     const res = await http.post(`/Course`, dataForm);
