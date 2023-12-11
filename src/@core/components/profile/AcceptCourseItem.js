@@ -5,7 +5,9 @@ import { Button } from 'reactstrap'
 import { useNavigate } from 'react-router-dom';
 
 
-const AcceptCourseItem = ({title , lastUpdate}) => {
+const AcceptCourseItem = ({title , lastUpdate , id}) => {
+
+    // console.log(id);
 
 
     const navigate = useNavigate()

@@ -10,6 +10,7 @@ import {
   Row,
   Col,
   Label,
+  Input,
 } from "reactstrap";
 
 // ** Utils
@@ -40,7 +41,7 @@ import {
 } from "react-feather";
 import { useQuery } from "react-query";
 import http from "../../interceptor";
-import { useFormikContext } from "formik";
+import { ErrorMessage, useFormikContext } from "formik";
 
 const colorOptions = [
   { value: "ocean", label: "Ocean", color: "#00B8D9", isFixed: true },
@@ -50,8 +51,6 @@ const colorOptions = [
   { value: "orange", label: "Orange", color: "#FF8B00", isFixed: false },
   { value: "yellow", label: "Yellow", color: "#FFC400", isFixed: false },
 ];
-
-
 
 const groupedOptions = [
   {
@@ -108,7 +107,8 @@ const formatGroupLabel = (data) => (
   </div>
 );
 
-const SelectOptions = () => {
+const SelectOptions = ({ values }) => {
+  console.log(values);
   // ** State
   const [query, setQuery] = useState("");
   const [selectedDBVal, setSelectedDBVal] = useState(null);
@@ -181,7 +181,6 @@ const SelectOptions = () => {
     });
   };
 
-
   const [courseLvl, setCourseLvl] = useState([]);
   const [courseType, setCourseType] = useState([]);
   const [courseStatus, setCourseStatus] = useState([]);
@@ -190,9 +189,7 @@ const SelectOptions = () => {
   const [courseterm, setCourseTerm] = useState([]);
   const [coursetechnol, setCourseTechnol] = useState([]);
 
-
   const getCreatCourse = async () => {
-
     const result = await http.get(`/Course/GetCreate`);
 
     setCourseType(
@@ -205,7 +202,10 @@ const SelectOptions = () => {
       result?.statusDtos?.map((m) => ({ value: m.id, label: m.statusName }))
     );
     setCourseRoom(
-      result?.classRoomDtos?.map((m) => ({ value: m.id, label: m.classRoomName }))
+      result?.classRoomDtos?.map((m) => ({
+        value: m.id,
+        label: m.classRoomName,
+      }))
     );
     setCourseTeach(
       result?.teachers?.map((m) => ({ value: m.userId, label: m.fullName }))
@@ -235,7 +235,13 @@ const SelectOptions = () => {
               classNamePrefix="select"
               onChange={(val) => setFieldValue("courseType", val)}
             />
+            <ErrorMessage name="courseType">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>;
+              }}
+            </ErrorMessage>
           </Col>
+
           <Col className="mb-1" md="6" sm="12">
             <Label className="form-label"> سطح دوره </Label>
             <Select
@@ -244,7 +250,13 @@ const SelectOptions = () => {
               classNamePrefix="select"
               onChange={(val) => setFieldValue("courseLvl", val)}
             />
+            <ErrorMessage name="courseLvl">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>;
+              }}
+            </ErrorMessage>
           </Col>
+
           <Col className="mb-1" md="6" sm="12">
             <Label className="form-label"> وضعیت دوره </Label>
             <Select
@@ -254,7 +266,13 @@ const SelectOptions = () => {
               onChange={(val) => setFieldValue("courseStatus", val)}
             />
             <option value={data?.id}></option>
+            <ErrorMessage name="courseStatus">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>;
+              }}
+            </ErrorMessage>
           </Col>
+
           <Col className="mb-1" md="6" sm="12">
             <Label className="form-label"> شماره کلاس </Label>
             <Select
@@ -263,7 +281,13 @@ const SelectOptions = () => {
               classNamePrefix="select"
               onChange={(val) => setFieldValue("courseroom", val)}
             />
+            <ErrorMessage name="courseroom">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>;
+              }}
+            </ErrorMessage>
           </Col>
+
           <Col className="mb-1" md="6" sm="12">
             <Label className="form-label"> شماره استاد </Label>
             <Select
@@ -272,7 +296,13 @@ const SelectOptions = () => {
               classNamePrefix="select"
               onChange={(val) => setFieldValue("courseteach", val)}
             />
+            <ErrorMessage name="courseteach">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>;
+              }}
+            </ErrorMessage>
           </Col>
+
           <Col className="mb-1" md="6" sm="12">
             <Label className="form-label"> ترم </Label>
             <Select
@@ -281,7 +311,13 @@ const SelectOptions = () => {
               classNamePrefix="select"
               onChange={(val) => setFieldValue("courseterm", val)}
             />
+            <ErrorMessage name="courseterm">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>;
+              }}
+            </ErrorMessage>
           </Col>
+
           <Col className="mb-1" md="6" sm="12">
             <Label className="form-label">آموزش و یادگیری</Label>
             <Select
@@ -290,6 +326,278 @@ const SelectOptions = () => {
               classNamePrefix="select"
               onChange={(val) => setFieldValue("coursetechnol", val)}
             />
+            <ErrorMessage name="coursetechnol">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>;
+              }}
+            </ErrorMessage>
+          </Col>
+
+          <Col className="mb-1" md="6" sm="12">
+            <Label className="form-label"> توضیحات </Label>
+            <Input
+              value={values.Describe}
+              name="Describe"
+              className="react-select"
+              classNamePrefix="select"
+              onChange={(val) => setFieldValue("Describe", val.target.value)}
+            />
+            <ErrorMessage name="Describe">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>;
+              }}
+            </ErrorMessage>
+          </Col>
+
+          <Col className="mb-1" md="6" sm="12">
+            <Label className="form-label"> مینی توضیحات </Label>
+            <Input
+              value={values.MiniDescribe}
+              name="MiniDescribe"
+              className="react-select"
+              classNamePrefix="select"
+              onChange={(val) =>
+                setFieldValue("MiniDescribe", val.target.value)
+              }
+            />
+            <ErrorMessage name="MiniDescribe">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>;
+              }}
+            </ErrorMessage>
+          </Col>
+
+          <Col className="mb-1" md="6" sm="12">
+            <Label className="form-label"> آی دی استاد</Label>
+            <Input
+              value={values.TeacherId}
+              name="TeacherId"
+              className="react-select"
+              classNamePrefix="select"
+              onChange={(val) => setFieldValue("TeacherId", val.target.value)}
+            />
+            <ErrorMessage name="MiniDescribe">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>;
+              }}
+            </ErrorMessage>
+          </Col>
+
+          <Col className="mb-1" md="6" sm="12">
+            <Label className="form-label"> ظرفیت </Label>
+            <Input
+              value={values.Capacity}
+              name="Capacity"
+              className="react-select"
+              classNamePrefix="select"
+              onChange={(val) => setFieldValue("Capacity", val.target.value)}
+            />
+            <ErrorMessage name="Capacity">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>;
+              }}
+            </ErrorMessage>
+          </Col>
+
+          <Col className="mb-1" md="6" sm="12">
+            <Label className="form-label"> شروع دوره </Label>
+            <Input
+              value={values.StartTime}
+              name="StartTime"
+              className="react-select"
+              classNamePrefix="select"
+              onChange={(val) => setFieldValue("StartTime", val.target.value)}
+            />
+            <ErrorMessage name="StartTime">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>;
+              }}
+            </ErrorMessage>
+          </Col>
+          <Col className="mb-1" md="6" sm="12">
+            <Label className="form-label"> پایان دوره </Label>
+            <Input
+              value={values.EndTime}
+              name="EndTime"
+              className="react-select"
+              classNamePrefix="select"
+              onChange={(val) => setFieldValue("EndTime", val.target.value)}
+            />
+            <ErrorMessage name="EndTime">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>
+              }}
+            </ErrorMessage>
+          </Col>
+
+          <Col className="mb-1" md="6" sm="12">
+            <Label className="form-label"> شمای گوگل </Label>
+            <Input
+              value={values.GoogleSchema}
+              name="GoogleSchema"
+              className="react-select"
+              classNamePrefix="select"
+              onChange={(val) =>
+                setFieldValue("GoogleSchema", val.target.value)
+              }
+            />
+            <ErrorMessage name="GoogleSchema">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>
+              }}
+            </ErrorMessage>
+          </Col>
+
+          <Col className="mb-1" md="6" sm="12">
+            <Label className="form-label"> عنوان گوگل </Label>
+            <Input
+              value={values.GoogleTitle}
+              name="GoogleTitle"
+              className="react-select"
+              classNamePrefix="select"
+              onChange={(val) => setFieldValue("GoogleTitle", val.target.value)}
+            />
+            <ErrorMessage name="GoogleTitle">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>
+              }}
+            </ErrorMessage>
+          </Col>
+
+          <Col className="mb-1" md="6" sm="12">
+            <Label className="form-label"> آدرس عکس </Label>
+            <Input
+              value={values.ImageAddress}
+              name="ImageAddress"
+              className="react-select"
+              classNamePrefix="select"
+              onChange={(val) =>
+                setFieldValue("ImageAddress", val.target.value)
+              }
+            />
+            <ErrorMessage name="ImageAddress">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>
+              }}
+            </ErrorMessage>
+          </Col>
+
+          <Col className="mb-1" md="6" sm="12">
+            <Label className="form-label"> آدرس عکس کوچک </Label>
+            <Input
+              value={values.TumbImageAddress}
+              name="TumbImageAddress"
+              className="react-select"
+              classNamePrefix="select"
+              onChange={(val) =>
+                setFieldValue("TumbImageAddress", val.target.value)
+              }
+            />
+            <ErrorMessage name="TumbImageAddress">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>
+              }}
+            </ErrorMessage>
+          </Col>
+
+          <Col className="mb-1" md="6" sm="12">
+            <Label className="form-label"> لینک </Label>
+            <Input
+              value={values.ShortLink}
+              name="ShortLink"
+              className="react-select"
+              classNamePrefix="select"
+              onChange={(val) => setFieldValue("ShortLink", val.target.value)}
+            />
+            <ErrorMessage name="ShortLink">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>
+              }}
+            </ErrorMessage>
+          </Col>
+
+          <Col className="mb-1" md="6" sm="12">
+            <Label className="form-label"> عکس </Label>
+            <Input
+              value={values.Image}
+              name="Image"
+              className="react-select"
+              classNamePrefix="select"
+              onChange={(val) => setFieldValue("Image", val.target.value)}
+            />
+            <ErrorMessage name="Image">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>
+              }}
+            </ErrorMessage>
+          </Col>
+
+          <Col className="mb-1" md="6" sm="12">
+            <Label className="form-label"> قیمت </Label>
+            <Input
+              value={values.Cost}
+              name="Cost"
+              className="react-select"
+              classNamePrefix="select"
+              onChange={(val) => setFieldValue("Cost", val.target.value)}
+            />
+            <ErrorMessage name="Cost">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>
+              }}
+            </ErrorMessage>
+          </Col>
+
+          <Col className="mb-1" md="6" sm="12">
+            <Label className="form-label"> تعداد جلسات </Label>
+            <Input
+              value={values.SessionNumber}
+              name="SessionNumber"
+              className="react-select"
+              classNamePrefix="select"
+              onChange={(val) =>
+                setFieldValue("SessionNumber", val.target.value)
+              }
+            />
+            <ErrorMessage name="SessionNumber">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>
+              }}
+            </ErrorMessage>
+          </Col>
+
+          <Col className="mb-1" md="6" sm="12">
+            <Label className="form-label"> یوآرال </Label>
+            <Input
+              value={values.UniqeUrlString}
+              name="UniqeUrlString"
+              className="react-select"
+              classNamePrefix="select"
+              onChange={(val) =>
+                setFieldValue("UniqeUrlString", val.target.value)
+              }
+            />
+            <ErrorMessage name="UniqeUrlString">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>
+              }}
+            </ErrorMessage>
+          </Col>
+
+          <Col className="mb-1" md="6" sm="12">
+            <Label className="form-label"> عنوان دوره </Label>
+            <Input
+              value={values.Title}
+              name="Title"
+              className="react-select"
+              classNamePrefix="select"
+              onChange={(val) => setFieldValue("Title", val.target.value)}
+            />
+            <ErrorMessage name="Title">
+              {(errMsg) => {
+                return <p className="text-danger">{errMsg}</p>
+              }}
+            </ErrorMessage>
           </Col>
         </Row>
       </CardBody>

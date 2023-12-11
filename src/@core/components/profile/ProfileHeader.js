@@ -20,14 +20,14 @@ const ProfileHeader = ({ pic , fName , lName}) => {
 
   return (
     <Card className='profile-header mb-2'>
-      {/* <CardImg src={pic} alt='User Profile Image' top /> */}
+      <CardImg src={pic} alt='User Profile Image' style={{ width:'350px' , margin:'auto'}}/>
       <div className='position-relative'>
         <div className='profile-img-container d-flex align-items-center'>
-          <div className='profile-img'>
+          {/* <div className='profile-img'>
             <img className='rounded img-fluid' src={pic} alt='Card image' />
-          </div>
+          </div> */}
           <div className='profile-title ms-3'>
-            <h2 className='text-white'>{fName} {lName}</h2>
+            <h2 className='text-black'>{fName} {lName}</h2>
             {/* <p className='text-white'>{data.designation}</p> */}
           </div>
         </div>
@@ -40,10 +40,10 @@ const ProfileHeader = ({ pic , fName , lName}) => {
           <Collapse isOpen={isOpen} navbar>
             <div className='profile-tabs d-flex justify-content-between flex-wrap mt-1 mt-md-0'>
 
-              <Button color='primary'>
+              {/* <Button color='primary'>
                 <Edit className='d-block d-md-none' size={14} />
                 <span className='fw-bold d-none d-md-block'>Edit</span>
-              </Button>
+              </Button> */}
             </div>
           </Collapse>
         </Navbar>

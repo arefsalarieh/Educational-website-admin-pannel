@@ -9,35 +9,32 @@ import StatsVertical from '../StatsVertical/StatsVertical'
 import Earnings from '../Earnings/Earnings'
 import MyNavbar from './MyNavbar'
 
+const AllUsers = () => {
+    const [isOpen, setIsOpen] = useState(false)
 
-const AdminTable = () => {
-  const [isOpen, setIsOpen] = useState(false)
-
-  const getAdmins =async () =>{
-    const result = await http.get("/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&Query=&IsActiveUser=true&IsDeletedUser=true&roleId=1")
-    return result
-  }
-
-  const {data , Status} = useQuery('getAdmin' , getAdmins)
-
-  var completeProfile = 0;
-
-  for(let i=0 ; i<data?.listUser.length ; i++){
-    // console.log(data.listUser[i].profileCompletionPercentage);
-    completeProfile = completeProfile + Number(data.listUser[i].profileCompletionPercentage);
-  }
-
-  var Percent = Math.round(completeProfile/data?.listUser.length) 
-
-
-  var mens = data?.listUser.filter((item)=>{
-    return item.gender === true;
-  })
-
-  const mensCount =(mens && mens.length/data.listUser.length)*100;
-  const wemenCount = (mens && (data.listUser.length - mens.length)/data.listUser.length)*100;
-
-
+    const getAlls =async () =>{
+      const result = await http.get("/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&Query=")
+      return result
+    }
+  
+    const {data , Status} = useQuery('getAll' , getAlls)
+  
+    var completeProfile = 0;
+  
+    for(let i=0 ; i<data?.listUser.length ; i++){
+      // console.log(data.listUser[i].profileCompletionPercentage);
+      completeProfile = completeProfile + Number(data.listUser[i].profileCompletionPercentage);
+    }
+  
+    var Percent = Math.round(completeProfile/data?.listUser.length) 
+  
+  
+    var mens = data?.listUser.filter((item)=>{
+      return item.gender === true;
+    })
+  
+    const mensCount =(mens && mens.length/data.listUser.length)*100;
+    const wemenCount = (mens && (data.listUser.length - mens.length)/data.listUser.length)*100;
 
     return (
         <div>
@@ -70,7 +67,7 @@ const AdminTable = () => {
               {data && (
                   data.listUser?.map((item , index) =>{
                             return(
-                              <UserItem key={index} id={item.id} fName={item.fname} lNmae={item.lname} role='ادمین' gender={item.gender}
+                              <UserItem key={index} id={item.id} fName={item.fname} lNmae={item.lname} role='عادی' gender={item.gender}
                               profileCompletionPercentage={item.profileCompletionPercentage} gmail={item.gmail} phoneNumber={item.phoneNumber}/>         
                         )
                     })         
@@ -88,4 +85,4 @@ const AdminTable = () => {
       )
 }
 
-export default AdminTable
+export default AllUsers

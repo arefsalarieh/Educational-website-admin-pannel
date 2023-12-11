@@ -13,8 +13,10 @@ import PublicRoute from "@components/routes/PublicRoute";
 // ** Utils
 import { isObjEmpty } from "@utils";
 
-import CreatCourse from "../../pages/CreatCourse";
-import DetailCourse from "../../pages/DetailCourse";
+
+
+
+
 
 const getLayout = {
   blank: <BlankLayout />,
@@ -28,7 +30,11 @@ const TemplateTitle = "%s - Vuexy React Admin Template";
 // ** Default Route
 const DefaultRoute = "/login";
 
+
 const Home = lazy(() => import("../../@core/components/home"));
+const ReserveCourseList = lazy(() => import("../../@core/components/CourseTable/ReserveCourseList/ReserveCourseList"));
+// const News = lazy(() => import("../../@core/components/news/News"));
+const AllUsers = lazy(() => import("../../@core/components/UserTable/AllUsers"));
 const AdminTable = lazy(() => import("../../@core/components/UserTable/AdminTable"));
 // ** start news imports
 const News = lazy(() => import("../../@core/components/news/News"));
@@ -55,6 +61,11 @@ const Register = lazy(() => import("../../pages/Register"));
 const ForgotPassword = lazy(() => import("../../pages/ForgotPassword"));
 const Error = lazy(() => import("../../pages/Error"));
 const Sample = lazy(() => import("../../pages/Sample"));
+const CreateUser = lazy(() => import("../../@core/components/CreateUser/CreateUser"));
+const UpdadeUsre = lazy(() => import("../../@core/components/UpdadeUsre/UpdadeUsre"));
+const TableCourses = lazy(() => import("../../@core/components/TableCourses/TableCourses"));
+const FormDetailCourse = lazy(() => import("../../@core/components/DetailCourse/FormDetailCourse"));
+const FormCreatCourse  = lazy(() => import("../../@core/components/FormCreatCourse/FormCreatCourse"));
 
 // ** Merge Routes
 const Routes = [
@@ -67,6 +78,10 @@ const Routes = [
     path: "/home",
     element: <Home />,
   },
+  {
+    path: "/UsersList/AllUsers",
+    element: <AllUsers />,
+  },    
   {
     path: "/UsersList/AdminTable",
     element: <AdminTable />,
@@ -88,25 +103,33 @@ const Routes = [
     element: <MentorsTable />,
   },
   {
-    path: "/pages/profile",
-    element: <Profile />,
+    path: "/UsersList/CreateUser",
+    element: <CreateUser />,
+  },  
+  {
+    path: '/pages/profile/:id',
+    element: <Profile />
   },
   {
-    path: "/pages/profile/:id",
-    element: <Profile />,
+    path: '/pages/UpdadeUsre/:id',
+    element: <UpdadeUsre />
   },
   {
-    path: "/CoursesList",
-    element: <CoursesList />,
-  },
+    path: '/TableCourses',
+    element: <TableCourses />
+  },  
   {
-    path: "/CreatCourse",
-    element: <CreatCourse />,
+    path: '/ReserveCourseList',
+    element: <ReserveCourseList />
   },
   {
     path: "/DetailCourse/:id",
-    element: <DetailCourse />,
+    element: <FormDetailCourse />,
   },
+  {
+    path: "/FormCreatCourse",
+    element: <FormCreatCourse />,
+  },  
   {
     path: "/sample",
     element: <Sample />,

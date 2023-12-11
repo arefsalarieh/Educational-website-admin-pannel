@@ -1,4 +1,4 @@
-import { Mail, Home, Airplay, Circle, FileText, List } from "react-feather";
+import { Mail, Home, Airplay, Circle, FileText , List } from "react-feather";
 
 export default [
   {
@@ -41,34 +41,43 @@ export default [
     children: [
       {
         id: "AdminTable",
-        title: "ادمین ها",
+        title: " لیست کاربران",
         icon: <Circle size={12} />,
-        navLink: "/UsersList/AdminTable",
+        navLink: "/UsersList/AllUsers",
       },
       {
-        id: "TeacherTable",
-        title: "مدرسان",
+        id: "CreateUser",
+        title: "ایجاد کاربر جدید",
         icon: <Circle size={12} />,
-        navLink: "/UsersList/TeacherTable",
+        navLink: "/UsersList/CreateUser",
+      },   
+                       
+    ],    
+  },
+  {
+    id: "CourseList",
+    title: " دوره های آموزشی",
+    icon: <Airplay size={20} />,
+    // navLink: "/sample",
+    children: [
+      {
+        id: "courdseList",
+        title: "لیست دوره ها",
+        icon: <List  size={12} />,
+        navLink: "/TableCourses",
       },
       {
-        id: "StudentTable",
-        title: "دانشجویان",
-        icon: <Circle size={12} />,
-        navLink: "/UsersList/StudentTable",
-      },
-      {
-        id: "FreeUserTable",
-        title: "  داوران",
-        icon: <Circle size={12} />,
-        navLink: "/UsersList/FreeUserTable",
-      },
-      {
-        id: "MentorsTable",
-        title: "  منتور ها",
-        icon: <Circle size={12} />,
-        navLink: "/UsersList/MentorsTable",
-      },
+        id: "createCOurse",
+        title: " ایجاد دوره ",
+        icon: <List  size={12} />,
+        navLink: "/FormCreatCourse",
+      },      
+      // {
+      //   id: "courdseList",
+      //   title: "222لیست دوره ها",
+      //   icon: <List  size={12} />,
+      //   navLink: "/UsersList",
+      // },
     ],
   },
   {
