@@ -27,6 +27,9 @@ import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 import { getItem } from "../../common/storage.services";
 import instance from "../../interceptor";
+import Roles from "./roles/Roles";
+// import RoleCards from "./roles/RoleCards";
+
 
 const EcommerceDashboard = () => {
   // ** Context
@@ -40,8 +43,9 @@ const EcommerceDashboard = () => {
     return instance.get(`/SharePanel/GetProfileInfo`);
   });
 
-  console.log("currentUser",currentUser);
-  console.log("userDetails",userDetails);
+//   console.log("currentUser",currentUser);
+//   console.log("userDetails",userDetails);
+
   // ** vars
   const trackBgColor = "#e9ecef";
   const dispatch = useDispatch();
@@ -77,6 +81,9 @@ const EcommerceDashboard = () => {
           />
         </Col>
       </Row> */}
+      <Row className="match-height">
+        <Roles />
+      </Row>
       <Row className="match-height">
         <Col lg="8" xs="12">
           <CompanyTable />
