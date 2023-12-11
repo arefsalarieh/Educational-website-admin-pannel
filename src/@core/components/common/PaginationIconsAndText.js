@@ -3,19 +3,30 @@ import { Card, CardHeader, CardTitle, CardBody } from "reactstrap";
 
 // ** Third Party Components
 import ReactPaginate from "react-paginate";
+import { useEffect } from "react";
+import { QueryClient } from "react-query";
 
 const IconPagination = ({ total, apiParam, setApiParam }) => {
+
+  const qClient = new QueryClient();
+
+
   const totalPage = Math.ceil(total / apiParam?.RowsOfPage);
-  console.log("rows of page: ", apiParam?.RowsOfPage);
-  console.log(totalPage);
+  // console.log("rows of page: ", apiParam?.RowsOfPage);
+  // console.log(totalPage);
 
   const pageChange = (event) => {
     const newOffset = (event.selected++ * 6) % total;
     console.log(
-      `User requested page number ${event.selected++}, which is offset ${newOffset}`
+      `User requested page number ${event.selected}, which is offset ${newOffset}`
     );
-    setApiParam({ ...apiParam, PageNumber: newOffset });
+    setApiParam((prevState) => ({
+      ...prevState,
+      PageNumber: event.selected,
+    }));
   };
+
+
   return (
     <Card>
       <CardBody>

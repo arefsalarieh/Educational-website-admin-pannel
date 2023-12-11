@@ -15,7 +15,7 @@ export default [
   },
   {
     id: "smaplePage",
-    title: "Sample Page",
+    title: " دوره های آموزشی",
     icon: <Airplay size={20} />,
     // navLink: "/sample",
     children: [
@@ -24,6 +24,12 @@ export default [
         title: "List",
         icon: <Circle size={12} />,
         navLink: "/apps/invoice/list",
+      },
+      {
+        id: "courdseList",
+        title: "لیست دوره ها",
+        icon: <List size={12} />,
+        navLink: "/CoursesList",
       },
     ],
   },
@@ -81,13 +87,17 @@ export default [
     // navLink: "/news",
     children: [
       {
-        id: "invoiceList",
+        id: "getAllNews",
         title: "همه اخبار",
         icon: <Circle size={12} />,
         navLink: "/news",
       },
+      {
+        id: "addNews",
+        title: "درج خبر",
+        icon: <Circle size={12} />,
+        navLink: "/addNews",
+      },
     ],
   },
-
-  
 ];
