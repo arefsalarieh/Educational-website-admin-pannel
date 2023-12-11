@@ -10,13 +10,16 @@ import {
   CardTitle,
 } from "reactstrap";
 import { Row, Col } from 'reactstrap'
+import AddTechModal from "../FormCreatCourse/AddTechModal";
+import { useState } from "react";
 
 
 
 const FormDetailCourse = () => {
+  const [show, setShow] = useState(false)
   const { id } = useParams();
 
-  console.log(id);
+
 
   const getCourseInfo = async () => {
     const result = await http.get(`/Course/${id}`);
@@ -25,7 +28,6 @@ const FormDetailCourse = () => {
 
   const { data, status } = useQuery(["courseInfo", id], getCourseInfo);
 
-  data && console.log(data);
 
   const navigate = useNavigate();
 
@@ -97,6 +99,10 @@ const FormDetailCourse = () => {
                 <div className="mt-2">
                   <h5 className="mb-75"> تکنولوژی برای آموزش :</h5>
                   <CardText>{data.courseTeches}</CardText>
+                  <div onClick={()=>setShow(true)}>
+                     <AddTechModal  show={show} setShow={setShow} haveTechs={data.courseTeches && data.courseTeches} />                    
+                  </div>
+
                 </div>  
 
 
