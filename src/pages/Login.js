@@ -67,13 +67,14 @@ const Login = () => {
     if(result.roles?.includes("Administrator" || "Teacher" || "Referee" || "TournamentMentor")){
       navigate('/home')
       setItem('token' , result.token)
+      setItem('userId', result.id)
       result.roles?.includes("Administrator") ? setItem('role' , "Administrator") : setItem('role' , result.roles)
       toast.success("ورود موفقیت آمیز")
       dispatch(onTokenChange(result.token))
-      dispatch(onIdChange(result.id))
-      dispatch(onRoleChange(result.roles[0]))
-      dispatch(onEmailChange(result.phoneOrGmail))
-      dispatch(onPhoneNumberChange(result.phoneNumber))
+      // dispatch(onIdChange(result.id))
+      // dispatch(onRoleChange(result.roles[0]))
+      // dispatch(onEmailChange(result.phoneOrGmail))
+      // dispatch(onPhoneNumberChange(result.phoneNumber))
 
     }
     else if (result.success == false) {

@@ -19,16 +19,16 @@ const onSuccess = (response) => {
 const onError = (err) => {
     console.log(err);
 
-    // if(err.response.status === 401){
-    //     // clearStorage()
-    //     toast.error("توکن شما منقضی شده است")
-    //     removeItem('token');
-    //     window.location.pathname = '/' // or '/login'
-    // }
+    if(err.response.status === 401){
+        // clearStorage()
+        toast.error("توکن شما منقضی شده است")
+        removeItem('token');
+        window.location.pathname = '/login' // or '/login'
+    }
 
-    // if(err.response.status >= 400 && err.response.status < 500){
-    //     // alert("Client request error: " + err.response.status);
-    // }
+    if(err.response.status >= 400 && err.response.status < 500){
+        // alert("Client request error: " + err.response.status);
+    }
 
     return Promise.reject(err);
 }
