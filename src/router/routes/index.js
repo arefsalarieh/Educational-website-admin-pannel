@@ -33,7 +33,7 @@ const DefaultRoute = "/login";
 
 const Home = lazy(() => import("../../pages/Home"));
 const ReserveCourseList = lazy(() => import("../../@core/components/CourseTable/ReserveCourseList/ReserveCourseList"));
-const News = lazy(() => import("../../@core/components/news/News"));
+// const News = lazy(() => import("../../@core/components/news/News"));
 const AllUsers = lazy(() => import("../../@core/components/UserTable/AllUsers"));
 const AdminTable = lazy(() => import("../../@core/components/UserTable/AdminTable"));
 // ** start news imports
@@ -61,6 +61,11 @@ const Register = lazy(() => import("../../pages/Register"));
 const ForgotPassword = lazy(() => import("../../pages/ForgotPassword"));
 const Error = lazy(() => import("../../pages/Error"));
 const Sample = lazy(() => import("../../pages/Sample"));
+const CreateUser = lazy(() => import("../../@core/components/CreateUser/CreateUser"));
+const UpdadeUsre = lazy(() => import("../../@core/components/UpdadeUsre/UpdadeUsre"));
+const TableCourses = lazy(() => import("../../@core/components/TableCourses/TableCourses"));
+const FormDetailCourse = lazy(() => import("../../@core/components/DetailCourse/FormDetailCourse"));
+const FormCreatCourse  = lazy(() => import("../../@core/components/FormCreatCourse/FormCreatCourse"));
 
 // ** Merge Routes
 const Routes = [
