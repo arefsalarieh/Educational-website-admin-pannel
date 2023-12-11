@@ -56,7 +56,7 @@ const EcommerceDashboard = () => {
           <StatsCard cols={{ xl: "3", sm: "6" }} />
         </Col>
       </Row>
-      <Row className="match-height">
+      {/* <Row className="match-height">
         <Col lg="4" md="12">
           <Row className="match-height">
             <Col lg="6" md="3" xs="6">
@@ -76,7 +76,7 @@ const EcommerceDashboard = () => {
             warning={colors.warning.main}
           />
         </Col>
-      </Row>
+      </Row> */}
       <Row className="match-height">
         <Col lg="8" xs="12">
           <CompanyTable />

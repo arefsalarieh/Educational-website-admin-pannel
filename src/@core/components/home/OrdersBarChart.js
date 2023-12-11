@@ -11,10 +11,10 @@ const OrdersBarChart = ({ warning }) => {
   // ** State
   const [data, setData] = useState(null)
 
-  useEffect(() => {
-    axios.get('/card/card-statistics/orders-bar-chart').then(res => setData(res.data))
-    return () => setData(null)
-  }, [])
+  // useEffect(() => {
+  //   axios.get('/card/card-statistics/orders-bar-chart').then(res => setData(res.data))
+  //   return () => setData(null)
+  // }, [])
 
   const options = {
     chart: {
