@@ -114,35 +114,11 @@ const newTeachers = [];
     }
     newTeachers.push(newObj)
     
-    console.log(newTeachers);
+    // console.log(newTeachers);
 }
 
 
  
-
-
-
-
-
-
-  const teachers = [
-    { value: 1, label: '09301826338' },
-    { value: 2, label: '09394510553' },
-    { value: 6, label: '09118586373' },
-    { value: 9, label: '09229167194' },
-    { value: 10, label: '09909123183' },
-    { value: 11, label: '09382045502' },
-    { value: 12, label: '09030441438' },
-    { value: 16, label: '09117941582' },
-  ]
-
-  
-
-
-
-
-
-
 
 
   const show =async (values) =>{

@@ -22,15 +22,15 @@ const ReserveItem = ({courseName , studentName , studentId , reserverDate , acce
   const navigate = useNavigate();
   const [courseGroup , setCourseGroup] = useState(0)
   const [show, setShow] = useState(false)
-
+  // setCourseGroup && console.log(setCourseGroup);
 
 
   const getCourseInfo = async (courseId) =>{
     let result = await http.get(`/Course/${courseId}`)
     let result2 = await http.get(`CourseGroup/GetCourseGroup?TeacherId=${result.teacherId}&CourseId=${courseId}`)
-
-    setCourseGroup(result2)
-    setTimeout(setShow(true) , 1000)
+    // console.log(result2);
+     setCourseGroup(result2)
+    setShow(true)
   }
 
 
