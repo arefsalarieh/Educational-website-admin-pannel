@@ -140,8 +140,7 @@ const FormCreatCourse = () => {
       dataForm.append(key, item);
       console.log(dataForm);
     });
-    const res = await http.post(`/Course`, dataForm);
-    // refetch();
+    const res = await http.post(`/Course`, dataForm);  
     console.log(res);
     return res;
   };
