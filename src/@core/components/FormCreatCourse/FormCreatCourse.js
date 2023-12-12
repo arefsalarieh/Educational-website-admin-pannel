@@ -283,7 +283,7 @@ const newTeachers = [];
 
                           <Col lg='6' >
                             <Label className='form-label' for='Image'>Image</Label>
-                            <Input onChange={(e)=>{setFieldValue('Image',e.target.value)}}  value={values.Image} type='file' name='Image' id='Image' placeholder='Image' />
+                            <Input onChange={(e)=>{setFieldValue('Image',e.target.files[0])}}  type='file' name='Image' id='Image' placeholder='Image' />
                           </Col>
                           
                           <Col lg='6' >
