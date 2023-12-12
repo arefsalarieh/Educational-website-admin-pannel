@@ -117,13 +117,13 @@ const FormCreatCourse = () => {
       Describe: values.Describe,
       MiniDescribe: values.MiniDescribe,
       Capacity: values.Capacity,
-      courseType: Number(values.courseType),
+      CourseTypeId: Number(values.courseType),
       SessionNumber: values.SessionNumber,
       CurrentCoursePaymentNumber: 0,
       CoursePrerequisiteId: "7b41aed7-2576-ee11-b6c7-ca6d3e095898",
-      courseterm: Number(values.courseterm),
-      courseroom: Number(values.courseroom),
-      courseLvl: Number(values.courseLvl),
+      TremId: Number(values.courseterm),
+      ClassId: Number(values.courseroom),
+      CourseLvlId: Number(values.courseLvl),
       TeacherId: values.TeacherId,
       Cost: values.Cost,
       UniqeUrlString: values.UniqeUrlString,
@@ -131,6 +131,8 @@ const FormCreatCourse = () => {
       TumbImageAddress: values.TumbImageAddress,
       ImageAddress: values.ImageAddress,
       Image: values.Image,
+      StartTime:values.StartTime,
+      EndTime:values.EndTime
     };
     const keys = Object.keys(setCourses);
     keys.forEach((key) => {
@@ -139,7 +141,7 @@ const FormCreatCourse = () => {
       console.log(dataForm);
     });
     const res = await http.post(`/Course`, dataForm);
-    refetch();
+    // refetch();
     console.log(res);
     return res;
   };

@@ -16,9 +16,12 @@ import http from "../../interceptor";
 import { useQuery } from "react-query";
 import CourseItem from "./CourseItem";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Search from "antd/es/input/Search";
 import MyNavbar from "./MyNavbar";
+import { Direction } from "react-data-table-component";
+import { right } from "@popperjs/core";
+
 
 const TableCourses = () => {
   const [search, setSearch] = useState("");
@@ -46,21 +49,35 @@ const TableCourses = () => {
     const result = await http.get(
       `/Course/CourseList?PageNumber=1&RowsOfPage=200&SortingCol=DESC&SortType=Expire&Query=${search}`
     );
-    refetch();
+   
     console.log(result);
     return result;
   };
 
  
-  const { data, status, refetch } = useQuery("getAllCourses", getAllCourses);
-  
+  const { data, status, refetch } = useQuery(["getAllCourses"], getAllCourses);
+
+
+  const ref = useRef();
+
+  const onChange = (e) => {
+    clearTimeout(ref.current);
+    const timeOut = setTimeout(() => {
+      handleSearch(e)
+    }, 700);
+
+    ref.current = timeOut;}
+
+
+  useEffect(() => {
+    refetch()
+  },[search])
+
   useEffect(() => {
     if (status === "success") {
-      setSearch({ data });
+      // setSearch({ data });
     }
   }, [status, data]);
-
-  // data && console.log(data.courseDtos[0].isdelete);
 
   const navigate = useNavigate();
 
@@ -92,11 +109,11 @@ const TableCourses = () => {
       </Button> */}
 
       <InputGroup className="mb-2 mt-8">
-        <Search size={14} placeholder="جستجو..." onChange={(e)=>handleSearch(e)}  />
+        <Search size={14} placeholder="جستجو..." onChange={(e)=>onChange(e)}  />
       </InputGroup>
 
       <Table responsive>
-        <thead >
+        <thead className={"w-full"}>
           <tr>
             <th className="text-nowrap ">نام دوره</th>
             <th className="text-nowrap ">عنوان دوره</th>

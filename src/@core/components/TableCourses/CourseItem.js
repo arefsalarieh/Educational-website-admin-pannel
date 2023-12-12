@@ -52,9 +52,9 @@ function CourseItem({
 
   return (
     <tr>
-      <td className="text-nowrap ">{fullName}</td>
-      <td className="text-nowrap ">{title}</td>
-      <td className="text-nowrap ">{typeName}</td>
+      <td className="text-nowrap">{fullName}</td>
+      <td className="text-nowrap">{title}</td>
+      {/* <td className="text-nowrap ">{typeName}</td> */}
       <td className="text-nowrap ">{cost}</td>
       <td>
         <Badge

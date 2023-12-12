@@ -37,9 +37,7 @@ import { Title } from "chart.js";
 const FormEditCourse = () => {
   const validation = yup.object().shape({
     Title: yup.string().required("لطفا عنوان مورد نظر را وارد نمایید"),
-    MiniDescribe: yup
-      .string()
-      .required("لطفا تکنولوژی یاد گیری را وارد نمایید"),
+    MiniDescribe: yup.string().required("لطفا مینی توضیحاترا وارد نمایید"),
     SessionNumber: yup.string().required("لطفا وضعیت  کلاس را مشخص کنید"),
     CourseLvlId: yup.string().required("لطفا سطح کلاس را وارد نمایید."),
     CourseTypeId: yup.string().required("لطفا نوع کلاس را مشخص کنید"),
@@ -97,25 +95,26 @@ const FormEditCourse = () => {
 
   useEffect(() => {
     if (status === "success") {
-      setCourseEdit({ data });
+      setCourseEdit({ ...data });
     }
   }, [status, data]);
 
   console.log(courseEdit);
- 
-  console.log(courseEdit?courseEdit.ClassId:"");
+
+  console.log(courseEdit ? courseEdit.ClassId : "");
 
   const [CourseLvlId, setCCourseLvlId] = useState([]);
   const [CourseTypeId, setCourseType] = useState([]);
   const [ClassId, setCourseRoom] = useState([]);
   const [TeacherId, setCourseTeach] = useState([]);
   const [TremId, setCourseTerm] = useState([]);
+  const [statusee, setStatus] = useState([]);
 
   const getCourse = async () => {
-    const result = await http.get(`/Course/GetCreate`);
+    const result = await http.get(`/Course/GetEditCourse?CourseId=/${id}`);
 
     setCourseType(
-      result?.courseTypeDtos?.map((m) => ({ value: m.id, label: m.typeName }))
+      result?.getCourseFor?.map((m) => ({ value: m.id, label: m.typeName }))
     );
     setCCourseLvlId(
       result?.courseLevelDtos?.map((m) => ({ value: m.id, label: m.levelName }))
@@ -124,6 +123,12 @@ const FormEditCourse = () => {
       result?.classRoomDtos?.map((m) => ({
         value: m.id,
         label: m.classRoomName,
+      }))
+    );
+    setStatus(
+      result?.statusDtos?.map((m) => ({
+        value: m.id,
+        label: m.statusName,
       }))
     );
     setCourseTeach(
@@ -135,7 +140,6 @@ const FormEditCourse = () => {
     return result;
   };
   const { dataGet, statusGet } = useQuery("getCourse", getCourse);
-
 
   const editCourse = async (values) => {
     const dataForm = new FormData();
@@ -177,25 +181,25 @@ const FormEditCourse = () => {
     <Formik
       initialValues={{
         Id: courseEdit.Id,
-        Title: courseEdit.Title,
-        Describe: courseEdit.Describe,
-        MiniDescribe: courseEdit.MiniDescribe,
-        Capacity: courseEdit.Capacity,
-        CourseTypeId: courseEdit.CourseTypeId,
-        SessionNumber: courseEdit.SessionNumber,
+        Title: courseEdit?.title,
+        Describe: courseEdit?.describe,
+        MiniDescribe: courseEdit?.miniDescribe,
+        Capacity: courseEdit?.capacity,
+        CourseTypeId: courseEdit?.courseTypeId,
+        SessionNumber: courseEdit?.sessionNumber,
         CurrentCoursePaymentNumber: 0,
-        TremId: courseEdit.TremId,
-        ClassId: courseEdit.ClassId,
-        CourseLvlId: courseEdit.CourseLvlId,
-        TeacherId: courseEdit.TeacherId,
-        Cost: courseEdit.Cost,
-        UniqeUrlString: courseEdit.UniqeUrlString,
-        ShortLink: courseEdit.ShortLink,
-        TumbImageAddress: courseEdit.TumbImageAddress,
-        ImageAddress: courseEdit.ImageAddress,
-        Image: courseEdit.Image,
-        StartTime: courseEdit.StartTime,
-        EndTime: courseEdit.EndTime,
+        TremId: courseEdit?.tremId,
+        ClassId: courseEdit?.classId,
+        CourseLvlId: courseEdit?.courseLvlId,
+        TeacherId: courseEdit?.teacherId,
+        Cost: courseEdit.cost,
+        UniqeUrlString: courseEdit?.uniqeUrlString,
+        ShortLink: courseEdit.shortLink,
+        TumbImageAddress: courseEdit?.tumbImageAddress,
+        ImageAddress: courseEdit?.imageAddress,
+        Image: courseEdit?.image,
+        StartTime: courseEdit?.startTime,
+        EndTime: courseEdit?.endTime,
       }}
       validationSchema={validation}
       onSubmit={editCourse}
@@ -222,7 +226,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder="عنوان را وارد کنید..."
-                              setInitialValues={courseEdit.Title}
+                              // setInitialValues={courseEdit.Title}
                             />
                           </div>
                         )}
@@ -246,7 +250,7 @@ const FormEditCourse = () => {
                               type="text-area"
                               {...field}
                               placeholder="لطفا توضیحات را وارد کنید..."
-                              setInitialValues={courseEdit.Describe}
+                              // setInitialValues={courseEdit.Describe}
                             />
                           </div>
                         )}
@@ -272,7 +276,7 @@ const FormEditCourse = () => {
                               type="text-area"
                               {...field}
                               placeholder="مینی توضیحات را وارد نمایید ..."
-                              setInitialValues={courseEdit.MiniDescribe}
+                              // setInitialValues={courseEdit.MiniDescribe}
                             />
                           </div>
                         )}
@@ -296,7 +300,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder="لطفا ظرفیت دوره مربوطه را وارد نمایید ..."
-                              setInitialValues={courseEdit.Capacity}
+                              // setInitialValues={courseEdit.Capacity}
                             />
                           </div>
                         )}
@@ -327,7 +331,7 @@ const FormEditCourse = () => {
                                 setFieldValue("CourseTypeId", val)
                               }
                               placeholder=" لطفا نوع کلاس را وارد نمایید..."
-                              setInitialValues={courseEdit.CourseTypeId}
+                              // setInitialValues={courseEdit.CourseTypeId}
                             />
                           </div>
                         )}
@@ -352,7 +356,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder=" لطفا تعداد جلسه را وارد نمایید..."
-                              setInitialValues={courseEdit.SessionNumber}
+                              // setInitialValues={courseEdit.SessionNumber}
                             />
                           </div>
                         )}
@@ -378,7 +382,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder=" لینک کوتاه"
-                              setInitialValues={courseEdit.ShortLink}
+                              // setInitialValues={courseEdit.ShortLink}
                             />
                           </div>
                         )}
@@ -405,7 +409,7 @@ const FormEditCourse = () => {
                               {...field}
                               onChange={(val) => setFieldValue("TremId", val)}
                               placeholder="ترم "
-                              setInitialValues={courseEdit.TremId}
+                              // setInitialValues={courseEdit.TremId}
                             />
                           </div>
                         )}
@@ -433,7 +437,7 @@ const FormEditCourse = () => {
                               {...field}
                               onChange={(val) => setFieldValue("ClassId", val)}
                               placeholder="شماره کلاس ..."
-                              setInitialValues={courseEdit.ClassId}
+                              // setInitialValues={courseEdit.ClassId}
                             />
                           </div>
                         )}
@@ -462,7 +466,7 @@ const FormEditCourse = () => {
                                 setFieldValue("CourseLvlId", val)
                               }
                               placeholder=" سطح دوره"
-                              setInitialValues={courseEdit.CourseLvlId}
+                              // setInitialValues={courseEdit.CourseLvlId}
                             />
                           </div>
                         )}
@@ -493,7 +497,7 @@ const FormEditCourse = () => {
                                 setFieldValue("TeacherId", val)
                               }
                               placeholder=" آی دی استاد"
-                              setInitialValues={courseEdit.TeacherId}
+                              // setInitialValues={courseEdit.TeacherId}
                             />
                           </div>
                         )}
@@ -518,7 +522,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder="قیمت  ..."
-                              setInitialValues={courseEdit.Cost}
+                              // setInitialValues={courseEdit.Cost}
                             />
                           </div>
                         )}
@@ -544,7 +548,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder=" رشته ای که تکراری نباشد وارد کنید  ..."
-                              setInitialValues={courseEdit.UniqeUrlString}
+                              // setInitialValues={courseEdit.UniqeUrlString}
                             />
                           </div>
                         )}
@@ -568,7 +572,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder="تصویر "
-                              setInitialValues={courseEdit.Image}
+                              // setInitialValues={courseEdit.Image}
                             />
                           </div>
                         )}
@@ -594,7 +598,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder="عکس کوچک"
-                              setInitialValues={courseEdit.TumbImageAddress}
+                              // setInitialValues={courseEdit.TumbImageAddress}
                             />
                           </div>
                         )}
@@ -618,7 +622,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder=" عکس"
-                              setInitialValues={courseEdit.ImageAddress}
+                              // setInitialValues={courseEdit.ImageAddress}
                             />
                           </div>
                         )}
@@ -644,7 +648,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder="عکس کوچک"
-                              setInitialValues={courseEdit.StartTime}
+                              // setInitialValues={courseEdit.StartTime}
                             />
                           </div>
                         )}
@@ -668,7 +672,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder=" عکس"
-                              setInitialValues={courseEdit.EndTime}
+                              // setInitialValues={courseEdit.EndTime}
                             />
                           </div>
                         )}
