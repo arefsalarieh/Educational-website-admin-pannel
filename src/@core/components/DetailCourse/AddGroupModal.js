@@ -29,6 +29,7 @@ import {
 import Select, { components } from 'react-select'
 import { FileText, Users, Link } from 'react-feather'
 import { Formik,Form } from "formik";
+import AddGroup from '../AddGroup/AddGroup';
 
 
 
@@ -45,65 +46,74 @@ const OptionComponent = ({ data, ...props }) => {
 
 
 
-const AddGroupModal = ({show2 , setShow2 , courseId}) => {
+const AddGroupModal = ({show , setShow , courseGroup , courseId }) => {
+
+  courseGroup && console.log(courseGroup);
   return (
     <Fragment>
 
           <Button color='primary' >
-            افزودن تکنولوژی 
+            افزودن گروه 
           </Button>
  
 
-        <Modal isOpen={show2} toggle={() => setShow2(!show2)} className='modal-dialog-centered modal-lg'>
+        <Modal isOpen={show} toggle={() => setShow(!show)} className='modal-dialog-centered modal-lg'>
           <ModalHeader className='bg-transparent' toggle={() => setShow(!show)}></ModalHeader>
-          <Formik  initialValues={{techId : ''}}>
-            {({ values, handleSubmit, handleChange , setFieldValue}) =>(
-              <form onSubmit={handleSubmit}>
-                <ModalBody className='px-sm-5 mx-50 pb-4'>
-                  <h1 className='text-center mb-1'>AddTech</h1>
-                  <p className='text-center'>Share project with a team members</p>
-                  <Label for='addMemberSelect' className='form-label fw-bolder font-size font-small-4 mb-50'>
-                    Add Members
-                  </Label>
-                  <Select
-                      id='CourseTypeId'
-                      name='CourseTypeId' 
-                      className='react-select'
-                      classNamePrefix='select'
-                      options={newTechnologyDtos && newTechnologyDtos}
-                      isClearable={false}
-                      onChange={(value)=>{setFieldValue('techId',value.value)}}
-                    />
 
-                  <Button className="me-1" color="primary" type="submit" >
-                    اضافه کردن
-                  </Button>
+          <ModalBody className='px-sm-5 mx-50 pb-4'>
+            <h1 className='text-center mb-1'>انتخاب گروه</h1>
 
 
-                  <p className='fw-bolder pt-50 mt-2'>لیست گروه ها</p>
-                  <ListGroup flush className='mb-2'>
-                      {haveCourseTechs && haveCourseTechs.map((item , index)=>{
-                        return(
-                          <Badge key={index} style={{width:'100px'}} color='info'>{item}</Badge>
-                        )
-                      })}
-                  </ListGroup>
 
+            <p className='fw-bolder pt-50 mt-2'>لیست گروه ها</p>
+            <ListGroup flush className='mb-2'>
+              {courseGroup !== 0  ? courseGroup.map((item , index) => {
+                return (
+                  <ListGroupItem   key={index} className='d-flex align-items-start border-0 px-0'>
+                    
+                    <div className='d-flex align-items-center justify-content-between w-100'>
+                      <div className='me-1'>
+                        <h5 className='mb-25'>نام گروه</h5>
+                        <span>{item.groupName}</span>
+                      </div>
 
-                  <div className='d-flex align-content-center justify-content-between flex-wrap'>
-                    <div className='d-flex align-items-center me-2'>
-                      <Users className='font-medium-2 me-50' />
-                      <p className='fw-bolder mb-0'>Public to Vuexy - Pixinvent</p>
+                      <div className='me-1'>
+                        <h5 className='mb-25'>ظرفیت دوره</h5>
+                        <span>{item.courseCapacity}</span>
+                      </div>                      
+
+                      <div className='me-1'>
+                        <h5 className='mb-25'>ظرفیت گروه</h5>
+                        <span>{item.groupCapacity}</span>
+                      </div>
+
+                      <div className='me-1'>
+                        <h5 className='mb-25'>مدرس</h5>
+                        <span>{item.teacherName}</span>
+                      </div>
+
+                      <div className='me-1'>
+                        <Button  color='success'>
+                          تایید  رزرو
+                        </Button>
+                      </div>
+
                     </div>
-                    <a className='fw-bolder' href='#' onClick={e => e.preventDefault()}>
-                      <Link className='font-medium-2 me-50' />
-                      <span>Copy project link</span>
-                    </a>
-                  </div>
-                </ModalBody>                
-              </form>
-            )}
-          </Formik>
+                  </ListGroupItem>
+                )
+              }) : (
+                <h2> لیست گروه خالی است  </h2> 
+              )}
+
+                <div>
+                 
+                  <h2>   افزودن گروه</h2>
+                 <AddGroup courseId={courseId}/>
+                </div>
+            </ListGroup>
+
+
+          </ModalBody>
 
         </Modal>
     </Fragment>

@@ -72,7 +72,7 @@ const OptionComponent = ({ data, ...props }) => {
   )
 }
 
-const AddTechModal = ({ show , setShow , haveTechs}) => {
+const AddTechModal = ({ show2 , setShow2 , haveTechs}) => {
   const { id } = useParams();
   const [courseTech, setCourseTech] = useState();  
   const [haveCourseTechs, sethaveCourseTechs] = useState();  
@@ -137,8 +137,8 @@ const AddTechFunc = async (values) =>{
           </Button>
  
 
-        <Modal isOpen={show} toggle={() => setShow(!show)} className='modal-dialog-centered modal-lg'>
-          <ModalHeader className='bg-transparent' toggle={() => setShow(!show)}></ModalHeader>
+        <Modal isOpen={show2} toggle={() => setShow2(!show2)} className='modal-dialog-centered modal-lg'>
+          <ModalHeader className='bg-transparent' toggle={() => setShow2(!show2)}></ModalHeader>
           <Formik onSubmit={AddTechFunc} initialValues={{techId : ''}}>
             {({ values, handleSubmit, handleChange , setFieldValue}) =>(
               <form onSubmit={handleSubmit}>

@@ -73,21 +73,6 @@ const ShareProjectExample = ({courseId , courseGroup , studentId , show , setSho
           <ModalBody className='px-sm-5 mx-50 pb-4'>
             <h1 className='text-center mb-1'>انتخاب گروه</h1>
 
-            {/* <Label for='addMemberSelect' className='form-label fw-bolder font-size font-small-4 mb-50'>
-              Add Members
-            </Label>
-            <Select
-              options={options}
-              isClearable={false}
-              id='addMemberSelect'
-              theme={selectThemeColors}
-              className='react-select'
-              classNamePrefix='select'
-              components={{
-                Option: OptionComponent
-              }}
-
-            /> */}
 
 
             <p className='fw-bolder pt-50 mt-2'>لیست گروه ها</p>

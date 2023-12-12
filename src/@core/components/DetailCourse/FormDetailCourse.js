@@ -11,39 +11,43 @@ import {
 } from "reactstrap";
 import { Row, Col } from 'reactstrap'
 import AddTechModal from "../FormCreatCourse/AddTechModal";
-import { useState } from "react";
+import { useState , useEffect } from "react";
+import AddGroupModal from "./AddGroupModal";
 
 
 
 const FormDetailCourse = () => {
+  const navigate = useNavigate();
+
   const [show, setShow] = useState(false)
+  const [show2, setShow2] = useState(false)
+  const [data, setData] = useState()
+  const [courseGroup, setCourseGroup] = useState()
   const { id } = useParams();
+
+
 
 
 
   const getCourseInfo = async () => {
     const result = await http.get(`/Course/${id}`);
-    return result;
+    const result2 = await http.get(`/CourseGroup/GetCourseGroup?TeacherId=${result.teacherId}&CourseId=${id}`);
+    setData(result)
+    setCourseGroup(result2)
+
   };
 
-  const { data, status } = useQuery(["courseInfo", id], getCourseInfo);
+  // const { data, status } = useQuery(["courseInfo", id], getCourseInfo);
 
 
-  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    getCourseInfo()
+  },[]);
 
   return (
     <>
-      {/* <Button
-        className="me-1 mb-4 mt-2"
-        color="primary"
-        type="submit"
-        onClick={() => {
-          navigate("/ReserveCourse");
-        }}
-      >
-         رزرو دوره برای دانشجو  
-      </Button> */}
-
 
 
       <Card>
@@ -76,7 +80,15 @@ const FormDetailCourse = () => {
                 <div className="mt-2">
                   <h5 className="mb-75"> توضیحات :</h5>
                   <CardText>{data.describe}</CardText>
-                </div>             
+                </div> 
+
+                <div  onClick={()=>setShow(true)} className="mt-2">
+                  <h5  className="mb-75"> Add Group :</h5>
+                  <AddGroupModal  courseGroup={courseGroup} show={show} setShow={setShow} courseId={id}  />
+
+
+                </div>                 
+                            
               </Col>
 
               <Col lg='6'>
@@ -99,8 +111,8 @@ const FormDetailCourse = () => {
                 <div className="mt-2">
                   <h5 className="mb-75"> تکنولوژی برای آموزش :</h5>
                   <CardText>{data.courseTeches}</CardText>
-                  <div onClick={()=>setShow(true)}>
-                     <AddTechModal  show={show} setShow={setShow} haveTechs={data.courseTeches && data.courseTeches} />                    
+                  <div onClick={()=>setShow2(true)}>
+                     <AddTechModal  show2={show2} setShow2={setShow2} haveTechs={data.courseTeches && data.courseTeches} />                    
                   </div>
 
                 </div>  
