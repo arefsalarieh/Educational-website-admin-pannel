@@ -61,7 +61,7 @@ const AddGroupModal = ({show , setShow , courseGroup , courseId }) => {
           <ModalHeader className='bg-transparent' toggle={() => setShow(!show)}></ModalHeader>
 
           <ModalBody className='px-sm-5 mx-50 pb-4'>
-            <h1 className='text-center mb-1'>انتخاب گروه</h1>
+            <h1 className='text-center mb-1'>افزودن گروه</h1>
 
 
 
@@ -92,11 +92,7 @@ const AddGroupModal = ({show , setShow , courseGroup , courseId }) => {
                         <span>{item.teacherName}</span>
                       </div>
 
-                      <div className='me-1'>
-                        <Button  color='success'>
-                          تایید  رزرو
-                        </Button>
-                      </div>
+
 
                     </div>
                   </ListGroupItem>
