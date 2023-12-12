@@ -66,7 +66,7 @@ const FormCreatCourse = () => {
   });
 
   // ** Hooks
-  const { reset } = useForm({ mode: "onChange" });
+  // const { reset } = useForm({ mode: "onChange" });
 
   const [courseLvl, setCourseLvl] = useState([]);
   const [courseType, setCourseType] = useState([]);
@@ -131,8 +131,8 @@ const FormCreatCourse = () => {
       TumbImageAddress: values.TumbImageAddress,
       ImageAddress: values.ImageAddress,
       Image: values.Image,
-      StartTime:values.StartTime,
-      EndTime:values.EndTime
+      StartTime: values.StartTime,
+      EndTime: values.EndTime,
     };
     const keys = Object.keys(setCourses);
     keys.forEach((key) => {
@@ -140,7 +140,7 @@ const FormCreatCourse = () => {
       dataForm.append(key, item);
       console.log(dataForm);
     });
-    const res = await http.post(`/Course`, dataForm);  
+    const res = await http.post(`/Course`, dataForm);
     console.log(res);
     return res;
   };
@@ -190,9 +190,24 @@ const FormCreatCourse = () => {
               {/* <SelectOptions values={values} /> */}
               <Row>
                 <Col className="mb-1" md="6" sm="12">
+                  <Label className="form-label"> عنوان دوره </Label>
+                  <Input
+                    value={values.Title}
+                    name="Title"
+                    className="react-select"
+                    classNamePrefix="select"
+                    onChange={(val) => setFieldValue("Title", val.target.value)}
+                  />
+                  <ErrorMessage name="Title">
+                    {(errMsg) => {
+                      return <p className="text-danger">{errMsg}</p>;
+                    }}
+                  </ErrorMessage>
+                </Col>
+                <Col className="mb-1" md="6" sm="12">
                   <Label className="form-label"> نوع کلاس </Label>
                   <Select
-                    style={{  width: "480px", height: "40px" }}
+                    style={{ width: "480px", height: "40px" }}
                     options={courseType}
                     className="react-select"
                     classNamePrefix="select"
@@ -288,7 +303,7 @@ const FormCreatCourse = () => {
                 <Col className="mb-1" md="6" sm="12">
                   <Label className="form-label">آموزش و یادگیری</Label>
                   <Select
-                    style={{  width: "480px", height: "40px" }}
+                    style={{ width: "480px", height: "40px" }}
                     options={coursetechnol}
                     className="react-select"
                     classNamePrefix="select"
@@ -300,43 +315,6 @@ const FormCreatCourse = () => {
                     }}
                   </ErrorMessage>
                 </Col>
-
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> توضیحات </Label>
-                  <Input
-                    value={values.Describe}
-                    name="Describe"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("Describe", val.target.value)
-                    }
-                  />
-                  <ErrorMessage name="Describe">
-                    {(errMsg) => {
-                      return <p className="text-danger">{errMsg}</p>;
-                    }}
-                  </ErrorMessage>
-                </Col>
-
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> مینی توضیحات </Label>
-                  <Input
-                    value={values.MiniDescribe}
-                    name="MiniDescribe"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("MiniDescribe", val.target.value)
-                    }
-                  />
-                  <ErrorMessage name="MiniDescribe">
-                    {(errMsg) => {
-                      return <p className="text-danger">{errMsg}</p>;
-                    }}
-                  </ErrorMessage>
-                </Col>
-
                 <Col className="mb-1" md="6" sm="12">
                   <Label className="form-label"> آی دی استاد</Label>
                   <Input
@@ -367,41 +345,6 @@ const FormCreatCourse = () => {
                     }
                   />
                   <ErrorMessage name="Capacity">
-                    {(errMsg) => {
-                      return <p className="text-danger">{errMsg}</p>;
-                    }}
-                  </ErrorMessage>
-                </Col>
-
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> شروع دوره </Label>
-                  <Input
-                    value={values.StartTime}
-                    name="StartTime"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("StartTime", val.target.value)
-                    }
-                  />
-                  <ErrorMessage name="StartTime">
-                    {(errMsg) => {
-                      return <p className="text-danger">{errMsg}</p>;
-                    }}
-                  </ErrorMessage>
-                </Col>
-                <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> پایان دوره </Label>
-                  <Input
-                    value={values.EndTime}
-                    name="EndTime"
-                    className="react-select"
-                    classNamePrefix="select"
-                    onChange={(val) =>
-                      setFieldValue("EndTime", val.target.value)
-                    }
-                  />
-                  <ErrorMessage name="EndTime">
                     {(errMsg) => {
                       return <p className="text-danger">{errMsg}</p>;
                     }}
@@ -567,17 +510,70 @@ const FormCreatCourse = () => {
                     }}
                   </ErrorMessage>
                 </Col>
-
                 <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> عنوان دوره </Label>
+                  <Label className="form-label"> شروع دوره </Label>
                   <Input
-                    value={values.Title}
-                    name="Title"
+                    value={values.StartTime}
+                    name="StartTime"
                     className="react-select"
                     classNamePrefix="select"
-                    onChange={(val) => setFieldValue("Title", val.target.value)}
+                    onChange={(val) =>
+                      setFieldValue("StartTime", val.target.value)
+                    }
                   />
-                  <ErrorMessage name="Title">
+                  <ErrorMessage name="StartTime">
+                    {(errMsg) => {
+                      return <p className="text-danger">{errMsg}</p>;
+                    }}
+                  </ErrorMessage>
+                </Col>
+                <Col className="mb-1" md="6" sm="12">
+                  <Label className="form-label"> پایان دوره </Label>
+                  <Input
+                    value={values.EndTime}
+                    name="EndTime"
+                    className="react-select"
+                    classNamePrefix="select"
+                    onChange={(val) =>
+                      setFieldValue("EndTime", val.target.value)
+                    }
+                  />
+                  <ErrorMessage name="EndTime">
+                    {(errMsg) => {
+                      return <p className="text-danger">{errMsg}</p>;
+                    }}
+                  </ErrorMessage>
+                </Col>
+                <Col className="mb-1" md="6" sm="12">
+                  <Label className="form-label"> توضیحات </Label>
+                  <Input
+                    value={values.Describe}
+                    name="Describe"
+                    className="react-select"
+                    classNamePrefix="select"
+                    onChange={(val) =>
+                      setFieldValue("Describe", val.target.value)
+                    }
+                  />
+                  <ErrorMessage name="Describe">
+                    {(errMsg) => {
+                      return <p className="text-danger">{errMsg}</p>;
+                    }}
+                  </ErrorMessage>
+                </Col>
+
+                <Col className="mb-1" md="6" sm="12">
+                  <Label className="form-label"> مینی توضیحات </Label>
+                  <Input
+                    value={values.MiniDescribe}
+                    name="MiniDescribe"
+                    className="react-select"
+                    classNamePrefix="select"
+                    onChange={(val) =>
+                      setFieldValue("MiniDescribe", val.target.value)
+                    }
+                  />
+                  <ErrorMessage name="MiniDescribe">
                     {(errMsg) => {
                       return <p className="text-danger">{errMsg}</p>;
                     }}
@@ -588,9 +584,9 @@ const FormCreatCourse = () => {
                 <Button className="me-1" color="primary" type="submit">
                   اضافه کردن
                 </Button>
-                <Button outline color="secondary" type="reset">
+                {/* <Button outline color="secondary" type="reset">
                   ریست
-                </Button>
+                </Button> */}
               </div>
             </CardBody>
           </Card>

@@ -60,7 +60,7 @@ function CourseItem({
         <Badge
           pill
           color="light-primary"
-          className="me-1"
+          className="me-1 cursor-pointer"
           onClick={handleActive}
         >
           {isActive === true ? "فعال" : "غیرفعال"}
@@ -71,7 +71,7 @@ function CourseItem({
         <Badge
           pill
           color="light-primary"
-          className="me-1"
+          className="me-1 cursor-pointer"
           onClick={() => {
             navigate("/DetailCourse/" + id);
           }}
