@@ -34,16 +34,19 @@ function CourseItem({
 
   const navigate = useNavigate();
 
-  const handleDelete = async (values) => {
-    const courseobjDel = {
-      active: true,
-      id: id,
-    };
+
+  const handleDelete = async (x) => {
+    const obj = {
+      active: isdelete === true ? false : true,
+      id: id,   
+    }
+
+ 
     const result = await http.delete(`/Course/DeleteCourse/`, {
-      data: courseobjDel,
+      data: obj,
     });
     refetch();
-    return result;
+      //  console.log(result); 
   };
 
 
@@ -87,7 +90,7 @@ function CourseItem({
         style={{width:'150px' , overflow: "hidden" , }}
           pill
           color={isdelete === true ? 'danger' : 'success'}
-      
+          onClick={(isdelete)=>handleDelete(isdelete)}
 
         >
           {isdelete === true ? " حذف شده" : "سالمه " }
