@@ -26,7 +26,12 @@ function CourseItem({
   title,
   refetch,
   isActive,
+  isdelete,
 }) {
+  const show = () =>{
+      console.log(isdelete);
+  }
+
   const navigate = useNavigate();
 
   const handleDelete = async (values) => {
@@ -40,6 +45,8 @@ function CourseItem({
     refetch();
     return result;
   };
+
+
 
   const handleActive = async (values) => {
     const courseobjAct = {
@@ -56,26 +63,42 @@ function CourseItem({
 
   return (
     <tr>
-      <td className="text-nowrap ">{fullName}</td>
-      <td className="text-nowrap ">{title}</td>
+      <td className="text-nowrap ">
+        <div  style={{width:'150px' , overflow: "hidden" , }}>{fullName}</div>
+      </td>
+      <td className="text-nowrap ">
+        <div  style={{width:'150px' , overflow: "hidden" , }}>{title}</div></td>
       <td className="text-nowrap ">{typeName}</td>
       <td className="text-nowrap ">{cost}</td>
       <td>
         <Button
+          
           pill
-          color='primary'
-          className="me-1"
+          color={isActive === true ? "success" : 'danger'}
+         
           onClick={handleActive}
         >
-          {isActive === true ? "فعال" : "غیرفعال"}
+          {isActive === true ? "فعاله" : "غیرفعاله"}
         </Button>
+      </td>
+
+      <td   style={{width:'10px'}}>
+        <Button
+        style={{width:'150px' , overflow: "hidden" , }}
+          pill
+          color={isdelete === true ? 'danger' : 'success'}
+      
+
+        >
+          {isdelete === true ? " حذف شده" : "سالمه " }
+        </Button>          
       </td>
 
       <td>
         <Button
           pill
           color="primary"
-          className="me-1"
+     
           onClick={() => {
             navigate("/DetailCourse/" + id);
           }}
@@ -83,37 +106,7 @@ function CourseItem({
           جزییات
         </Button>
       </td>
-      <td>
-        <UncontrolledDropdown>
-          <DropdownToggle
-            className="icon-btn hide-arrow"
-            color="transparent"
-            size="sm"
-            caret
-          >
-            <MoreVertical size={15} />
-          </DropdownToggle>
-          <DropdownMenu>
-            <DropdownItem href="/" onClick={(e) => e.preventDefault()}>
-              <Edit className="me-50" size={15} />
-              <span
-                className="align-middle"
-                onClick={() => {
-                  navigate("/EditCourse/"+ id);
-                }}
-              >
-                ویرایش
-              </span>
-            </DropdownItem>
-            <DropdownItem href="/" onClick={(e) => e.preventDefault()}>
-              <Trash className="me-50" size={15} />
-              <span className="align-middle" onClick={handleDelete}>
-                حذف
-              </span>
-            </DropdownItem>
-          </DropdownMenu>
-        </UncontrolledDropdown>
-      </td>
+
     </tr>
   );
 }

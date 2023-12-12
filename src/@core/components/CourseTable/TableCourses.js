@@ -16,10 +16,12 @@ import http from "../../interceptor";
 import { useQuery } from "react-query";
 import CourseItem from "./CourseItem";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Search from "antd/es/input/Search";
 import MyNavbar from "./MyNavbar";
 import CourseGroup from "./CourseGroup/CourseGroup";
+
+
 
 const TableCourses = () => {
   const [search, setSearch] = useState("");
@@ -35,15 +37,29 @@ const TableCourses = () => {
     const result = await http.get(
       `/Course/CourseList?PageNumber=1&RowsOfPage=200&SortingCol=DESC&SortType=Expire&Query=${search}`
     );
-    console.log(result);
+    // console.log(result);
     return result;
   };
 
   const { data, status, refetch } = useQuery(["getAllCourses" , search], getAllCourses);
 
+  // data && console.log(data.courseDtos);
+
+// if(status='success' && data.courseDtos.length>0){
+
+//    for(let i=0 ; i< data && data.courseDtos.length ; i++){
+//     console.log(data.courseDtos[i]);
+//   }
+
+
+// }
 
 
 
+  const show2 = (x) =>{
+    console.log(x);
+  }
+ 
   return (
     <>
 
@@ -58,18 +74,18 @@ const TableCourses = () => {
           <tr>
             <th className="text-nowrap ">نام دوره</th>
             <th className="text-nowrap ">عنوان دوره</th>
-            {/* <th  className='text-nowrap '>سطح دوره</th> */}
-            {/* <th  className='text-nowrap '>وضعیت دوره</th> */}
             <th className="text-nowrap ">نوع دوره</th>
             <th className="text-nowrap ">قیمت</th>
-            <th className="text-nowrap ">وضعیت</th>
+            <th className="text-nowrap ">وضعیت فعال</th>
+            <th className="text-nowrap ">وضعیت حذف</th>
           </tr>
         </thead>
         <tbody>
           {data &&
             data.courseDtos.map((item, index) => {
               return (
-                item.isdelete === false && (
+              
+                  
                   <CourseItem
                     key={index}
                     id={item.courseId}
@@ -81,8 +97,10 @@ const TableCourses = () => {
                     title={item.title}
                     refetch={refetch}
                     isActive={item.isActive}
+                    isdelete={item.isdelete}
+                
                   />
-                )
+                
               );
             })}
         </tbody>
