@@ -65,15 +65,15 @@ const CommentModal = ({show3 , setShow3  , courseId }) => {
           </Button>
  
 
-        <Modal isOpen={show3} toggle={() => setShow3(!show3)} className='modal-dialog-centered modal-lg'>
-          <ModalHeader className='bg-transparent' toggle={() => setShow3(!show3)}></ModalHeader>
+        <Modal style={{width:'80%' , margin:'auto'}} isOpen={show3} toggle={() => setShow3(!show3)} className='modal-dialog-centered modal-xl'>
+          <ModalHeader className='bg-transparent w-100' toggle={() => setShow3(!show3)}></ModalHeader>
 
-          <ModalBody className='px-sm-5 mx-50 pb-4'>
+          <ModalBody className='px-sm-5 mx-50 pb-4 w-100'>
             <h1 className='text-center mb-1'>نمایش کامنت ها </h1>
 
 
 
-            <p className='fw-bolder pt-50 mt-2'>لیست کامنت ها</p>
+            <p className='fw-bolder pt- mt-2'>لیست کامنت ها</p>
             <ListGroup flush className='mb-2'>
 
 

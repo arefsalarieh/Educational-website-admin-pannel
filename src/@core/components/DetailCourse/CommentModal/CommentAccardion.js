@@ -4,15 +4,19 @@ import { Badge ,   Row, Col, Button ,} from 'reactstrap'
 import http from '../../../interceptor'
 import ReplyAccardion from './ReplyAccardion/ReplyAccardion'
 import { useQuery } from "react-query";
+import EditComment from './EditComment'
 
 const CommentAccardion = ({ courseId}) => {
     const [open, setOpen] = useState('')
-    const [showReply, setShowReply] = useState(false)
+    const [editDisplay, setEditDisplay] = useState('none')
   
     const toggle = id => {
       open === id ? setOpen() : setOpen(id)
     }
 
+    const changeDisplay = () =>[
+      editDisplay === 'block' ? setEditDisplay('none') : setEditDisplay('block')
+    ]
 
 
     const getCourseComment = async () => {
@@ -44,67 +48,80 @@ const CommentAccardion = ({ courseId}) => {
     }
   
     return (
-      <Accordion className='accordion-border' open={open} toggle={toggle} >
+      <div className='accordion-border'  >
+
         {data && data.map((item , index)=>{
           return(
-            <AccordionItem key={index} style={{width:'100%'  }}>
-              <AccordionHeader targetId={index}>
-                <div style={{color:"black" , width:'100%' }}>
-                  <Row className='w-100' >
-                    <Col lg='3' style={{overflow:'hidden'}}>
-                       <Badge color='info' >عنوان :</Badge> {item.title}
+            <div key={index}  style={{border:'1px solid black' , padding:'20px' , marginTop:'40px' , backgroundColor:'white' }}>
+            <div >
+              <div >
+                <div style={{color:"black"  , width:'100%' }}>
+                 
+                  <div style={{marginBottom:'20px' , fontSize:'20px'}}><Badge color='dark' > کامنت {index+1} </Badge></div>
+
+                  <Row  >
+                    <Col lg='3' style={{overflow:'hidden' , fontSize:'20px'}}>
+                       <Badge color='info'>عنوان :    </Badge> {item.title}
                     </Col>
 
-                    <Col lg='3' style={{overflow:'hidden'}}>
+                    <Col lg='4' style={{overflow:'hidden' ,  fontSize:'20px'}}>
                       <Badge color='info'>فرستنده :</Badge> {item.author}
                     </Col> 
                     
-                    <Col lg='4' style={{overflow:'hidden'}}>
+                    <Col lg='4' style={{overflow:'hidden' , fontSize:'20px'}}>
                       
                       <Badge color='info'>وضعیت :</Badge> 
                       <Button.Ripple    onClick={({})=>acceptComment(item.id , item.accept)}  color={item.accept === true ? 'success' : 'danger'} > {item.accept === true ? 'پذیرفته شده' : "در انتظار تایید"}</Button.Ripple>
                     </Col>  
 
-                    <Col lg='2'>
+                    <Col lg='1'>
                       <Badge color='light-warning'>like:{item.likeCount}</Badge> 
                       <Badge color='light-secondary'>disslike:{item.disslikeCount}</Badge> 
-
                     </Col>                                      
                   </Row>
                 </div>
-              </AccordionHeader>
+              </div>
 
-              <AccordionBody accordionId={index}>
-                <div style={{fontSize:'20px'}}>
-                  <div><h2>متن کامنت :</h2>{item.describe}</div>  
-                </div>
-                <div style={{marginTop:'20px'}}>
-                {/* <Badge color='light-primary' >تعداد ریپلای ها :</Badge>
-                <Badge color='light-danger' > {item.acceptReplysCount} </Badge> */}
-                
-                <div>
+              <div style={{  margin:'20px auto'}} >
+                <div >
+                  <Row>
+                    <Col lg='12'>
+                      <div style={{fontSize:'20px' }}>
+                        <h2>متن کامنت :</h2>
+                        <div style={{fontSize:'20px' , border:'1px solid #ccc' , height:'150px'}}>{item.describe} </div>
+                      </div>                     
+                    </Col>
 
+                  </Row>
 
-                <Badge color='warning'>
-                     ریپلای ها   
-                </Badge>
-                  <div style={{backgroundColor:'red'}}>
-                     <ReplyAccardion RepId={item.id} courseId={item.courseId}/>
+                  <div style={{margin:'10px auto'}}>
+                    <EditComment  CourseId={item.courseId} CommentId={item.id} refetch={refetch}/>
                   </div>
 
+               
+
+
+
+                  <div style={{ backgroundColor:'#ccc' ,  margin:' auto'  }}>
+                    <div>
+                          <div style={{ margin:'0 auto'}}>
+                            <ReplyAccardion RepId={item.id} courseId={item.courseId} commentIndex={index}/>
+                          </div>
+                      </div>                   
+                  </div>                  
                 </div>
-                
-                 
-                </div>
-              </AccordionBody>
-              <div style={{height:'8px' , backgroundColor:'red'}}></div>
-            </AccordionItem>
+
+              </div>
+              {/* <div style={{height:'8px' , backgroundColor:'black'}}></div> */}
+            </div>
+            </div>
+
 
 
           )
         })}
 
-      </Accordion>
+      </div>
     )
   }
   export default CommentAccardion
