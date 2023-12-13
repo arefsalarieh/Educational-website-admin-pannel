@@ -22,7 +22,7 @@ const FormDetailCourse = () => {
 
   const [show, setShow] = useState(false)
   const [show2, setShow2] = useState(false)
-  const [show3, setShow3] = useState(true)
+  const [show3, setShow3] = useState(false)
   const [data, setData] = useState()
   const [courseGroup, setCourseGroup] = useState()
   const { id } = useParams();
