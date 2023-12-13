@@ -115,8 +115,8 @@ const TableCourses = () => {
       <Table responsive>
         <thead className={"w-full"}>
           <tr>
-            <th className="text-nowrap ">نام دوره</th>
-            <th className="text-nowrap ">عنوان دوره</th>
+            <th className="text-nowrap " >نام دوره</th>
+            <th className="text-nowrap" >عنوان دوره</th>
             {/* <th className="text-nowrap ">نوع دوره</th> */}
             <th className="text-nowrap ">قیمت</th>
           </tr>

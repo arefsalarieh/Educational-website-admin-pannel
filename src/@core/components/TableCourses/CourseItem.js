@@ -51,17 +51,18 @@ function CourseItem({
   };
 
   return (
-    <tr>
-      <td className="text-nowrap">{fullName}</td>
-      <td className="text-nowrap">{title}</td>
+    <tr  style={{ width: "220px" }}>
+      <td className="text-nowrap" style={{ width: "50px" }}>{fullName}</td>
+      <td className="text-nowrap" style={{ width: "50px" }}>{title}</td>
       {/* <td className="text-nowrap ">{typeName}</td> */}
-      <td className="text-nowrap ">{cost}</td>
+      <td className="text-nowrap" style={{ width: "50px" }}>{cost}</td>
       <td>
         <Badge
           pill
           color="light-primary"
           className="me-1 cursor-pointer"
           onClick={handleActive}
+          style={{ width: "30px" }}
         >
           {isActive === true ? "فعال" : "غیرفعال"}
         </Badge>
@@ -75,6 +76,7 @@ function CourseItem({
           onClick={() => {
             navigate("/DetailCourse/" + id);
           }}
+          style={{ width: "40px" }}
         >
           جزییات
         </Badge>

@@ -34,7 +34,7 @@ import { useQuery } from "react-query";
 import { Select } from "antd";
 import { Title } from "chart.js";
 
-const FormEditCourse = ( ) => {
+const FormEditCourse = () => {
   const validation = yup.object().shape({
     Title: yup.string().required("لطفا عنوان مورد نظر را وارد نمایید"),
     MiniDescribe: yup.string().required("لطفا مینی توضیحاترا وارد نمایید"),
@@ -118,10 +118,16 @@ const FormEditCourse = ( ) => {
     console.log(result);
 
     setCourseType(
-      result?.getCourseFor.courseTypeDtos?.map((m) => ({ value: m.id, label: m.typeName }))
+      result?.getCourseFor.courseTypeDtos?.map((m) => ({
+        value: m.id,
+        label: m.typeName,
+      }))
     );
     setCourseLvlId(
-      result?.getCourseFor.courseLevelDtos?.map((m) => ({ value: m.id, label: m.levelName }))
+      result?.getCourseFor.courseLevelDtos?.map((m) => ({
+        value: m.id,
+        label: m.levelName,
+      }))
     );
     setClassRoom(
       result?.getCourseFor.classRoomDtos?.map((m) => ({
@@ -130,14 +136,19 @@ const FormEditCourse = ( ) => {
       }))
     );
     setCourseTeach(
-      result?.getCourseFor.teachers?.map((m) => ({ value: m.userId, label: m.fullName }))
+      result?.getCourseFor.teachers?.map((m) => ({
+        value: m.teacherId,
+        label: m.fullName,
+      }))
     );
     setCourseTerm(
-      result?.getCourseFor.termDtos.map((m) => ({ value: m.id, label: m.termName }))
+      result?.getCourseFor.termDtos.map((m) => ({
+        value: m.id,
+        label: m.termName,
+      }))
     );
     console.log(result);
     return result;
-  
   };
 
   const { dataGet, statusGet } = useQuery("getCourse", getCourse);
@@ -182,7 +193,7 @@ const FormEditCourse = ( ) => {
   // useEffect(() => {
   //   refetch()
   // },[editCourse])
-  
+
   return (
     <Formik
       initialValues={{
@@ -248,69 +259,26 @@ const FormEditCourse = ( ) => {
                 </Col>
                 <Col>
                   <div>
-                    <Label className="form-label"> توضیحات </Label>
+                    <Label className="form-label">سطح دوره </Label>
                     <div>
-                      <Field name="Describe">
+                      <Field name="CourseLvlId">
                         {({ field }) => (
                           <div>
-                            <Input
-                              type="text-area"
-                              {...field}
-                              placeholder="لطفا توضیحات را وارد کنید..."
-                            />
-                          </div>
-                        )}
-                      </Field>
-                      <ErrorMessage
-                        name="Describe"
-                        component={"p"}
-                        className="text-danger"
-                      />
-                    </div>
-                  </div>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <div className="fieldAdd">
-                    <Label className="form-label"> مینی توضیحات </Label>
-                    <div>
-                      <Field name="MiniDescribe">
-                        {({ field }) => (
-                          <div>
-                            <Input
-                              type="text-area"
-                              {...field}
-                              placeholder="مینی توضیحات را وارد نمایید ..."
-                            />
-                          </div>
-                        )}
-                      </Field>
-                      <ErrorMessage
-                        name="MiniDescribe"
-                        component={"p"}
-                        className="text-danger"
-                      />
-                    </div>
-                  </div>
-                </Col>
-                <Col>
-                  <div>
-                    <Label className="form-label"> ظرفیت </Label>
-                    <div>
-                      <Field name="Capacity">
-                        {({ field }) => (
-                          <div>
-                            <Input
+                            <Select
+                              style={{ width: "480px", height: "40px" }}
+                              options={CourseLvlId}
                               type="text"
                               {...field}
-                              placeholder="لطفا ظرفیت دوره مربوطه را وارد نمایید ..."
+                              onChange={(val) =>
+                                setFieldValue("CourseLvlId", val)
+                              }
+                              placeholder=" سطح دوره"
                             />
                           </div>
                         )}
                       </Field>
                       <ErrorMessage
-                        name="Capacity"
+                        name="CourseLvlId"
                         component={"p"}
                         className="text-danger"
                       />
@@ -318,6 +286,7 @@ const FormEditCourse = ( ) => {
                   </div>
                 </Col>
               </Row>
+              <Row></Row>
               <Row>
                 <Col>
                   <div>
@@ -451,37 +420,33 @@ const FormEditCourse = ( ) => {
                 </Col>
                 <Col>
                   <div>
-                    <Label className="form-label">سطح دوره </Label>
+                    <Label className="form-label"> ظرفیت </Label>
                     <div>
-                      <Field name="CourseLvlId">
+                      <Field name="Capacity">
                         {({ field }) => (
                           <div>
-                            <Select
-                              style={{ width: "480px", height: "40px" }}
-                              options={CourseLvlId}
+                            <Input
                               type="text"
                               {...field}
-                              onChange={(val) =>
-                                setFieldValue("CourseLvlId", val)
-                              }
-                              placeholder=" سطح دوره"
+                              placeholder="لطفا ظرفیت دوره مربوطه را وارد نمایید ..."
                             />
                           </div>
                         )}
                       </Field>
                       <ErrorMessage
-                        name="CourseLvlId"
+                        name="Capacity"
                         component={"p"}
                         className="text-danger"
                       />
                     </div>
                   </div>
                 </Col>
+               
               </Row>
               <Row>
                 <Col>
-                  <div className="fieldAdd">
-                    <Label className="form-label"> شماره تماس استاد </Label>
+                  <div>
+                    <Label className="form-label">نام استاد </Label>
                     <div>
                       <Field name="TeacherId">
                         {({ field }) => (
@@ -489,12 +454,11 @@ const FormEditCourse = ( ) => {
                             <Select
                               style={{ width: "480px", height: "40px" }}
                               options={TeacherId}
-                              type="text"
                               {...field}
                               onChange={(val) =>
                                 setFieldValue("TeacherId", val)
                               }
-                              placeholder=" آی دی استاد"
+                              placeholder="  نام استاد..."
                             />
                           </div>
                         )}
@@ -579,6 +543,7 @@ const FormEditCourse = ( ) => {
                     </div>
                   </div>
                 </Col>
+                
               </Row>
               <Row>
                 <Col>
@@ -606,12 +571,16 @@ const FormEditCourse = ( ) => {
                 </Col>
                 <Col>
                   <div>
-                    <Label className="form-label">  آدرس عکس </Label>
+                    <Label className="form-label"> آدرس عکس </Label>
                     <div>
                       <Field name="ImageAddress">
                         {({ field }) => (
                           <div>
-                            <Input type="text" {...field} placeholder=" آدرس عکس" />
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder=" آدرس عکس"
+                            />
                           </div>
                         )}
                       </Field>
@@ -625,6 +594,7 @@ const FormEditCourse = ( ) => {
                 </Col>
               </Row>
               <Row>
+          
                 <Col>
                   <div>
                     <Label className="form-label"> تاریخ شروع دوره</Label>
@@ -648,7 +618,7 @@ const FormEditCourse = ( ) => {
                     </div>
                   </div>
                 </Col>
-                <Col>
+                <Col>               
                   <div>
                     <Label className="form-label"> تاریخ پایان دوره </Label>
                     <div>
@@ -667,6 +637,56 @@ const FormEditCourse = ( ) => {
                     </div>
                   </div>
                 </Col>
+              </Row>
+              <Row>
+             
+                <Col>
+                  <div>
+                    <Label className="form-label"> توضیحات </Label>
+                    <div>
+                      <Field name="Describe">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text-area"
+                              {...field}
+                              placeholder="لطفا توضیحات را وارد کنید..."
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="Describe"
+                        component={"p"}
+                        className="text-danger"
+                      />
+                    </div>
+                  </div>
+                </Col>
+                <Col>
+                  <div className="fieldAdd">
+                    <Label className="form-label"> مینی توضیحات </Label>
+                    <div>
+                      <Field name="MiniDescribe">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text-area"
+                              {...field}
+                              placeholder="مینی توضیحات را وارد نمایید ..."
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="MiniDescribe"
+                        component={"p"}
+                        className="text-danger"
+                      />
+                    </div>
+                  </div>
+                </Col>
+               
               </Row>
               <div className="d-flex mt-2">
                 <Button className="me-1 " color="primary" type="submit">
