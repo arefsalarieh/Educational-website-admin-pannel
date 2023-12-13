@@ -17,7 +17,7 @@ const ReplyAccardion = ({RepId , courseId}) => {
         const result = await http.get(
           `/Course/GetCourseReplyCommnets/${courseId}/${RepId}`
         );
-        console.log(result);
+        // console.log(result);
         return result;
       };
     

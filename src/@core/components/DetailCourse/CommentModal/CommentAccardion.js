@@ -12,10 +12,20 @@ const CommentAccardion = ({data , refetch}) => {
       open === id ? setOpen() : setOpen(id)
     }
 
-    const acceptComment =async (x)=>{
-      const result =await http.post(`/Course/AcceptCourseComment?CommentCourseId=${x}`)
-      refetch()
-      console.log(result);
+    const acceptComment =async (commentId , acceptComment)=>{
+      if(acceptComment === false){
+        const result =await http.post(`/Course/AcceptCourseComment?CommentCourseId=${commentId}`)
+        refetch()
+        console.log(result);        
+      }
+
+      else if(acceptComment === true){
+        const result =await http.post(`/Course/RejectCourseComment?CommentCourseId=${commentId}`)
+        refetch()
+        console.log(result); 
+      }
+
+
     }
   
     return (
@@ -37,7 +47,7 @@ const CommentAccardion = ({data , refetch}) => {
                     <Col lg='4' style={{overflow:'hidden'}}>
                       
                       <Badge color='info'>وضعیت :</Badge> 
-                      <Button  onClick={({})=>acceptComment(item.id && item.id)}  color={item.accept === true ? 'success' : 'danger'} > {item.accept === true ? 'پذیرفته شده' : "در انتظار تایید"}</Button>
+                      <Button  onClick={({})=>acceptComment(item.id , item.accept)}  color={item.accept === true ? 'success' : 'danger'} > {item.accept === true ? 'پذیرفته شده' : "در انتظار تایید"}</Button>
                     </Col>                                        
                   </Row>
                 </div>
