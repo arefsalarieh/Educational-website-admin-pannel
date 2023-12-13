@@ -51,15 +51,7 @@ const OptionComponent = ({ data, ...props }) => {
 const CommentModal = ({show3 , setShow3  , courseId }) => {
 
 
-  const getCourseComment = async () => {
-    const result = await http.get(
-      `/Course/GetCourseCommnets/${courseId}`
-    );
-    // console.log(result);
-    return result;
-  };
 
-  const { data, status, refetch } = useQuery(["getComment" , courseId], getCourseComment);
 
  
 
@@ -87,7 +79,7 @@ const CommentModal = ({show3 , setShow3  , courseId }) => {
 
                 <div style={{overflow:'scroll' , height:'300px' ,}}>
                  
-                <CommentAccardion data={data && data} refetch={refetch}/>
+                <CommentAccardion  courseId={courseId}/>
                 </div>
             </ListGroup>
 

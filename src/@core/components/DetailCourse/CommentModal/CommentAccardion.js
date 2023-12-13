@@ -3,14 +3,29 @@ import { Accordion, AccordionBody, AccordionHeader, AccordionItem } from 'reacts
 import { Badge ,   Row, Col, Button ,} from 'reactstrap'
 import http from '../../../interceptor'
 import ReplyAccardion from './ReplyAccardion/ReplyAccardion'
+import { useQuery } from "react-query";
 
-const CommentAccardion = ({data , refetch}) => {
+const CommentAccardion = ({ courseId}) => {
     const [open, setOpen] = useState('')
     const [showReply, setShowReply] = useState(false)
   
     const toggle = id => {
       open === id ? setOpen() : setOpen(id)
     }
+
+
+
+    const getCourseComment = async () => {
+      const result = await http.get(
+        `/Course/GetCourseCommnets/${courseId}`
+      );
+      // console.log(result);
+      return result;
+    };
+  
+    const { data, status, refetch } = useQuery(["getComment" , courseId], getCourseComment);
+
+
 
     const acceptComment =async (commentId , acceptComment)=>{
       if(acceptComment === false){
@@ -36,26 +51,32 @@ const CommentAccardion = ({data , refetch}) => {
               <AccordionHeader targetId={index}>
                 <div style={{color:"black" , width:'100%' }}>
                   <Row className='w-100' >
-                    <Col lg='4' style={{overflow:'hidden'}}>
+                    <Col lg='3' style={{overflow:'hidden'}}>
                        <Badge color='info' >عنوان :</Badge> {item.title}
                     </Col>
 
-                    <Col lg='4' style={{overflow:'hidden'}}>
+                    <Col lg='3' style={{overflow:'hidden'}}>
                       <Badge color='info'>فرستنده :</Badge> {item.author}
                     </Col> 
                     
                     <Col lg='4' style={{overflow:'hidden'}}>
                       
                       <Badge color='info'>وضعیت :</Badge> 
-                      <Button  onClick={({})=>acceptComment(item.id , item.accept)}  color={item.accept === true ? 'success' : 'danger'} > {item.accept === true ? 'پذیرفته شده' : "در انتظار تایید"}</Button>
-                    </Col>                                        
+                      <Button.Ripple    onClick={({})=>acceptComment(item.id , item.accept)}  color={item.accept === true ? 'success' : 'danger'} > {item.accept === true ? 'پذیرفته شده' : "در انتظار تایید"}</Button.Ripple>
+                    </Col>  
+
+                    <Col lg='2'>
+                      <Badge color='light-warning'>like:{item.likeCount}</Badge> 
+                      <Badge color='light-secondary'>disslike:{item.disslikeCount}</Badge> 
+
+                    </Col>                                      
                   </Row>
                 </div>
               </AccordionHeader>
 
               <AccordionBody accordionId={index}>
                 <div style={{fontSize:'20px'}}>
-                  <div>{item.describe}</div>  
+                  <div><h2>متن کامنت :</h2>{item.describe}</div>  
                 </div>
                 <div style={{marginTop:'20px'}}>
                 {/* <Badge color='light-primary' >تعداد ریپلای ها :</Badge>
@@ -64,7 +85,7 @@ const CommentAccardion = ({data , refetch}) => {
                 <div>
 
 
-                <Badge color='primary'>
+                <Badge color='warning'>
                      ریپلای ها   
                 </Badge>
                   <div style={{backgroundColor:'red'}}>
