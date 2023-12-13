@@ -197,7 +197,7 @@ const FormEditCourse = () => {
   return (
     <Formik
       initialValues={{
-        Id: courseEdit.Id,
+        Id: courseEdit?.id,
         Title: courseEdit?.title,
         Describe: courseEdit?.describe,
         MiniDescribe: courseEdit?.miniDescribe,
@@ -209,9 +209,9 @@ const FormEditCourse = () => {
         ClassId: courseEdit?.classId,
         CourseLvlId: courseEdit?.courseLvlId,
         TeacherId: courseEdit?.teacherId,
-        Cost: courseEdit.cost,
+        Cost: courseEdit?.cost,
         UniqeUrlString: courseEdit?.uniqeUrlString,
-        ShortLink: courseEdit.shortLink,
+        ShortLink: courseEdit?.shortLink,
         TumbImageAddress: courseEdit?.tumbImageAddress,
         ImageAddress: courseEdit?.imageAddress,
         Image: courseEdit?.image,
