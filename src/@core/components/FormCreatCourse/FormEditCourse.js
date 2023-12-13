@@ -38,7 +38,7 @@ const FormEditCourse = () => {
   const validation = yup.object().shape({
     Title: yup.string().required("لطفا عنوان مورد نظر را وارد نمایید"),
     MiniDescribe: yup.string().required("لطفا مینی توضیحاترا وارد نمایید"),
-    SessionNumber: yup.string().required("لطفا وضعیت  کلاس را مشخص کنید"),
+    SessionNumber: yup.string().required("لطفا تعداد جلسات  کلاس را مشخص کنید"),
     CourseLvlId: yup.string().required("لطفا سطح کلاس را وارد نمایید."),
     CourseTypeId: yup.string().required("لطفا نوع کلاس را مشخص کنید"),
     TremId: yup.string().required("لطفا ترم کلاس مربوطه را مشخص کنید"),
@@ -57,6 +57,10 @@ const FormEditCourse = () => {
     Image: yup.string().required("لطفا  تصویر  را وارد نمایید"),
     StartTime: yup.string().required("تاریخ شروع وارد شود"),
     EndTime: yup.string().required("تاریخ پایان وارد شود"),
+    // courseStatus: yup.string().required("لطفا وضعیت  کلاس را مشخص کنید"),
+    // technology: yup
+    //   .string()
+    //   .required("لطفا تکنولوژی یاد گیری را وارد نمایید"),
   });
 
   // // ** Hooks
@@ -101,50 +105,50 @@ const FormEditCourse = () => {
 
   console.log(courseEdit);
 
-  const [CourseLvlId, setCCourseLvlId] = useState([]);
+  const [CourseLvlId, setCourseLvlId] = useState([]);
   const [CourseTypeId, setCourseType] = useState([]);
   const [ClassId, setClassRoom] = useState([]);
   const [TeacherId, setCourseTeach] = useState([]);
   const [TremId, setCourseTerm] = useState([]);
-  const [statusee, setStatus] = useState([]);
-  const [technology, setCoursetechnology] = useState([]);
+  // const [courseStatus, setStatus] = useState([]);
+  // const [technology, setCoursetechnology] = useState([]);
 
   const getCourse = async () => {
     const result = await http.get(`/Course/GetEditCourse?CourseId=${id}`);
     console.log(result);
 
     setCourseType(
-      result?.getCourseFor?.map((m) => ({ value: m.id, label: m.typeName }))
+      result?.getCourseFor.courseTypeDtos?.map((m) => ({
+        value: m.id,
+        label: m.typeName,
+      }))
     );
-    setCCourseLvlId(
-      result?.courseLevelDtos?.map((m) => ({ value: m.id, label: m.levelName }))
+    setCourseLvlId(
+      result?.getCourseFor.courseLevelDtos?.map((m) => ({
+        value: m.id,
+        label: m.levelName,
+      }))
     );
     setClassRoom(
-      result?.classRoomDtos?.map((m) => ({
+      result?.getCourseFor.classRoomDtos?.map((m) => ({
         value: m.id,
         label: m.classRoomName,
       }))
     );
-    setStatus(
-      result?.statusDtos?.map((m) => ({
-        value: m.id,
-        label: m.statusName,
+    setCourseTeach(
+      result?.getCourseFor.teachers?.map((m) => ({
+        value: m.userId,
+        label: m.fullName,
       }))
     );
-    setCourseTeach(
-      result?.teachers?.map((m) => ({ value: m.userId, label: m.fullName }))
-    );
     setCourseTerm(
-      result?.termDtos?.map((m) => ({ value: m.id, label: m.termName }))
+      result?.getCourseFor.termDtos.map((m) => ({
+        value: m.id,
+        label: m.termName,
+      }))
     );
-    setCourseTerm(
-      result?.technologyDtos?.map((m) => ({ value: m.id, label: m.termName }))
-    );
-    setCoursetechnology(
-      result?.technologyDtos?.map((m) => ({ value: m.id, label: m.termName }))
-    );
-    return result;
     console.log(result);
+    return result;
   };
 
   const { dataGet, statusGet } = useQuery("getCourse", getCourse);
@@ -182,9 +186,13 @@ const FormEditCourse = () => {
       console.log(dataForm);
     });
     const res = await http.put(`/Course/`, dataForm);
-    refetch();
+
     return res;
   };
+
+  // useEffect(() => {
+  //   refetch()
+  // },[editCourse])
 
   return (
     <Formik
@@ -235,6 +243,9 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder="عنوان را وارد کنید..."
+                              onChange={(val) =>
+                                setFieldValue("Title", val)
+                              }
                             />
                           </div>
                         )}
@@ -258,6 +269,9 @@ const FormEditCourse = () => {
                               type="text-area"
                               {...field}
                               placeholder="لطفا توضیحات را وارد کنید..."
+                              onChange={(val) =>
+                                setFieldValue("Describe", val)
+                              }
                             />
                           </div>
                         )}
@@ -283,6 +297,9 @@ const FormEditCourse = () => {
                               type="text-area"
                               {...field}
                               placeholder="مینی توضیحات را وارد نمایید ..."
+                              onChange={(val) =>
+                                setFieldValue("MiniDescribe", val)
+                              }
                             />
                           </div>
                         )}
@@ -306,6 +323,9 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder="لطفا ظرفیت دوره مربوطه را وارد نمایید ..."
+                              onChange={(val) =>
+                                setFieldValue("Capacity", val)
+                              }
                             />
                           </div>
                         )}
@@ -360,6 +380,9 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder=" لطفا تعداد جلسه را وارد نمایید..."
+                              onChange={(val) =>
+                                setFieldValue("SessionNumber", val)
+                              }
                             />
                           </div>
                         )}
@@ -385,6 +408,9 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder=" لینک کوتاه"
+                              onChange={(val) =>
+                                setFieldValue("ShortLink", val)
+                              }
                             />
                           </div>
                         )}
@@ -495,7 +521,7 @@ const FormEditCourse = () => {
                               onChange={(val) =>
                                 setFieldValue("TeacherId", val)
                               }
-                              placeholder=" آی دی استاد"
+                              placeholder=" شماره تماس استاد"
                             />
                           </div>
                         )}
@@ -520,6 +546,7 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder="قیمت  ..."
+                              onChange={(val) => setFieldValue("Cost", val)}
                             />
                           </div>
                         )}
@@ -533,54 +560,7 @@ const FormEditCourse = () => {
                   </div>
                 </Col>
               </Row>
-              <Row>
-                <Col>
-                  <div>
-                    <Label className="form-label"> رشته ی یکتا</Label>
-                    <div>
-                      <Field name="UniqeUrlString">
-                        {({ field }) => (
-                          <div>
-                            <Input
-                              type="text"
-                              {...field}
-                              placeholder=" رشته ای که تکراری نباشد وارد کنید  ..."
-                            />
-                          </div>
-                        )}
-                      </Field>
-                      <ErrorMessage
-                        name="UniqeUrlString"
-                        component={"p"}
-                        className="text-danger"
-                      />
-                    </div>
-                  </div>
-                </Col>
-                <Col>
-                  <div className="fieldAdd">
-                    <Label className="form-label"> تصویر </Label>
-                    <div>
-                      <Field name="Image">
-                        {({ field }) => (
-                          <div>
-                            <Input
-                              type="text"
-                              {...field}
-                              placeholder="تصویر "
-                            />
-                          </div>
-                        )}
-                      </Field>
-                      <ErrorMessage
-                        name="Image"
-                        component={"p"}
-                        className="text-danger"
-                      />
-                    </div>
-                  </div>
-                </Col>
-              </Row>
+
               <Row>
                 <Col>
                   <div>
@@ -593,6 +573,9 @@ const FormEditCourse = () => {
                               type="text"
                               {...field}
                               placeholder="عکس کوچک"
+                              onChange={(val) =>
+                                setFieldValue("TumbImageAddress", val)
+                              }
                             />
                           </div>
                         )}
@@ -612,7 +595,14 @@ const FormEditCourse = () => {
                       <Field name="ImageAddress">
                         {({ field }) => (
                           <div>
-                            <Input type="text" {...field} placeholder=" عکس" />
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder=" عکس"
+                              onChange={(val) =>
+                                setFieldValue("ImageAddress", val)
+                              }
+                            />
                           </div>
                         )}
                       </Field>
@@ -636,7 +626,10 @@ const FormEditCourse = () => {
                             <Input
                               type="text"
                               {...field}
-                              placeholder="عکس کوچک"
+                              placeholder=" تاریخ شروع دوره"
+                              onChange={(val) =>
+                                setFieldValue("StartTime", val)
+                              }
                             />
                           </div>
                         )}
@@ -656,7 +649,12 @@ const FormEditCourse = () => {
                       <Field name="EndTime">
                         {({ field }) => (
                           <div>
-                            <Input type="text" {...field} placeholder=" عکس" />
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder=" عکس"
+                              onChange={(val) => setFieldValue("EndTime", val)}
+                            />
                           </div>
                         )}
                       </Field>
@@ -667,6 +665,37 @@ const FormEditCourse = () => {
                       />
                     </div>
                   </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <div>
+                    <Label className="form-label"> رشته ی یکتا</Label>
+                    <div>
+                      <Field name="UniqeUrlString">
+                        {({ field }) => (
+                          <div>
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder=" رشته ای که تکراری نباشد وارد کنید  ..."
+                              onChange={(val) =>
+                                setFieldValue("UniqeUrlString", val)
+                              }
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      <ErrorMessage
+                        name="UniqeUrlString"
+                        component={"p"}
+                        className="text-danger"
+                      />
+                    </div>
+                  </div>
+                </Col>
+                <Col>
+                  <div></div>
                 </Col>
               </Row>
               <div className="d-flex mt-2">
