@@ -13,6 +13,7 @@ import { Row, Col } from 'reactstrap'
 import AddTechModal from "../FormCreatCourse/AddTechModal";
 import { useState , useEffect } from "react";
 import AddGroupModal from "./AddGroupModal";
+import CommentModal from "./CommentModal/CommentModal";
 
 
 
@@ -21,6 +22,7 @@ const FormDetailCourse = () => {
 
   const [show, setShow] = useState(false)
   const [show2, setShow2] = useState(false)
+  const [show3, setShow3] = useState(true)
   const [data, setData] = useState()
   const [courseGroup, setCourseGroup] = useState()
   const { id } = useParams();
@@ -59,6 +61,7 @@ const FormDetailCourse = () => {
 
             <Row>
               <Col lg='6'>
+                
                 <div className="mt-2">
                   <h5 className="mb-75"> title دوره:</h5>
                   <CardText>{data.title}</CardText>
@@ -99,7 +102,17 @@ const FormDetailCourse = () => {
                   <CardText>{data.describe}</CardText>
                 </div> 
 
-              
+                <div className="mt-2">
+                  <h5 className="mb-75"> courseCommentTotal :</h5>
+                  <CardText>{data.courseCommentTotal}</CardText>
+
+                  <div onClick={()=>setShow3(true)}>
+                  <CommentModal   show3={show3} setShow3={setShow3} courseId={id}  />                    
+                  </div>
+                </div>
+
+                
+
                             
               </Col>
 
@@ -140,7 +153,7 @@ const FormDetailCourse = () => {
                     </div>)
                   })}
                
-                  <div>
+                  <div onClick={()=>setShow(true)}>
                   <AddGroupModal  courseGroup={courseGroup} show={show} setShow={setShow} courseId={id}  />                    
                   </div>
                 </div>   

@@ -48,7 +48,7 @@ const OptionComponent = ({ data, ...props }) => {
 
 const AddGroupModal = ({show , setShow , courseGroup , courseId }) => {
 
-  courseGroup && console.log(courseGroup);
+  
   return (
     <Fragment>
 
