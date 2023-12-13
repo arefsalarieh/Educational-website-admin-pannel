@@ -1,8 +1,15 @@
 // ** React Imports
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 // ** Reactstrap Imports
-import { Row, Col } from "reactstrap";
+import {
+  Row,
+  Col,
+  Accordion,
+  AccordionItem,
+  AccordionBody,
+  AccordionHeader,
+} from "reactstrap";
 
 // ** Context
 import { ThemeColors } from "@src/utility/context/ThemeColors";
@@ -28,12 +35,19 @@ import { useDispatch } from "react-redux";
 import { getItem } from "../../common/storage.services";
 import instance from "../../interceptor";
 import Roles from "./roles/Roles";
+import Courses from "./courses/Courses";
 // import RoleCards from "./roles/RoleCards";
-
 
 const EcommerceDashboard = () => {
   // ** Context
   const { colors } = useContext(ThemeColors);
+
+  // ** Accordion dependencies
+  const [open, setOpen] = useState("");
+
+  const toggle = (id) => {
+    open === id ? setOpen() : setOpen(id);
+  };
 
   // ** get datasets
   const { data: userDetails } = useQuery("userData", () => {
@@ -43,8 +57,8 @@ const EcommerceDashboard = () => {
     return instance.get(`/SharePanel/GetProfileInfo`);
   });
 
-//   console.log("currentUser",currentUser);
-//   console.log("userDetails",userDetails);
+    // console.log("currentUser",currentUser);
+    // console.log("userDetails",userDetails);
 
   // ** vars
   const trackBgColor = "#e9ecef";
@@ -82,9 +96,22 @@ const EcommerceDashboard = () => {
         </Col>
       </Row> */}
       <Row className="match-height">
-        <Roles />
+        <Accordion className="accordion-margin" open={open} toggle={toggle}>
+          <AccordionItem>
+            <AccordionHeader targetId="1"><b>مدیریت کاربران</b></AccordionHeader>
+            <AccordionBody accordionId="1">
+              <Roles />
+            </AccordionBody>
+          </AccordionItem>
+          <AccordionItem>
+            <AccordionHeader targetId="2"><b>مدیریت دوره‌ها</b></AccordionHeader>
+            <AccordionBody accordionId="2">
+              <Courses />
+            </AccordionBody>
+          </AccordionItem>
+        </Accordion>
       </Row>
-      <Row className="match-height">
+      {/* <Row className="match-height">
         <Col lg="8" xs="12">
           <CompanyTable />
         </Col>
@@ -100,7 +127,7 @@ const EcommerceDashboard = () => {
         <Col lg="4" md="6" xs="12">
           <CardTransactions />
         </Col>
-      </Row>
+      </Row> */}
     </div>
   );
 };

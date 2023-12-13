@@ -46,7 +46,7 @@ import { selectThemeColors } from "@utils";
 // ** Custom Components
 import instance from "../../../interceptor";
 import Spinner from "../../common/Spinner";
-import UsersModal from "./UsersModal";
+import CourseModal from "./CourseModal";
 import {PersianRolesMaker} from '../../../utils/persianRolesMaker'
 
 // ** FAQ Illustrations
@@ -292,8 +292,6 @@ const RoleCards = () => {
   return (
     <Fragment>
       <Row>
-      {status === "loading" && <Spinner />}
-      {status === "error" && <Spinner />}
         {status === "success" &&
           dataset?.roles.map((item, index) => {
             return (
@@ -317,6 +315,7 @@ const RoleCards = () => {
                                 setShow(!show);
                                 setModalData(personCount[index]);
                                 setRole(item.roleName);
+                                console.log(modalData);
                               }}>
                               مشاهده اعضا
                             </small>
@@ -370,9 +369,10 @@ const RoleCards = () => {
             </Row>
           </Card>
         </Col> */}
+        {status === "Loading" && <Spinner />}
       </Row>
 
-      {show && <UsersModal show={show} setShow={setShow} modalData={modalData} role={role} />}
+      {show && <CourseModal show={show} setShow={setShow} modalData={modalData} role={role} />}
     </Fragment>
   );
 };

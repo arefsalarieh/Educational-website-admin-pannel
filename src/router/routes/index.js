@@ -31,7 +31,7 @@ const TemplateTitle = "%s - Vuexy React Admin Template";
 const DefaultRoute = "/login";
 
 
-const Home = lazy(() => import("../../pages/Home"));
+const Home = lazy(() => import("../../@core/components/home"));
 const ReserveCourseList = lazy(() => import("../../@core/components/CourseTable/ReserveCourseList/ReserveCourseList"));
 const News = lazy(() => import("../../@core/components/news/News"));
 const AllUsers = lazy(() => import("../../@core/components/UserTable/AllUsers"));
