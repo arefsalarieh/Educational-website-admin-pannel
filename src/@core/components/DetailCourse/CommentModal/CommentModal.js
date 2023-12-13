@@ -31,7 +31,7 @@ import Select, { components } from 'react-select'
 import { FileText, Users, Link } from 'react-feather'
 import { Formik,Form } from "formik";
 import AddGroup from '../../AddGroup/AddGroup';
-import ReplyAccardion from './ReplyAccardion';
+import CommentAccardion from './CommentAccardion';
 
 
 
@@ -87,7 +87,7 @@ const CommentModal = ({show3 , setShow3  , courseId }) => {
 
                 <div style={{overflow:'scroll' , height:'300px' ,}}>
                  
-                <ReplyAccardion data={data && data}/>
+                <CommentAccardion data={data && data} refetch={refetch}/>
                 </div>
             </ListGroup>
 

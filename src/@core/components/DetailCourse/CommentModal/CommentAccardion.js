@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { Accordion, AccordionBody, AccordionHeader, AccordionItem } from 'reactstrap'
 import { Badge ,   Row, Col, Button ,} from 'reactstrap'
-import http from '../../../../@core/interceptor'
+import http from '../../../interceptor'
+import ReplyAccardion from './ReplyAccardion/ReplyAccardion'
 
-const ReplyAccardion = ({data}) => {
+const CommentAccardion = ({data , refetch}) => {
     const [open, setOpen] = useState('')
+    const [showReply, setShowReply] = useState(false)
   
     const toggle = id => {
       open === id ? setOpen() : setOpen(id)
@@ -12,6 +14,7 @@ const ReplyAccardion = ({data}) => {
 
     const acceptComment =async (x)=>{
       const result =await http.post(`/Course/AcceptCourseComment?CommentCourseId=${x}`)
+      refetch()
       console.log(result);
     }
   
@@ -44,15 +47,33 @@ const ReplyAccardion = ({data}) => {
                 <div style={{fontSize:'20px'}}>
                   <div>{item.describe}</div>  
                 </div>
+                <div style={{marginTop:'20px'}}>
+                {/* <Badge color='light-primary' >تعداد ریپلای ها :</Badge>
+                <Badge color='light-danger' > {item.acceptReplysCount} </Badge> */}
+                
                 <div>
-                <Badge color='success' >تعداد ریپلای ها :</Badge> {item.title}
+
+
+                <Badge color='primary'>
+                     ریپلای ها   
+                </Badge>
+                  <div style={{backgroundColor:'red'}}>
+                     <ReplyAccardion RepId={item.id} courseId={item.courseId}/>
+                  </div>
+
+                </div>
+                
+                 
                 </div>
               </AccordionBody>
+              <div style={{height:'8px' , backgroundColor:'red'}}></div>
             </AccordionItem>
+
+
           )
         })}
 
       </Accordion>
     )
   }
-  export default ReplyAccardion
+  export default CommentAccardion
