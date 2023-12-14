@@ -28,7 +28,7 @@ const FormDetailCourse = () => {
 
   return (
     <>
-      <Button
+      {/* <Button
         className="me-1 mb-4 mt-2"
         color="primary"
         type="submit"
@@ -37,7 +37,7 @@ const FormDetailCourse = () => {
         }}
       >
          رزرو دوره برای دانشجو  
-      </Button>
+      </Button> */}
       <Card>
         <CardHeader>
           <CardTitle tag="h4"> مشخصات کامل دوره </CardTitle>

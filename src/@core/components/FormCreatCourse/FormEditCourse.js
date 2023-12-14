@@ -648,7 +648,7 @@ const FormEditCourse = () => {
                         {({ field }) => (
                           <div>
                             <Input
-                              type="text-area"
+                              type="text"
                               {...field}
                               placeholder="لطفا توضیحات را وارد کنید..."
                             />
