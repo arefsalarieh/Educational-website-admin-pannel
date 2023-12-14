@@ -55,8 +55,8 @@ function CourseItem({
       <td className="text-nowrap">{fullName}</td>
       <td className="text-nowrap" >{title}</td>
       {/* <td className="text-nowrap ">{typeName}</td> */}
-      <td className="text-nowrap">{cost}</td>
-      <td>
+      <td className="text-nowrap" >{cost}</td>
+      <td className="text-nowrap" > 
         <Badge
           pill
           color="light-primary"
@@ -68,7 +68,7 @@ function CourseItem({
         </Badge>
       </td>
 
-      <td>
+      <td className="text-nowrap" >
         <Badge
           pill
           color="light-primary"
