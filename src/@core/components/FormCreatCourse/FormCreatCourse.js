@@ -44,10 +44,10 @@ const FormCreatCourse = () => {
     courseterm: yup.string().required("لطفا ترم دوره را وارد کنید"),
     Capacity: yup.number().required("ظرفیت دوره کمتر از 100000 باشد"),
     Describe: yup.string().required("لطفا توضیحات  را وارد نمایید"),
-    courseroom: yup.string().required("رلطفا کلاس دوره را وارد کنید "),
-    courseteach: yup.number().required("لطفاشماره استادرا مشخص کنید"),
+    courseroom: yup.string().required("لطفا شماره کلاس را وارد نمایید"),
+    // courseteach: yup.number().required("لطفاشماره استادرا مشخص کنید"),
     MiniDescribe: yup.string().required("لطفا مینی توضیح  را وارد نمایید."),
-    TeacherId: yup.string().required("لطفاآی دی  را مشخص کنید"),
+    courseteach: yup.string().required("لطفا نام استاد  را مشخص کنید"),
     StartTime: yup
       .date(" تاریخ شروع دوره نمیتواند از زمان حال کمتر باشد ")
       .required("لطفا تاریخ شروع دوره را وارد کنید"),
@@ -95,7 +95,7 @@ const FormCreatCourse = () => {
       }))
     );
     setCourseTeach(
-      result?.teachers?.map((m) => ({ value: m.userId, label: m.fullName }))
+      result?.teachers?.map((m) => ({ value: m.teacherId, label: m.fullName }))
     );
     setCourseTerm(
       result?.termDtos?.map((m) => ({ value: m.id, label: m.termName }))
@@ -124,7 +124,7 @@ const FormCreatCourse = () => {
       TremId: Number(values.courseterm),
       ClassId: Number(values.courseroom),
       CourseLvlId: Number(values.courseLvl),
-      TeacherId: values.TeacherId,
+      TeacherId: Number(values.courseteach),
       Cost: values.Cost,
       UniqeUrlString: values.UniqeUrlString,
       ShortLink: values.ShortLink,
@@ -267,15 +267,16 @@ const FormCreatCourse = () => {
                     }}
                   </ErrorMessage>
                 </Col>
-
                 <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> شماره استاد </Label>
+                  <Label className="form-label"> نام استاد </Label>
                   <Select
                     style={{ width: "480px", height: "40px" }}
                     options={courseteach}
                     className="react-select"
                     classNamePrefix="select"
-                    onChange={(val) => setFieldValue("courseteach", val)}
+                    onChange={(val) =>
+                      setFieldValue("courseteach",val)
+                    }
                   />
                   <ErrorMessage name="courseteach">
                     {(errMsg) => {
@@ -315,7 +316,7 @@ const FormCreatCourse = () => {
                     }}
                   </ErrorMessage>
                 </Col>
-                <Col className="mb-1" md="6" sm="12">
+                {/* <Col className="mb-1" md="6" sm="12">
                   <Label className="form-label"> آی دی استاد</Label>
                   <Input
                     value={values.TeacherId}
@@ -331,7 +332,7 @@ const FormCreatCourse = () => {
                       return <p className="text-danger">{errMsg}</p>;
                     }}
                   </ErrorMessage>
-                </Col>
+                </Col> */}
 
                 <Col className="mb-1" md="6" sm="12">
                   <Label className="form-label"> ظرفیت </Label>
