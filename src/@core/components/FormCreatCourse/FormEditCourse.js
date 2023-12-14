@@ -648,7 +648,7 @@ const FormEditCourse = () => {
                         {({ field }) => (
                           <div>
                             <Input
-                              type="text"
+                              type="textarea"
                               {...field}
                               placeholder="لطفا توضیحات را وارد کنید..."
                             />
@@ -671,7 +671,7 @@ const FormEditCourse = () => {
                         {({ field }) => (
                           <div>
                             <Input
-                              type="text-area"
+                              type="textarea"
                               {...field}
                               placeholder="مینی توضیحات را وارد نمایید ..."
                             />

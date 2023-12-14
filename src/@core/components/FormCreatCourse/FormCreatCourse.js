@@ -552,6 +552,7 @@ const FormCreatCourse = () => {
                     name="Describe"
                     className="react-select"
                     classNamePrefix="select"
+                    type='textarea'
                     onChange={(val) =>
                       setFieldValue("Describe", val.target.value)
                     }
@@ -568,6 +569,7 @@ const FormCreatCourse = () => {
                   <Input
                     value={values.MiniDescribe}
                     name="MiniDescribe"
+                    type='textarea'
                     className="react-select"
                     classNamePrefix="select"
                     onChange={(val) =>
