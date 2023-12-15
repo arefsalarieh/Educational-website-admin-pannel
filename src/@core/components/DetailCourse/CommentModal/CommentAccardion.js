@@ -5,10 +5,13 @@ import http from '../../../interceptor'
 import ReplyAccardion from './ReplyAccardion/ReplyAccardion'
 import { useQuery } from "react-query";
 import EditComment from './EditComment'
+import { useNavigate, useParams } from "react-router-dom";
 
 const CommentAccardion = ({ courseId}) => {
     const [open, setOpen] = useState('')
     const [editDisplay, setEditDisplay] = useState('none')
+
+    const navigate = useNavigate();
   
     const toggle = id => {
       open === id ? setOpen() : setOpen(id)
@@ -23,7 +26,7 @@ const CommentAccardion = ({ courseId}) => {
       const result = await http.get(
         `/Course/GetCourseCommnets/${courseId}`
       );
-      // console.log(result);
+      console.log(result);
       return result;
     };
   
@@ -65,7 +68,8 @@ const CommentAccardion = ({ courseId}) => {
                     </Col>
 
                     <Col lg='4' style={{overflow:'hidden' ,  fontSize:'20px'}}>
-                      <Badge color='info'>فرستنده :</Badge> {item.author}
+                      <Badge color='info'>فرستنده :</Badge> 
+                      <Button onClick={()=>navigate('/pages/profile/' + item.userId)}>{item.author}</Button>
                     </Col> 
                     
                     <Col lg='4' style={{overflow:'hidden' , fontSize:'20px'}}>

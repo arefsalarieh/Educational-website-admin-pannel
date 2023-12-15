@@ -1,5 +1,5 @@
 import { Fragment, useState , useEffect } from 'react'
-import http from '../../../@core/interceptor'
+import http from '../../interceptor'
 import { useNavigate, useParams } from "react-router-dom";
 import { Badge } from 'reactstrap'
 

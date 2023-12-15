@@ -50,12 +50,6 @@ const OptionComponent = ({ data, ...props }) => {
 
 const CommentModal = ({show3 , setShow3  , courseId }) => {
 
-
-
-
- 
-
-
   
   return (
     <Fragment>

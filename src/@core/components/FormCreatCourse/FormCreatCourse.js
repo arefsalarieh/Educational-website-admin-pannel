@@ -32,14 +32,16 @@ import { Formik,Form } from "formik";
 import SelectOptions from "./SelectOptions";
 import Select from 'react-select'
 import { selectThemeColors } from '@utils'
+import { useNavigate, useParams } from "react-router-dom";
 
 const FormCreatCourse = () => {
+  const navigate = useNavigate();
   const [courseType, setCourseType] = useState();
   const [courseTerm, setCourseTerm] = useState();
   const [courseRoom, setCourseRoom] = useState();
   const [courseLevel, setCourseLevel] = useState();
   const [courseTeacher, setCourseTeacher] = useState();  
-  // courseTeacher && console.log(courseTeacher);
+
 
   const getCreateFunc =async () =>{
     const result = await http.get("/Course/GetCreate")
@@ -132,6 +134,10 @@ const newTeachers = [];
     })
 
     const result = await http.post("/Course" , data)
+
+    if(result.success === true){
+      navigate("/DetailCourse/" + result.id)
+    }
     console.log(result);
   }
   
@@ -148,7 +154,7 @@ const newTeachers = [];
                   Capacity: "",
                   CourseTypeId: null,
                   SessionNumber: "",
-                  CurrentCoursePaymentNumber: "",
+                  CurrentCoursePaymentNumber: 0,
                   TremId: "",
                   ClassId: "",
                   CourseLvlId: "",
@@ -214,11 +220,6 @@ const newTeachers = [];
                           <Col lg='6'>
                             <Label className='form-label' for='SessionNumber'>SessionNumber</Label>
                             <Input onChange={handleChange} value={values.SessionNumber} type='text' name='SessionNumber' id='SessionNumber' placeholder='SessionNumber' />
-                          </Col>
-
-                          <Col lg='6'>
-                            <Label className='form-label' for='CurrentCoursePaymentNumber'>CurrentCoursePaymentNumber</Label>
-                            <Input onChange={handleChange} value={values.CurrentCoursePaymentNumber} type='text' name='CurrentCoursePaymentNumber' id='CurrentCoursePaymentNumber' placeholder='CurrentCoursePaymentNumber' />
                           </Col>
 
                           <Col lg='6'  >

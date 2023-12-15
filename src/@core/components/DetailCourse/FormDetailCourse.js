@@ -42,7 +42,18 @@ const FormDetailCourse = () => {
   };
 
 
-
+  const handleActive = async (values) => {
+    const courseobjAct = {
+      active: data.isActive === true ? false : true,
+      id: id,
+    };
+    const result = await http.put(
+      `/Course/ActiveAndDeactiveCourse`,
+      courseobjAct
+    );
+    getCourseInfoForDetail()
+    return result;
+  };
 
 
 
@@ -70,48 +81,59 @@ const FormDetailCourse = () => {
               <Col lg='6'>
                 
                 <div className="mt-2" style={{fontSize:'20px'}}>
-                <Badge color='success'>  title دوره:</Badge>
+                <Badge color='info'>  title دوره:</Badge>
                   
                   <CardText>{data.title}</CardText>
                 </div>
                 
                 <div className="mt-2" style={{fontSize:'20px'}}>
-                  <Badge color='success'>  teacherName :</Badge>
+                  <Badge color='info'>  teacherName :</Badge>
                   <CardText>{data.teacherName}</CardText>
                 </div>
 
                 <div className="mt-2" style={{fontSize:'20px'}}>
-                  <Badge color='success'>  courseId :</Badge>
+                  <Badge color='info'>  courseId :</Badge>
                   <CardText>{data.courseId}</CardText>
                 </div>
 
                 <div className="mt-2" style={{fontSize:'20px'}}>
-                  <Badge color='success'>  شروع دوره: :</Badge>                  
+                  <Badge color='info'>  شروع دوره: :</Badge>                  
                   <CardText>{data.startTime}</CardText>
                 </div>
 
                 <div className="mt-2" style={{fontSize:'20px'}}>
-                  <Badge color='success'>  پایان دوره:</Badge>  
+                  <Badge color='info'>  پایان دوره:</Badge>  
                   <CardText>{data.endTime}</CardText>
                 </div>
 
                 <div className="mt-2" style={{fontSize:'20px'}}>
-                  <Badge color='success'>  تاریخ ثبت دوره  :</Badge>  
+                  <Badge color='info'>  تاریخ ثبت دوره  :</Badge>  
                   <CardText>{data.insertDate}</CardText>
                 </div>
 
                 <div className="mt-2" style={{fontSize:'20px'}}>
-                  <Badge color='success'>  قیمت  دوره  :</Badge>  
+                  <Badge color='info'>  قیمت  دوره  :</Badge>  
                   <CardText>{data.cost} تومان</CardText>
                 </div>
 
                 <div className="mt-2" style={{fontSize:'20px'}}>
-                  <Badge color='success'>  توضیحات    :</Badge>                    
+                  <Badge color='info'>    وضعیت فعال بودن  :</Badge>  
+                  {/* <CardText>{data.isActive === true ? 'فعال' : "غیر فعال"}</CardText>
+                  {data.isActive === true && <Button color='success'>فعال</Button>}
+                  {data.isActive === false && <Button color='danger'>غیر فعال</Button>} */}
+                  <div>
+                    <Button onClick={handleActive} color={data.isActive === true ? "success" : 'danger'}>{data.isActive === true ? "فعاله" : "غیرفعاله"}</Button>                    
+                  </div>
+
+                </div>                
+
+                <div className="mt-2" style={{fontSize:'20px'}}>
+                  <Badge color='info'>  توضیحات    :</Badge>                    
                   <CardText>{data.describe}</CardText>
                 </div> 
 
                 <div className="mt-2" style={{fontSize:'16px'}}>
-                  <Badge color='success'>  courseCommentTotal    :</Badge>     
+                  <Badge color='info'>  courseCommentTotal    :</Badge>     
                   <CardText>{data.courseCommentTotal}</CardText>
 
                   <div onClick={()=>setShow3(true)}>
@@ -126,32 +148,30 @@ const FormDetailCourse = () => {
 
               <Col lg='6'>
                 <div className="mt-2">
-                  <Badge color='success'>   سطح دوره     :</Badge>    
+                  <Badge color='info'>   سطح دوره     :</Badge>    
                   <CardText>{data.courseLevelName}</CardText>
                 </div>
 
                 <div className="mt-2">
-                  <Badge color='success'>   وضعیت دوره     :</Badge>    
-                  <h5 className="mb-75"> وضعیت دوره :</h5>
+                  <Badge color='info'>   وضعیت دوره     :</Badge>    
                   <CardText>{data.courseStatusName}</CardText>
                 </div>
 
                 <div className="mt-2">
-                  <Badge color='success'>   نوع کلاس :</Badge>                    
+                  <Badge color='info'>   نوع کلاس :</Badge>                    
                   <CardText>{data.courseTypeName}</CardText>
                 </div>
 
                 <div className="mt-2">
-                  <Badge color='success'>   شماره کلاس :</Badge>  
-                  <h5 className="mb-75"> شماره کلاس :</h5>
+                  <Badge color='info'>   شماره کلاس :</Badge>  
                   <CardText>{data.courseClassRoomName}</CardText>
                 </div>
 
                 <div className="mt-2">
-                  <Badge color='success'>  تکنولوژی های آموزش :</Badge>  
+                  <Badge color='info'>  تکنولوژی های آموزش :</Badge>  
                   {data.courseTeches.map((item , index)=>{
                     return(
-                      <div key={index}>{item}</div>
+                      <div key={index}>{index+1 + '-'}{item}</div>
                     )
                   })}                    
                   <div onClick={()=>setShow2(true)}>
@@ -160,10 +180,10 @@ const FormDetailCourse = () => {
                 </div>  
 
                 <div  onClick={()=>setShow(true)} className="mt-2">
-                  <Badge color='success'> group :</Badge>   
+                  <Badge color='info'> group :</Badge>   
                   {courseGroup && courseGroup.map((item , index)=>{
                     return(<div key={index}>
-                      <CardText>{item.groupName}</CardText>                         
+                      <CardText>{index+1 + '-'}{item.groupName}</CardText>                         
                     </div>)
                   })}
                
@@ -184,7 +204,7 @@ const FormDetailCourse = () => {
       </Card>
 
 
-      <Button onClick={()=>navigate(`/UpdateCourse/${id}`)} color='info'>ادیت دوره</Button>
+      <Button onClick={()=>navigate(`/UpdateCourse/${id}`)} color='warning'>ادیت دوره</Button>
     </>
   );
 };
