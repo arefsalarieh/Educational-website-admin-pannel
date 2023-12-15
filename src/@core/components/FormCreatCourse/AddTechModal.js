@@ -72,12 +72,11 @@ const OptionComponent = ({ data, ...props }) => {
   )
 }
 
-const AddTechModal = ({ show2 , setShow2 , haveTechs}) => {
+const AddTechModal = ({rand , setRand , getCourseInfoForDetail  , show2 , setShow2 , haveTechs}) => {
   const { id } = useParams();
   const [courseTech, setCourseTech] = useState();  
   const [haveCourseTechs, sethaveCourseTechs] = useState();  
-  const [reand, setRand] = useState();  
- 
+
  
 
 
@@ -92,7 +91,7 @@ const AddTechModal = ({ show2 , setShow2 , haveTechs}) => {
   useEffect(() => {
     getCreateFunc()
     sethaveCourseTechs(haveTechs)
-  },[reand]);
+  },[rand]);
 
 
 
@@ -124,9 +123,11 @@ const newTechnologyDtos = technologyDtos.filter((f) => !haveCourseTechs.some((s)
 const AddTechFunc = async (values) =>{
   const techArr = [values]
   const result = await http.post(`/Course/AddCourseTechnology?courseId=${id}` , techArr)
-  
+    // console.log(result);
+  setRand(Math.random())
+  getCourseInfoForDetail()
 
-  console.log(result);
+
 }
 
   return (
@@ -163,14 +164,14 @@ const AddTechFunc = async (values) =>{
                   </Button>
 
 
-                  <p className='fw-bolder pt-50 mt-2'>لیست گروه ها</p>
+                  {/* <p className='fw-bolder pt-50 mt-2'>لیست گروه ها</p>
                   <ListGroup flush className='mb-2'>
                       {haveCourseTechs && haveCourseTechs.map((item , index)=>{
                         return(
                           <Badge key={index} style={{width:'100px'}} color='info'>{item}</Badge>
                         )
                       })}
-                  </ListGroup>
+                  </ListGroup> */}
 
 
                   <div className='d-flex align-content-center justify-content-between flex-wrap'>

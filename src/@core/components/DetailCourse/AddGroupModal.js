@@ -46,7 +46,7 @@ const OptionComponent = ({ data, ...props }) => {
 
 
 
-const AddGroupModal = ({show , setShow , courseGroup , courseId }) => {
+const AddGroupModal = ({show , setShow , courseGroup , courseId , getCourseInfoForDetail}) => {
 
   
   return (
@@ -61,50 +61,57 @@ const AddGroupModal = ({show , setShow , courseGroup , courseId }) => {
           <ModalHeader className='bg-transparent' toggle={() => setShow(!show)}></ModalHeader>
 
           <ModalBody className='px-sm-5 mx-50 pb-4'>
-            <h1 className='text-center mb-1'>افزودن گروه</h1>
+            <h1 className='text-center mb-1'> </h1>
 
 
 
-            <p className='fw-bolder pt-50 mt-2'>لیست گروه ها</p>
+            <h2 className='fw-bolder pt-50 mt-2'><Badge color='success' >  لیست گروه ها :</Badge></h2>
             <ListGroup flush className='mb-2'>
               {courseGroup !== 0  ? courseGroup.map((item , index) => {
                 return (
                   <ListGroupItem   key={index} className='d-flex align-items-start border-0 px-0'>
-                    
-                    <div className='d-flex align-items-center justify-content-between w-100'>
-                      <div className='me-1'>
-                        <h5 className='mb-25'>نام گروه</h5>
-                        <span>{item.groupName}</span>
+
+                  <div className='w-100'> 
+
+                    <h4><Badge color='warning' className='badge-glow'> گروه {index+1}</Badge>   </h4>
+                    <div style={{border:'1px solid #ccc' , backgroundColor:'#ccc' , padding:'10px' , borderRadius:'15px'}} className='d-flex align-items-center justify-content-between w-100'>
+                      <div className=''>
+                        
+                        <Badge color='secondary' className='badge-glow'>  نام گروه :</Badge>
+                        
+                        <div style={{overflow:'hidden' , width:'300px' , height:'30px' , fontSize:'20px'}}>   {item.groupName}</div>
                       </div>
 
-                      <div className='me-1'>
-                        <h5 className='mb-25'>ظرفیت دوره</h5>
-                        <span>{item.courseCapacity}</span>
+                      <div className=''>
+                        <h5 className=''><Badge color='secondary' className='badge-glow'>   ظرفیت دوره :</Badge></h5>
+                        <span style={{textAlign:'center'}}>{item.courseCapacity}</span>
                       </div>                      
 
-                      <div className='me-1'>
-                        <h5 className='mb-25'>ظرفیت گروه</h5>
+                      <div className=''>
+                        <h5 className=''><Badge color='secondary' className='badge-glow'>   ظرفیت گروه :</Badge></h5>
                         <span>{item.groupCapacity}</span>
                       </div>
 
-                      <div className='me-1'>
-                        <h5 className='mb-25'>مدرس</h5>
+                      <div className=''>
+                      <h5 className=''><Badge color='secondary' className='badge-glow'>    مدرس :</Badge></h5>
                         <span>{item.teacherName}</span>
                       </div>
 
 
 
                     </div>
+                  </div>
+
                   </ListGroupItem>
                 )
               }) : (
                 <h2> لیست گروه خالی است  </h2> 
               )}
 
-                <div>
+                <div style={{marginTop:'50px'}}>
                  
-                  <h2>   افزودن گروه</h2>
-                 <AddGroup courseId={courseId}/>
+                <h2 className='fw-bolder pt-50 mt-2'><Badge color='info' className='badge-glow'>افزودن گروه :</Badge></h2>
+                 <AddGroup getCourseInfoForDetail={getCourseInfoForDetail} courseId={courseId} />
                 </div>
             </ListGroup>
 

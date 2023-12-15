@@ -16,7 +16,7 @@ import {
   } from "reactstrap";
 import http from '../../../@core/interceptor'
 
-const AddGroup = ({getCourseInfo , courseId }) => {
+const AddGroup = ({getCourseInfo , courseId ,getCourseInfoForDetail}) => {
 
 
 
@@ -39,7 +39,8 @@ const AddGroup = ({getCourseInfo , courseId }) => {
 
         const result =await http.post("/CourseGroup" , data)
 
-        getCourseInfo(courseId)
+        getCourseInfo && getCourseInfo(courseId)
+        getCourseInfoForDetail && getCourseInfoForDetail()
      
         console.log(result);
     }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AlignJustify, Rss, Info, Image, Users, Edit } from 'react-feather'
+import { AlignJustify, Rss, Info, Image, Users, Edit  } from 'react-feather'
 import {Card, CardImg, Collapse, Table, Badge, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle , Navbar, Nav, NavItem, NavLink, Button } from 'reactstrap'
 import { useNavigate , Link } from 'react-router-dom';
 
@@ -19,7 +19,7 @@ const MyNavbar = () => {
               <NavItem >
                 <NavLink className='fw-bold'    >
                   <Link to="/TableCourses">
-                      <span className='d-none d-md-block'> تمام دوره ها</span>
+                      <Badge color='primary' className='d-none d-md-block'> تمام دوره ها</Badge>
                   </Link>
                   <Rss className='d-block d-md-none' size={14} />
                 </NavLink>
@@ -28,7 +28,7 @@ const MyNavbar = () => {
               <NavItem >
                 <NavLink className='fw-bold'    >
                   <Link to="/ReserveCourseList">
-                      <span className='d-none d-md-block'>   دوره های رزرو شده</span>
+                      <Badge color='primary' className='d-none d-md-block'> دوره های رزرو شده</Badge>
                   </Link>
                   <Rss className='d-block d-md-none' size={14} />
                 </NavLink>

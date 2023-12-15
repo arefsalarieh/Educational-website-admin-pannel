@@ -26,7 +26,9 @@ const {data , status , refetch} = useQuery('getReserve' , getReserveCourse)
     <div>
         <MyNavbar/>
 
-
+        <h2>
+            لیست رزرو :
+        </h2>
         <Table responsive>
             <thead>
                 <tr>

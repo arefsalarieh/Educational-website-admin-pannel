@@ -65,9 +65,7 @@ const TableCourses = () => {
 
       <MyNavbar/>
 
-      <InputGroup className="mb-2 mt-8">
-        <Search size={14} placeholder="جستجو..." onChange={(e)=>handleSearch(e)}  />
-      </InputGroup>
+      <h2>تمام دوره ها :</h2>
 
       <Table responsive>
         <thead>

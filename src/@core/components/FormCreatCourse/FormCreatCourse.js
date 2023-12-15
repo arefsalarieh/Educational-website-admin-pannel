@@ -121,7 +121,7 @@ const newTeachers = [];
  
 
 
-  const show =async (values) =>{
+  const CreateCourseFunc =async (values) =>{
     const data = new FormData();
 
     const keys = Object.keys(values)
@@ -165,7 +165,7 @@ const newTeachers = [];
                   TumbImageAddress: "",
                   ImageAddress: "",   
                 }}
-                onSubmit={show}
+                onSubmit={CreateCourseFunc}
               >
                 {({ values, handleSubmit, handleChange , setFieldValue}) => (
                   <form onSubmit={handleSubmit}>

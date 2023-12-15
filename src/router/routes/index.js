@@ -12,6 +12,7 @@ import PublicRoute from "@components/routes/PublicRoute";
 
 // ** Utils
 import { isObjEmpty } from "@utils";
+
 // import TableCourses from "../../@core/components/CourseTable/TableCourses";
 // import FormDetailCourse from "../../@core/components/DetailCourse/FormDetailCourse";
 // import FormCreatCourse from "../../@core/components/FormCreatCourse/FormCreatCourse";
@@ -46,6 +47,7 @@ const UpdadeUsre = lazy(() => import('../../@core/components/UpdadeUsre/UpdadeUs
 const TableCourses = lazy(() => import('../../@core/components/CourseTable/TableCourses'))
 const FormDetailCourse = lazy(() => import('../../@core/components/DetailCourse/FormDetailCourse'))
 const FormCreatCourse = lazy(() => import('../../@core/components/FormCreatCourse/FormCreatCourse'))
+const UpdateCourse = lazy(() => import('../../@core/components/UpdateCourse/UpdateCourse'))
 const SecondPage = lazy(() => import("../../pages/SecondPage"));
 const Login = lazy(() => import("../../pages/Login"));
 const Register = lazy(() => import("../../pages/Register"));
@@ -117,6 +119,10 @@ const Routes = [
     path: "/FormCreatCourse",
     element: <FormCreatCourse />,
   },  
+  {
+    path: "/UpdateCourse/:id",
+    element: <UpdateCourse />,
+  },    
   {
     path: "/sample",
     element: <Sample />,
