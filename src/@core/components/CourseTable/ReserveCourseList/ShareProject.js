@@ -43,18 +43,29 @@ const OptionComponent = ({ data, ...props }) => {
   )
 }
 
-const ShareProjectExample = ({courseId , courseGroup , studentId , show , setShow}) => {
+const ShareProjectExample = ({getCourseInfo , courseId , courseGroup , studentId , show , setShow , refetch }) => {
  
 
   const handleReserve =async (courseGro) =>{
-    const reserveObj = {
-      courseId: courseId,
-      courseGroupId: courseGro,
-      studentId: studentId
+    try{
+      const reserveObj = {
+        courseId: courseId,
+        courseGroupId: courseGro,
+        studentId: studentId
+      }
+      const result =await http.post("/CourseReserve/SendReserveToCourse" , reserveObj) 
+      console.log(result);  
+      if(result.success === false){
+        alert(result.success);
+      }         
+    }catch(error){
+      alert(error)
     }
-    const result =await http.post("/CourseReserve/SendReserveToCourse" , reserveObj)
 
-    console.log(result);
+
+    
+
+
   }
 
 
@@ -118,7 +129,7 @@ const ShareProjectExample = ({courseId , courseGroup , studentId , show , setSho
                 <div>
                  
                   <h2>   افزودن گروه</h2>
-                 <AddGroup courseId={courseId}/>
+                 <AddGroup getCourseInfo={getCourseInfo} courseId={courseId} refetch={refetch}/>
                 </div>
             </ListGroup>
 

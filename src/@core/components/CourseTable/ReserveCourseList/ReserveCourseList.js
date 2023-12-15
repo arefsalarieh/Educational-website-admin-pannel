@@ -16,7 +16,7 @@ const getReserveCourse =async () =>{
     return result
 }
 
-const {data , status} = useQuery('getReserve' , getReserveCourse)
+const {data , status , refetch} = useQuery('getReserve' , getReserveCourse)
 
 // data && console.log(data);
 
@@ -46,7 +46,7 @@ const {data , status} = useQuery('getReserve' , getReserveCourse)
                     return(
                         
                         <ReserveItem courseName={item.courseName}   studentName={item.studentName}  studentId={item.studentId} 
-                        reserverDate={item.reserverDate}  accept={item.accept}  courseId={item.courseId}/>                            
+                        reserverDate={item.reserverDate}  accept={item.accept}  courseId={item.courseId} refetch={refetch}/>                            
                     )
                 })}
        

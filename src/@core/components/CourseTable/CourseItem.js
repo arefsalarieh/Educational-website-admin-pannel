@@ -67,10 +67,11 @@ function CourseItem({
   return (
     <tr>
       <td className="text-nowrap ">
-        <div  style={{width:'150px' , overflow: "hidden" , }}>{fullName}</div>
+        <div  style={{width:'150px' , overflow: "hidden" , }}>{title}</div>
       </td>
       <td className="text-nowrap ">
-        <div  style={{width:'150px' , overflow: "hidden" , }}>{title}</div></td>
+        <div  style={{width:'150px' , overflow: "hidden" , }}>{fullName}</div>
+      </td>
       <td className="text-nowrap ">{typeName}</td>
       <td className="text-nowrap ">{cost}</td>
       <td>

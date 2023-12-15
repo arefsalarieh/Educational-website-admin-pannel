@@ -11,14 +11,14 @@ import {
 import http from "../../../interceptor";
 import { useQuery } from "react-query";
 import { useFormikContext } from "formik";
-import { Button } from 'reactstrap'
+import { Button  } from 'reactstrap'
 import { Accordion, AccordionBody, AccordionHeader, AccordionItem } from 'reactstrap'
 import ShareProjectExample from "./ShareProject";
 import { Row, Col } from 'reactstrap'
 
 
 
-const ReserveItem = ({courseName , studentName , studentId , reserverDate , accept , courseId}) => {
+const ReserveItem = ({courseName , studentName , studentId , reserverDate , accept , courseId , refetch}) => {
   const navigate = useNavigate();
   const [courseGroup , setCourseGroup] = useState(0)
   const [show, setShow] = useState(false)
@@ -28,9 +28,10 @@ const ReserveItem = ({courseName , studentName , studentId , reserverDate , acce
   const getCourseInfo = async (courseId) =>{
     let result = await http.get(`/Course/${courseId}`)
     let result2 = await http.get(`CourseGroup/GetCourseGroup?TeacherId=${result.teacherId}&CourseId=${courseId}`)
-    // console.log(result2);
+    //  console.log(result2);
      setCourseGroup(result2)
     setShow(true)
+    console.log(result2);
   }
 
 
@@ -45,11 +46,20 @@ const ReserveItem = ({courseName , studentName , studentId , reserverDate , acce
   return (
         
         <tr>
-          <td className="text-nowrap ">{courseName}</td>
-          <td className="text-nowrap ">{studentName}</td>
+          <td className="text-nowrap ">
+            <Button className="text-nowrap"onClick={() => {navigate("/DetailCourse/" + courseId);}}>{courseName}</Button>  
+          </td>
+          <td className="text-nowrap ">
+            <div onClick={() => {navigate("/pages/profile/" + studentId);}} style={{overflow:'hidden' , width:'150px'}}>
+              <Button>{studentName}</Button>
+            </div>
+          </td>
           <td className="text-nowrap ">{studentId}</td>
           <td className="text-nowrap ">{reserverDate}</td>
-          <td className="text-nowrap ">{accept === true ? 'قبول شده' : "در انتظار تایید"}</td>
+          <td className="text-nowrap ">
+            {accept === true ?<Badge color='success'>تایید شده</Badge> : <Badge color='danger'>در انتظار تایید </Badge> }
+          
+          </td>
           <td>
                 <Button
                   pill
@@ -66,7 +76,7 @@ const ReserveItem = ({courseName , studentName , studentId , reserverDate , acce
 
 
           <td onClick={() => getCourseInfo(courseId)}>
-            <ShareProjectExample courseId={courseId} courseGroup={ courseGroup} studentId={studentId} show={show} setShow={setShow}/>
+            <ShareProjectExample getCourseInfo={getCourseInfo} courseId={courseId} courseGroup={ courseGroup} studentId={studentId} show={show} setShow={setShow} refetch={refetch}/>
           </td>        
         </tr>
       

@@ -73,7 +73,7 @@ const TableCourses = () => {
         <thead>
           <tr>
             <th className="text-nowrap ">نام دوره</th>
-            <th className="text-nowrap ">عنوان دوره</th>
+            <th className="text-nowrap ">مدرس دوره</th>
             <th className="text-nowrap ">نوع دوره</th>
             <th className="text-nowrap ">قیمت</th>
             <th className="text-nowrap ">وضعیت فعال</th>
