@@ -109,7 +109,7 @@ const newTeachers = [];
 
  for (let i = 0; i < courseTeacher?.length; i++) {
     var newObj ={
-      value : courseTeacher[i].userId,
+      value : courseTeacher[i].teacherId,
       label : courseTeacher[i].fullName
     }
     newTeachers.push(newObj)

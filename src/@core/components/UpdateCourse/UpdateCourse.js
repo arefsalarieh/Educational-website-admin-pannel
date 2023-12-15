@@ -27,6 +27,8 @@ const UpdateCourse = () => {
     const [courseTeacher, setCourseTeacher] = useState(); 
     const { id } = useParams(); 
 
+    // courseTeacher && console.log(courseTeacher);
+
 
     const UpdateCourse =async () =>{
         const result = await http.get("/Course/GetCreate")
@@ -96,13 +98,15 @@ const newTeachers = [];
 
  for (let i = 0; i < courseTeacher?.length; i++) {
     var newObj ={
-      value : courseTeacher[i].userId,
+      value : courseTeacher[i].teacherId,
       label : courseTeacher[i].fullName
     }
     newTeachers.push(newObj)
     
     // console.log(newTeachers);
 }
+
+// console.log(newTeachers);
 
 
 const UpdateCourseFunc = async (values) =>{
