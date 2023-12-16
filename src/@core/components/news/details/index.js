@@ -63,6 +63,7 @@ import * as yup from "yup";
 import ReplyComments from "./ReplyComments";
 import ProjSpinner from "../../common/Spinner";
 import NoItemFromDb from "../../common/NoItemFromDb";
+import DbError from "../../common/DbError";
 
 const validation = yup.object().shape({
   title: yup.string().required("لطفا مقدار عنوان را وارد کنید"),
@@ -300,6 +301,8 @@ const BlogDetails = () => {
     });
   };
 
+  if(status === "loading") {return <ProjSpinner />}
+  else if(status === "error") {return <DbError />}
   return (
     <Fragment>
       <Breadcrumbs
