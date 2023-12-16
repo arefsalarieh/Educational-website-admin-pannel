@@ -108,7 +108,6 @@ const SupportTracker = props => {
             <Chart options={options} series={series} type='radialBar' height={270} id='support-tracker-card' />
           </Col>
         </Row>
-      console.log(res);
         <div className='d-flex justify-content-between mt-1' onClick={() => navigate("/TableCourses")}>
           <div className='text-center'>
             <CardText className='mb-50'>رزروهای تایید نشده</CardText>
