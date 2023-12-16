@@ -22,13 +22,14 @@ const FormDetailCourse = () => {
   const navigate = useNavigate();
   const [rand, setRand] = useState()  
   const [data, setData] = useState()
+  const [ThisCourseData, setThisCourseData] = useState()
   const [courseGroup, setCourseGroup] = useState()
   const [show, setShow] = useState(false)
   const [show2, setShow2] = useState(false)
   const [show3, setShow3] = useState(false)
   const { id } = useParams();
 
-
+  ThisCourseData && console.log(ThisCourseData);
 
 
 
@@ -41,7 +42,31 @@ const FormDetailCourse = () => {
 
   };
 
+
+
+  const getCourseListInDetail =async () =>{
+    const result = await http.get(`/Course/CourseList?PageNumber=1&RowsOfPage=1000&SortingCol=DESC&SortType=Expire&Query`);   
+    const thisCourse =  result.courseDtos.find((item)=>item.courseId === id)
+    setThisCourseData(thisCourse)
   
+  }
+
+
+  const handleDelete = async (x) => {
+    const obj = {
+      active: ThisCourseData.isdelete === true ? false : true,
+      id: id,   
+    }
+
+ 
+    const result = await http.delete(`/Course/DeleteCourse/`, {
+      data: obj,
+    });
+    getCourseInfoForDetail()
+    getCourseListInDetail()
+      //  console.log(result); 
+  };
+
 
 
   const handleActive = async (values) => {
@@ -61,7 +86,7 @@ const FormDetailCourse = () => {
 
   useEffect(() => {
     getCourseInfoForDetail()
-
+    getCourseListInDetail()
   },[]);
 
   return (
@@ -119,14 +144,17 @@ const FormDetailCourse = () => {
                 </div>
 
                 <div className="mt-2" style={{fontSize:'20px'}}>
+                  <Badge color='info'>   وضعیت حذف :</Badge>  
+                  <div>
+                    <Button onClick={()=>handleDelete(ThisCourseData.isdelete)} color={ThisCourseData.isdelete === false ? "success" : 'danger'}>{ThisCourseData.isdelete === false ? "سالمه" : "حذف شده"}</Button>                    
+                  </div>
+                </div>  
+
+                <div className="mt-2" style={{fontSize:'20px'}}>
                   <Badge color='info'>    وضعیت فعال بودن  :</Badge>  
-                  {/* <CardText>{data.isActive === true ? 'فعال' : "غیر فعال"}</CardText>
-                  {data.isActive === true && <Button color='success'>فعال</Button>}
-                  {data.isActive === false && <Button color='danger'>غیر فعال</Button>} */}
                   <div>
                     <Button onClick={handleActive} color={data.isActive === true ? "success" : 'danger'}>{data.isActive === true ? "فعاله" : "غیرفعاله"}</Button>                    
                   </div>
-
                 </div>                
 
                 <div className="mt-2" style={{fontSize:'20px'}}>

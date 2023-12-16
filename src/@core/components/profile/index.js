@@ -60,6 +60,10 @@ const Profile = () => {
 
   const {data , status , refetch:refetch2} = useQuery(['userInfo' , id] , getUsersInfo )
 
+
+
+  
+
   // data && console.log(data);
 
   return (
