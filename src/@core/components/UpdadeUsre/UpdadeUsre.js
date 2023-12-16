@@ -46,7 +46,7 @@ const UpdadeUsre = () => {
    
     <Card>
       <CardHeader>
-        <CardTitle tag='h4'>بروز رسانی کاربر </CardTitle>
+        <CardTitle tag='h4'>  <h1>بروز رسانی کاربر </h1></CardTitle>
       </CardHeader>
 
       {data &&       <CardBody>
@@ -218,7 +218,7 @@ const UpdadeUsre = () => {
               <Row>
 
                 <Col md='4'>
-                 {data && <UpdadeUsreRoles  rolesList={rolesList} setRolesList={setRolesList}/>} 
+                 {/* {data && <UpdadeUsreRoles  rolesList={rolesList} setRolesList={setRolesList}/>}  */}
                 </Col>
               </Row>
 

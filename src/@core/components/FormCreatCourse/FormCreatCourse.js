@@ -119,7 +119,7 @@ const newTeachers = [];
     // console.log(newTeachers);
 }
 
-
+newTeachers && console.log(newTeachers);
  
 
 

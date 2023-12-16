@@ -15,7 +15,10 @@ const MyNavbar = () => {
     const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <Navbar container={false} className='justify-content-end justify-content-md-between w-100' expand='md' light>
+    <>
+      <div style={{fontSize:'30px'}}><Badge color='danger'>لیست  کاربران</Badge></div>
+
+      <Navbar container={false} className='justify-content-end justify-content-md-between w-100' expand='md' light>
         <Button color='' className='btn-icon navbar-toggler' >
           <AlignJustify size={21} />
         </Button>
@@ -25,7 +28,7 @@ const MyNavbar = () => {
               <NavItem >
                 <NavLink className='fw-bold'    >
                   <Link to="/UsersList/AllUsers">
-                      <span className='d-none d-md-block'> تمام کاربران</span>
+                    <div style={{fontSize:'20px'}}><Badge  className='d-none d-md-block'> تمام کاربران</Badge></div>                      
                   </Link>
                   <Rss className='d-block d-md-none' size={14} />
                 </NavLink>
@@ -33,7 +36,7 @@ const MyNavbar = () => {
               <NavItem >
                 <NavLink className='fw-bold'   >
                   <Link to="/UsersList/TeacherTable">
-                    <span className='d-none d-md-block'>ادمین ها</span>                  
+                    <div style={{fontSize:'20px'}}><Badge  className='d-none d-md-block'>  ادمین ها</Badge></div>                                  
                   </Link>
                   <Rss className='d-block d-md-none' size={14} />
                 </NavLink>
@@ -41,7 +44,7 @@ const MyNavbar = () => {
               <NavItem>
                 <NavLink className='fw-bold'>
                   <Link to="/UsersList/TeacherTable">
-                    <span className='d-none d-md-block'>مدرسان</span>                  
+                    <div style={{fontSize:'20px'}}><Badge  className='d-none d-md-block'> مدرسان</Badge></div>                
                   </Link>
 
                   <Info className='d-block d-md-none' size={14} />
@@ -50,7 +53,7 @@ const MyNavbar = () => {
               <NavItem >
                 <NavLink className='fw-bold'>
                   <Link to="/UsersList/StudentTable">
-                       <span className='d-none d-md-block'>دانشجویان</span>
+                    <div style={{fontSize:'20px'}}><Badge  className='d-none d-md-block'> دانشجویان</Badge></div> 
                   </Link>
 
                   <Image className='d-block d-md-none' size={14} />
@@ -59,7 +62,7 @@ const MyNavbar = () => {
               <NavItem>
                 <NavLink className='fw-bold'>
                   <Link to="/UsersList/FreeUserTable">
-                     <span className='d-none d-md-block'>داوران</span>                  
+                    <div style={{fontSize:'20px'}}><Badge  className='d-none d-md-block'> داوران</Badge></div>                
                   </Link>
 
                   <Users className='d-block d-md-none' size={14} />
@@ -68,7 +71,7 @@ const MyNavbar = () => {
               <NavItem >
                 <NavLink className='fw-bold'>
                   <Link to="/UsersList/MentorsTable">
-                      <span className='d-none d-md-block'>منتور ها</span>              
+                    <div style={{fontSize:'20px'}}><Badge  className='d-none d-md-block'> منتور ها</Badge></div>                            
                   </Link>
 
                   <Users className='d-block d-md-none' size={14} />
@@ -79,6 +82,8 @@ const MyNavbar = () => {
           </div>
         </Collapse>
     </Navbar>
+    </>
+
   )
 }
 

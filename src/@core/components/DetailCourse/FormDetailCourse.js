@@ -29,7 +29,7 @@ const FormDetailCourse = () => {
   const [show3, setShow3] = useState(false)
   const { id } = useParams();
 
-  ThisCourseData && console.log(ThisCourseData);
+  
 
 
 
@@ -101,7 +101,7 @@ const FormDetailCourse = () => {
         {data && (
           <CardBody>
             
-              <img src={data.imageAddress} alt="" style={{display:'block' , margin:'auto', height:'200px' , overflow:'hidden'}}/>
+            {data.imageAddress &&  <img src={data.imageAddress} alt="" style={{display:'block' , margin:'auto', height:'200px' , overflow:'hidden'}}/>}
             
 
             <Row >

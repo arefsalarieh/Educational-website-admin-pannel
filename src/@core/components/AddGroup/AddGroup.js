@@ -15,6 +15,8 @@ import {
   
   } from "reactstrap";
 import http from '../../../@core/interceptor'
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const AddGroup = ({getCourseInfo , courseId ,getCourseInfoForDetail}) => {
 
@@ -38,6 +40,14 @@ const AddGroup = ({getCourseInfo , courseId ,getCourseInfoForDetail}) => {
         })
 
          const result =await http.post("/CourseGroup" , data)
+
+         if(result.success === true){
+            toast.success(result.message)    
+          }
+      
+          else if(result.success === false){
+            toast.error(result.errors)       
+          }
 
         getCourseInfo && getCourseInfo(courseId)
         getCourseInfoForDetail && getCourseInfoForDetail()
