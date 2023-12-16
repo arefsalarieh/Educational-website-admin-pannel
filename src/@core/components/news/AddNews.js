@@ -116,7 +116,6 @@ const VerticalForm = () => {
         data.append(key, item);
       });
       const res = await instance.post("/News/CreateNews", data);
-      console.log(res);
       res?.success === true && toast.success("خبر جدید با موفقیت آپدیت شد.")
       res?.errors.forEach((element) => {
         toast.error(element);
