@@ -35,7 +35,7 @@ const StatsCard = ({ cols }) => {
       title: 'تعداد دوره‌ها',
       subtitle: siteStats?.courseCount,
       color: 'light-danger',
-      linkTo: '/CoursesList',
+      linkTo: '/TableCourses',
       icon: <Box size={24} />
     },
     {

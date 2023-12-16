@@ -61,6 +61,9 @@ import toast from "react-hot-toast";
 import { ErrorMessage, Formik } from "formik";
 import * as yup from "yup";
 import ReplyComments from "./ReplyComments";
+import ProjSpinner from "../../common/Spinner";
+import NoItemFromDb from "../../common/NoItemFromDb";
+import DbError from "../../common/DbError";
 
 const validation = yup.object().shape({
   title: yup.string().required("لطفا مقدار عنوان را وارد کنید"),
@@ -175,7 +178,6 @@ const BlogDetails = () => {
 
   const onDislikeLikeComment = (id) => {
     try {
-      const deleteId = { deleteEntityId: id };
       const res = instance.post("News/DeleteCommentLikeNews", {
         deleteEntityId: id,
       });
@@ -225,6 +227,7 @@ const BlogDetails = () => {
   // };
 
   const renderComments = () => {
+    if (newsObj?.commentDtos.length === 0 ) {return <NoItemFromDb/>}
     return newsObj?.commentDtos.map((comment, index) => {
       return (
         <Card className="mb-3" key={index}>
@@ -297,6 +300,8 @@ const BlogDetails = () => {
     });
   };
 
+  if(status === "loading") {return <ProjSpinner />}
+  else if(status === "error") {return <DbError />}
   return (
     <Fragment>
       <Breadcrumbs
