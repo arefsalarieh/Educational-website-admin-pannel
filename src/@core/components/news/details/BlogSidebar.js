@@ -8,10 +8,13 @@ import classnames from 'classnames'
 import * as Icon from 'react-feather'
 
 // ** Custom Components
-import Avatar from '@components/avatar'
+import AvatarVuexy from '@components/avatar'
+import ReactAvatar from 'react-avatar'
 
 // ** Reactstrap Imports
 import { InputGroup, Input, InputGroupText } from 'reactstrap'
+import { useQuery } from 'react-query'
+import instance from '../../../interceptor'
 
 const BlogSidebar = () => {
   // ** States
@@ -29,17 +32,22 @@ const BlogSidebar = () => {
     Food: 'light-success'
   }
 
+  const {data: newsForSlide} = useQuery("newsForSlide", () => {return instance.get('/News?PageNumber=1&RowsOfPage=5&SortingCol=InsertDate&SortType=DESC')})
+
+  const {data: catForSlider} = useQuery("catForSlider", () => {return instance.get('/News/GetListNewsCategory')})
+  console.log(catForSlider);
+
   const renderRecentPosts = () => {
-    return data.recentPosts.map((post, index) => {
+    return newsForSlide?.news.map((post, index) => {
       return (
         <div
           key={index}
           className={classnames('d-flex', {
-            'mb-2': index !== data.recentPosts.length - 1
+            'mb-2': index !== newsForSlide.news.length - 1
           })}
         >
           <Link className='me-2' to={`/pages/blog/detail/${post.id}`}>
-            <img className='rounded' src={post.img} alt={post.title} width='100' height='70' />
+            <img className='rounded' src={post.currentImageAddressTumb} alt={post.title} width='100' height='70' />
           </Link>
           <div>
             <h6 className='blog-recent-post-title'>
@@ -47,7 +55,7 @@ const BlogSidebar = () => {
                 {post.title}
               </Link>
             </h6>
-            <div className='text-muted mb-0'>{post.createdTime}</div>
+            <div className='text-muted mb-0'>{post.updateDate.slice(0,10)}</div>
           </div>
         </div>
       )
@@ -55,21 +63,22 @@ const BlogSidebar = () => {
   }
 
   const renderCategories = () => {
-    return data.categories.map((item, index) => {
-      const IconTag = Icon[item.icon]
+    return catForSlider?.map((item, index) => {
+      // const IconTag = Icon[item.icon]
 
       return (
         <div
           key={index}
           className={classnames('d-flex justify-content-start align-items-center', {
-            'mb-75': index !== data.categories.length - 1
+            'mb-75': index !== catForSlider?.length - 1
           })}
         >
           <a className='me-75' href='/' onClick={e => e.preventDefault()}>
-            <Avatar className='rounded' color={CategoryColorsArr[item.category]} icon={<IconTag size={15} />} />
+            {/* <AvatarVuexy className='rounded' img={item.iconAddress} /> */}
+            <ReactAvatar round name={item.categoryName} size='45' />
           </a>
           <a href='/' onClick={e => e.preventDefault()}>
-            <div className='blog-category-title text-body'>{item.category}</div>
+            <div className='blog-category-title text-body h5'>{item.categoryName}</div>
           </a>
         </div>
       )
@@ -81,23 +90,25 @@ const BlogSidebar = () => {
       <div className='sidebar'>
         <div className='blog-sidebar right-sidebar my-2 my-lg-0'>
           <div className='right-sidebar-content'>
-            <div className='blog-search'>
+            {/* <div className='blog-search'>
               <InputGroup className='input-group-merge'>
                 <Input placeholder='Search here' />
-                <InputGroupText>
+                <InputGroupText 
+                // onChange={(e) => handleChange(e.target.value)}
+                >
                   <Icon.Search size={14} />
                 </InputGroupText>
               </InputGroup>
-            </div>
-            {data !== null ? (
+            </div> */}
+            {newsForSlide !== null ? (
               <Fragment>
                 <div className='blog-recent-posts mt-3'>
-                  <h6 className='section-label'>Recent Posts</h6>
-                  {/* <div className='mt-75'>{renderRecentPosts()}</div> */}
+                  <h6 className='section-label'>آخرین اخبار</h6>
+                  <div className='mt-75'>{renderRecentPosts()}</div>
                 </div>
                 <div className='blog-categories mt-3'>
                   <h6 className='section-label'>Categories</h6>
-                  {/* <div className='mt-1'>{renderCategories()}</div> */}
+                  <div className='mt-1'>{renderCategories()}</div>
                 </div>
               </Fragment>
             ) : null}

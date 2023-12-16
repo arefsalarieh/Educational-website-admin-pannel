@@ -108,7 +108,7 @@ const VerticalForm = () => {
         Keyword: values.Keyword,
         IsSlider: values.sliderShow,
         NewsCatregoryId: 1,
-        Image: values.Image,
+        Image: values.Image ? values.Image : newsData?.CurrentImageAddress,
       };
       const keys = Object.keys(updateNewsObj);
       keys?.forEach((key) => {
