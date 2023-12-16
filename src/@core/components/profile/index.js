@@ -58,7 +58,7 @@ const Profile = () => {
     return result;
   }
 
-  const {data , status} = useQuery(['userInfo' , id] , getUsersInfo )
+  const {data , status , refetch:refetch2} = useQuery(['userInfo' , id] , getUsersInfo )
 
   // data && console.log(data);
 
@@ -176,7 +176,7 @@ const Profile = () => {
 
             <Row>
               <Col lg='6'>
-                 {data && <UserReservedCourse coursesReseves={data.coursesReseves} userId={data.id}/>}              
+                 {data && <UserReservedCourse refetch2={refetch2} coursesReseves={data.coursesReseves} userId={data.id}/>}              
               </Col>
 
               <Col lg='6'>

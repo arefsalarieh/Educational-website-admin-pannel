@@ -20,6 +20,9 @@ import { useNavigate, useParams } from "react-router-dom";
 
 
 const UpdateCourse = () => {
+    const navigate = useNavigate();
+
+    const [BaseDetail, setBaseDetail] = useState();
     const [courseType, setCourseType] = useState();
     const [courseTerm, setCourseTerm] = useState();
     const [courseRoom, setCourseRoom] = useState();
@@ -37,15 +40,19 @@ const UpdateCourse = () => {
         setCourseRoom(result.classRoomDtos)
         setCourseLevel(result.courseLevelDtos)
         setCourseTeacher(result.teachers)
-    
-    
       }
+
+    const getBaseDetail = async () =>{
+        const result = await http.get(`/Course/${id}`) 
+        setBaseDetail(result)      
+    }
     
     
-    // const {data , status} = useQuery('getCreate' , getCreateFunc)
+
 
     useEffect(() => {
-    UpdateCourse()
+        UpdateCourse()
+        getBaseDetail()
     },[]);
 
 
@@ -103,10 +110,9 @@ const newTeachers = [];
     }
     newTeachers.push(newObj)
     
-    // console.log(newTeachers);
 }
 
-// console.log(newTeachers);
+
 
 
 const UpdateCourseFunc = async (values) =>{
@@ -119,6 +125,10 @@ const UpdateCourseFunc = async (values) =>{
    
     })
      const result = await http.put("/Course" , data)
+
+     if(result.success === true){
+        navigate("/DetailCourse/" + result.id)
+      }
     console.log(result);
 }
 

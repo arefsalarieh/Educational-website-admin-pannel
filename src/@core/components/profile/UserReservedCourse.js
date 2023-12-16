@@ -2,7 +2,7 @@ import React from 'react'
 import { Table, Badge, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap'
 import ReserveCourseItem from './ReserveCourseItem'
 
-const UserReservedCourse = ({coursesReseves , userId}) => {
+const UserReservedCourse = ({refetch2 , coursesReseves , userId}) => {
 
 
 
@@ -22,14 +22,7 @@ const UserReservedCourse = ({coursesReseves , userId}) => {
 
             </thead>
             <tbody>
-            {coursesReseves && (
-                coursesReseves?.map((item , index) =>{
-                            return(
-                            item.accept === false && <ReserveCourseItem key={index}  courseName={item.courseName} reserverDate={item.reserverDate} />         
-                        )
-                    })         
-                )
-                } 
+            {coursesReseves && ( <ReserveCourseItem refetch2={refetch2} coursesReseves={coursesReseves} />)} 
 
 
 

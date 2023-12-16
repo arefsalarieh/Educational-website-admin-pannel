@@ -13,7 +13,7 @@ const AcceptCourseItem = ({title , lastUpdate , id}) => {
     const navigate = useNavigate()
 
     const goDetail = () =>{
-        navigate('/pages/profile/' + id)
+        navigate('/DetailCourse/' + id)
     }
 
     
@@ -29,7 +29,7 @@ const AcceptCourseItem = ({title , lastUpdate , id}) => {
         </td>
         
         <td>
-            <Button.Ripple onClick={goDetail} color='primary'> مشاهده جزئیات</Button.Ripple>
+            <Button.Ripple onClick={goDetail} color='primary'>  جزئیات</Button.Ripple>
 
         </td>  
 

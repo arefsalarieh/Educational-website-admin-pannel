@@ -22,7 +22,7 @@ const ReserveItem = ({courseName , studentName , studentId , reserverDate , acce
   const navigate = useNavigate();
   const [courseGroup , setCourseGroup] = useState(0)
   const [show, setShow] = useState(false)
-  // setCourseGroup && console.log(setCourseGroup);
+  // courseGroup && console.log(setCourseGroup);
 
 
   const getCourseInfo = async (courseId) =>{

@@ -45,16 +45,6 @@ const TableCourses = () => {
 
   // data && console.log(data.courseDtos);
 
-// if(status='success' && data.courseDtos.length>0){
-
-//    for(let i=0 ; i< data && data.courseDtos.length ; i++){
-//     console.log(data.courseDtos[i]);
-//   }
-
-
-// }
-
-
 
   const show2 = (x) =>{
     console.log(x);

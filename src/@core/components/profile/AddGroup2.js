@@ -16,9 +16,8 @@ import {
   } from "reactstrap";
 import http from '../../../@core/interceptor'
 
-const AddGroup = ({getCourseInfo , courseId ,getCourseInfoForDetail}) => {
 
-
+const AddGroup2 = ({courseId , getCourseInfoX}) => {
 
     const setGroupFunc =async (values) =>{
         const data = new FormData()
@@ -39,11 +38,11 @@ const AddGroup = ({getCourseInfo , courseId ,getCourseInfoForDetail}) => {
 
          const result =await http.post("/CourseGroup" , data)
 
-        getCourseInfo && getCourseInfo(courseId)
-        getCourseInfoForDetail && getCourseInfoForDetail()
+         getCourseInfoX(courseId)
      
-        // console.log(data);
+         console.log(result);
     }
+
 
   return (
     <div>
@@ -84,4 +83,4 @@ const AddGroup = ({getCourseInfo , courseId ,getCourseInfoForDetail}) => {
   )
 }
 
-export default AddGroup
+export default AddGroup2
