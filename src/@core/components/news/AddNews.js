@@ -30,6 +30,8 @@ const validation = yup.object().shape({
 const VerticalForm = () => {
   const data = new FormData();
   const param = useParams();
+  let flag = param?.id;
+  console.log(flag);
   const [initialValues, setInitialValues] = useState({
     title: "",
     miniDesc: "",
@@ -39,82 +41,82 @@ const VerticalForm = () => {
     image: null,
   });
 
-
-  // useEffect(()=>{
-  //   isEditing(param?.id)
-  // },[param?.id])
-
-  const isEditing = (id) => {
-    const { data } = useQuery("getNewsDetail", () =>
-      instance.get(`/News/${id}`).then((res) => {
-        return res.detailsNewsDto;
-      })
-    );
-
-    setInitialValues({
-      title: data?.title,
-      miniDesc: data?.miniDescribe,
-      desc: data?.describe,
-      Keyword: data?.Keyword,
-      sliderShow: data?.isSlider,
-      image: data?.currentImageAddress,
-    });
-  };
-
-  const addNews = useMutation({
-    mutationFn: (formNewsData) => {
-      instance.post(
-        instance.post("/News/CreateNews", formNewsData).then((res) => {
-          res.success === true
-            ? toast.success(res.message)
-            : toast.error(res.message);
-        })
-      );
+  const {
+    data: newsData,
+    refetch,
+    isSuccess,
+  } = useQuery(
+    "getNewsDetail",
+    () => {
+      return instance.get(`/News/${param.id}`);
     },
-  });
+    { enabled: false }
+  );
+
+  useEffect(() => {
+    if (isSuccess) {
+      setInitialValues({
+        title: newsData?.detailsNewsDto.title,
+        miniDesc: newsData?.detailsNewsDto.miniDescribe,
+        desc: newsData?.detailsNewsDto.describe,
+        Keyword: newsData?.detailsNewsDto.Keyword,
+        sliderShow: newsData?.detailsNewsDto.isSlider,
+        image: newsData?.detailsNewsDto.currentImageAddress,
+      });
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (param?.id) refetch();
+  }, [param]);
+
+  // const addNews = useMutation({
+  //   mutationFn: (formNewsData) => {
+  //     instance.post(
+  //       instance.post("/News/CreateNews", formNewsData).then((res) => {
+  //         res.success === true
+  //           ? toast.success(res.message)
+  //           : toast.error(res.message);
+  //       })
+  //     );
+  //   },
+  // });
 
   const onSubmit = async (values) => {
-    const newsObj = {
-      Title: values.title,
-      GoogleTitle: values.title + " " + values.title,
-      GoogleDescribe:
-        values.miniDesc +
-        " " +
-        values.miniDesc +
-        " " +
-        values.miniDesc +
-        " " +
-        values.miniDesc +
-        " " +
-        values.miniDesc,
-      MiniDescribe: values.miniDesc,
-      Describe: values.desc,
-      Keyword: values.Keyword,
-      IsSlider: values.sliderShow,
-      NewsCatregoryId: 1,
-      Image: values.Image,
-    };
+    if (flag) {
+      toast.success("edit time!!!")
+    }
+    else {
+      const newsObj = {
+        Title: values.title,
+        GoogleTitle: values.title + " " + values.title,
+        GoogleDescribe:
+          values.miniDesc +
+          " " +
+          values.miniDesc +
+          " " +
+          values.miniDesc ,
+        MiniDescribe: values.miniDesc,
+        Describe: values.desc,
+        Keyword: values.Keyword,
+        IsSlider: values.sliderShow,
+        NewsCatregoryId: 1,
+        Image: values.Image,
+      };
+  
+      const keys = Object.keys(newsObj);
+      keys.forEach((key) => {
+        const item = newsObj[key];
+        data.append(key, item);
+      });
+  
+      const res = await instance.post("/News/CreateNews", data);
+      console.log(res);
+      res?.errors.forEach((element) => {
+        toast.error(element);
+      });
+    }
 
-    console.log(newsObj);
-
-    const keys = Object.keys(newsObj);
-    keys.forEach((key) => {
-      const item = newsObj[key];
-      data.append(key, item);
-    });
-
-    const res = await instance.post("/News/CreateNews", data);
-    console.log(res);
-    res?.errors.forEach((element) => {
-      toast.error(element);
-    });
-
-    // const data = makeFormData(newsObj)
-
-    // const res = addNews.mutate(data);
-    // console.log("mutate result", res);
-    // addNews.isError ? toast.error("عملیات با خطا مواجه شد") : null;
-    // addNews.isSuccess ? toast.success("ثبت موفقیت آمیز") : null;
   };
 
   return (
@@ -127,6 +129,7 @@ const VerticalForm = () => {
         <Formik
           onSubmit={onSubmit}
           initialValues={initialValues}
+          enableReinitialize
           //   validationSchema={validation}
         >
           {({ values, handleSubmit, handleChange, setFieldValue, errors }) => (

@@ -178,7 +178,6 @@ const BlogDetails = () => {
 
   const onDislikeLikeComment = (id) => {
     try {
-      const deleteId = { deleteEntityId: id };
       const res = instance.post("News/DeleteCommentLikeNews", {
         deleteEntityId: id,
       });
