@@ -13,7 +13,7 @@ const AllUsers = () => {
     const [isOpen, setIsOpen] = useState(false)
 
     const getAlls =async () =>{
-      const result = await http.get("/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&Query=")
+      const result = await http.get("/User/UserMannage?PageNumber=1&RowsOfPage=200&SortingCol=DESC&SortType=InsertDate&Query=")
       return result
     }
   
