@@ -61,6 +61,8 @@ import toast from "react-hot-toast";
 import { ErrorMessage, Formik } from "formik";
 import * as yup from "yup";
 import ReplyComments from "./ReplyComments";
+import ProjSpinner from "../../common/Spinner";
+import NoItemFromDb from "../../common/NoItemFromDb";
 
 const validation = yup.object().shape({
   title: yup.string().required("لطفا مقدار عنوان را وارد کنید"),
@@ -225,6 +227,7 @@ const BlogDetails = () => {
   // };
 
   const renderComments = () => {
+    if (newsObj?.commentDtos.length === 0 ) {return <NoItemFromDb/>}
     return newsObj?.commentDtos.map((comment, index) => {
       return (
         <Card className="mb-3" key={index}>

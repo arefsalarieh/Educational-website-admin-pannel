@@ -131,6 +131,10 @@ const Routes = [
     element: <AddNews />,
   },
   {
+    path: "/editNews/:id",
+    element: <AddNews />,
+  },
+  {
     path: "/second-page",
     element: <SecondPage />,
   },

@@ -33,7 +33,7 @@ const onError = (err) => {
     }
 
     if(err.response.status >= 400 && err.response.status < 500){
-        // alert("Client request error: " + err.response.status);
+        toast.error("Client request error: " + err.response.status);
     }
 
     return Promise.reject(err);
