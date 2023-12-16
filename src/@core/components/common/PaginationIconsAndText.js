@@ -16,7 +16,7 @@ const IconPagination = ({ total, apiParam, setApiParam }) => {
   // console.log(totalPage);
 
   const pageChange = (event) => {
-    const newOffset = (event.selected++ * 6) % total;
+    const newOffset = (event.selected++ * apiParam?.RowsOfPage) % total;
     console.log(
       `User requested page number ${event.selected}, which is offset ${newOffset}`
     );
@@ -35,7 +35,7 @@ const IconPagination = ({ total, apiParam, setApiParam }) => {
           pageCount={totalPage}
           breakLabel="..."
           previousLabel=""
-          pageRangeDisplayed={6}
+          pageRangeDisplayed={apiParam?.RowsOfPage}
           marginPagesDisplayed={3}
           activeClassName="active"
           pageClassName="page-item"

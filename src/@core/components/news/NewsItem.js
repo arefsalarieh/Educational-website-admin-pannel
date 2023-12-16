@@ -88,18 +88,18 @@ function NewsItem({ data, apiParam, setApiParam, onClick, refetch }) {
         <img
           className="me-75 rounded-circle"
           src={
-            data.currentImageAddressTumb
-              ? data.currentImageAddressTumb
-              : data.addUserProfileImage
+            data?.currentImageAddressTumb
+              ? data?.currentImageAddressTumb
+              : data?.addUserProfileImage
           }
           alt={logo}
           height="20"
           width="20"
         />
         <span className="align-middle fw-bold text-nowrap">
-          {data.title.length > 20
-            ? data.title.slice(0, 20) + "..."
-            : data.title}
+          {data?.title.length > 20
+            ? data?.title.slice(0, 20) + "..."
+            : data?.title}
         </span>
       </td>
       <td>
@@ -111,25 +111,25 @@ function NewsItem({ data, apiParam, setApiParam, onClick, refetch }) {
           width="20"
         /> */}
         <span className="align-middle fw-bold text-nowrap">
-          {data.addUserFullName.length > 15
-            ? data.addUserFullName.slice(0, 15) + "..."
-            : data.addUserFullName}
+          {data?.addUserFullName?.length > 15
+            ? data?.addUserFullName.slice(0, 15) + "..."
+            : data?.addUserFullName}
         </span>
       </td>
       <td>
-        <span>{data.updateDate.slice(0, 10)}</span>
+        <span>{data?.updateDate.slice(0, 10)}</span>
       </td>
       <td>
         {/* <RateStars rate={data.currentRate} /> */}
         <Badge pill color="light-primary" className="me-1">
           <ThumbsUp size={15} />
-          <span className="px-1">{data.currentLikeCount}</span>
+          <span className="px-1">{data?.currentLikeCount}</span>
         </Badge>
       </td>
       <td>
         <Badge pill color="light-success" className="me-1">
           <Eye size={15} />
-          <span className="px-1">{data.currentView}</span>
+          <span className="px-1">{data?.currentView}</span>
         </Badge>
       </td>
       <td>

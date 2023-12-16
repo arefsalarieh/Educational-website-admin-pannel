@@ -56,7 +56,7 @@ import cmtImg from "@src/assets/images/portrait/small/avatar-s-11.jpg";
 import banner from "@src/assets/images/NewImage/banner-12.jpg";
 import { useMutation, useQuery } from "react-query";
 import instance from "../../../interceptor";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useNavigation, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { ErrorMessage, Formik } from "formik";
 import * as yup from "yup";
@@ -78,6 +78,7 @@ const BlogDetails = () => {
   // ** States
   const [replyParams, setReplyParams] = useState(null);
   const param = useParams();
+  const navigate = useNavigate();
 
   const {
     data: newsObj,
@@ -98,7 +99,9 @@ const BlogDetails = () => {
     instance.post("/News/CreateNewsReplyComment", reply).then((res) => {
       res.success === true && toast.success("پاسخ به کامنت با موفقیت درج شد");
       res.error === true &&
-        toast.success("خطایی پیش آمده لطفا مجددا تلاش نمایید" + res.error.message);
+        toast.success(
+          "خطایی پیش آمده لطفا مجددا تلاش نمایید" + res.error.message
+        );
     })
   );
   addReplyComment.isError &&
@@ -113,7 +116,7 @@ const BlogDetails = () => {
       });
       console.log(replyParams);
       addReplyComment.mutate(replyParams);
-      refetch()
+      refetch();
     } else {
       const comment = {
         newsId: param.id,
@@ -122,7 +125,7 @@ const BlogDetails = () => {
         userId: newsObj?.detailsNewsDto.userId,
       };
       addComment.mutate(comment);
-      refetch()
+      refetch();
     }
   };
 
@@ -227,7 +230,9 @@ const BlogDetails = () => {
   // };
 
   const renderComments = () => {
-    if (newsObj?.commentDtos.length === 0 ) {return <NoItemFromDb/>}
+    if (newsObj?.commentDtos.length === 0) {
+      return <NoItemFromDb />;
+    }
     return newsObj?.commentDtos.map((comment, index) => {
       return (
         <Card className="mb-3" key={index}>
@@ -300,8 +305,11 @@ const BlogDetails = () => {
     });
   };
 
-  if(status === "loading") {return <ProjSpinner />}
-  else if(status === "error") {return <DbError />}
+  if (status === "loading") {
+    return <ProjSpinner />;
+  } else if (status === "error") {
+    return <DbError />;
+  }
   return (
     <Fragment>
       <Breadcrumbs
@@ -452,15 +460,17 @@ const BlogDetails = () => {
                             </a>
                           </div>
                         </div>
-                        <UncontrolledDropdown className="dropdown-icon-wrapper">
-                          <DropdownToggle tag="span">
-                            <Share2
-                              size={21}
-                              className="text-body cursor-pointer"
-                            />
-                          </DropdownToggle>
-                          <DropdownMenu end>
-                            <DropdownItem className="py-50 px-1">
+                        <div className="d-flex justify-content-around align-items-center">
+                          <Button color="primary" className="me-2" onClick={e => {e.preventDefault(); navigate(`/editNews/${newsObj?.detailsNewsDto.id}`)}}>تغییر محتویات خبر</Button>
+                          <UncontrolledDropdown className="dropdown-icon-wrapper">
+                            <DropdownToggle tag="span">
+                              <Share2
+                                size={21}
+                                className="text-body cursor-pointer"
+                              />
+                            </DropdownToggle>
+                            <DropdownMenu end>
+                              {/* <DropdownItem className="py-50 px-1">
                               <GitHub size={18} />
                             </DropdownItem>
                             <DropdownItem className="py-50 px-1">
@@ -474,17 +484,20 @@ const BlogDetails = () => {
                             </DropdownItem>
                             <DropdownItem className="py-50 px-1">
                               <Linkedin size={18} />
-                            </DropdownItem>
-                            <DropdownItem
-                              className="py-50 px-1"
-                              onClick={() => {
-                                navigator.clipboard.writeText(location.href);
-                                toast.success("لینک خبر در کلیپ بورد کپی شد.");
-                              }}>
-                              <Copy size={18} />
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
+                            </DropdownItem> */}
+                              <DropdownItem
+                                className="py-50 px-1"
+                                onClick={() => {
+                                  navigator.clipboard.writeText(location.href);
+                                  toast.success(
+                                    "لینک خبر در کلیپ بورد کپی شد."
+                                  );
+                                }}>
+                                <Copy size={18} />
+                              </DropdownItem>
+                            </DropdownMenu>
+                          </UncontrolledDropdown>
+                        </div>
                       </div>
                     </CardBody>
                   </Card>

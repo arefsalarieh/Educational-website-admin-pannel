@@ -31,7 +31,6 @@ const VerticalForm = () => {
   const data = new FormData();
   const param = useParams();
   let flag = param?.id;
-  console.log(flag);
   const [initialValues, setInitialValues] = useState({
     title: "",
     miniDesc: "",
@@ -56,6 +55,7 @@ const VerticalForm = () => {
   useEffect(() => {
     if (isSuccess) {
       setInitialValues({
+        id: newsData?.detailsNewsDto.id,
         title: newsData?.detailsNewsDto.title,
         miniDesc: newsData?.detailsNewsDto.miniDescribe,
         desc: newsData?.detailsNewsDto.describe,
@@ -64,6 +64,7 @@ const VerticalForm = () => {
         image: newsData?.detailsNewsDto.currentImageAddress,
       });
     }
+    console.log(newsData?.detailsNewsDto);
   }, [isSuccess]);
 
   useEffect(() => {
@@ -82,20 +83,26 @@ const VerticalForm = () => {
   //   },
   // });
 
+  // const updateNews = useMutation((data) =>
+  //   instance.put("/News/UpdateNews", data).then((res) => {
+  //     res.success === true && toast.success("عملیات با موفقیت انجام شد");
+  //     res.error === true && toast.error("خطایی اتفاق افتاده، مجددا تلاش کنید.");
+  //   })
+  // );
+
   const onSubmit = async (values) => {
-    if (flag) {
-      toast.success("edit time!!!")
-    }
-    else {
-      const newsObj = {
+    if (param?.id !== undefined || null) {
+      const updateNewsObj = {
+        Id: newsData?.detailsNewsDto.id,
+        SlideNumber: 1,
+        CurrentImageAddress: newsData?.detailsNewsDto.currentImageAddress,
+        CurrentImageAddressTumb:
+          newsData?.detailsNewsDto.currentImageAddressTumb,
+        Active: newsData?.detailsNewsDto.active,
         Title: values.title,
         GoogleTitle: values.title + " " + values.title,
         GoogleDescribe:
-          values.miniDesc +
-          " " +
-          values.miniDesc +
-          " " +
-          values.miniDesc ,
+          values.miniDesc + " " + values.miniDesc + " " + values.miniDesc,
         MiniDescribe: values.miniDesc,
         Describe: values.desc,
         Keyword: values.Keyword,
@@ -103,20 +110,43 @@ const VerticalForm = () => {
         NewsCatregoryId: 1,
         Image: values.Image,
       };
-  
+      const keys = Object.keys(updateNewsObj);
+      keys?.forEach((key) => {
+        const item = updateNewsObj[key];
+        data.append(key, item);
+      });
+      const res = await instance.post("/News/CreateNews", data);
+      console.log(res);
+      res?.success === true && toast.success("خبر جدید با موفقیت آپدیت شد.")
+      res?.errors.forEach((element) => {
+        toast.error(element);
+      });
+    } else {
+      const newsObj = {
+        Title: values.title,
+        GoogleTitle: values.title + " " + values.title,
+        GoogleDescribe:
+          values.miniDesc + " " + values.miniDesc + " " + values.miniDesc,
+        MiniDescribe: values.miniDesc,
+        Describe: values.desc,
+        Keyword: values.Keyword,
+        IsSlider: values.sliderShow,
+        NewsCatregoryId: 1,
+        Image: values.Image,
+      };
       const keys = Object.keys(newsObj);
       keys.forEach((key) => {
         const item = newsObj[key];
         data.append(key, item);
       });
-  
+
       const res = await instance.post("/News/CreateNews", data);
       console.log(res);
+      res?.success === true && toast.success("خبر جدید با موفقیت درج شد.")
       res?.errors.forEach((element) => {
         toast.error(element);
       });
     }
-
   };
 
   return (
