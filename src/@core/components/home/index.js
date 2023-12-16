@@ -26,6 +26,7 @@ import OrdersBarChart from "./OrdersBarChart";
 import CardTransactions from "./CardTransactions";
 import ProfitLineChart from "./ProfitLineChart";
 import CardBrowserStates from "./CardBrowserState";
+import SupportTracker from "./ui-elements/SupportTracker";
 
 // ** Styles
 import "@styles/react/libs/charts/apex-charts.scss";
@@ -36,7 +37,8 @@ import { getItem } from "../../common/storage.services";
 import instance from "../../interceptor";
 import Roles from "./roles/Roles";
 import Courses from "./courses/Courses";
-// import RoleCards from "./roles/RoleCards";
+import ApexDonutChart from "./ui-elements/ApexDonutChart";
+
 
 const EcommerceDashboard = () => {
   // ** Context
@@ -57,9 +59,6 @@ const EcommerceDashboard = () => {
     return instance.get(`/SharePanel/GetProfileInfo`);
   });
 
-    // console.log("currentUser",currentUser);
-    // console.log("userDetails",userDetails);
-
   // ** vars
   const trackBgColor = "#e9ecef";
   const dispatch = useDispatch();
@@ -72,6 +71,17 @@ const EcommerceDashboard = () => {
         </Col>
         <Col xl="8" md="6" xs="12">
           <StatsCard cols={{ xl: "3", sm: "6" }} />
+        </Col>
+      </Row>
+      <Row>
+        <Col lg="6" xs="12">
+          <SupportTracker
+            primary={colors.primary.main}
+            danger={colors.danger.main}
+          />
+        </Col>
+        <Col lg="6" sm="12">
+          <ApexDonutChart />
         </Col>
       </Row>
       {/* <Row className="match-height">
@@ -98,13 +108,17 @@ const EcommerceDashboard = () => {
       <Row className="match-height">
         <Accordion className="accordion-margin" open={open} toggle={toggle}>
           <AccordionItem>
-            <AccordionHeader targetId="1"><b>مدیریت کاربران</b></AccordionHeader>
+            <AccordionHeader targetId="1">
+              <b>مدیریت کاربران</b>
+            </AccordionHeader>
             <AccordionBody accordionId="1">
               <Roles />
             </AccordionBody>
           </AccordionItem>
           <AccordionItem>
-            <AccordionHeader targetId="2"><b>مدیریت دوره‌ها</b></AccordionHeader>
+            <AccordionHeader targetId="2">
+              <b>مدیریت دوره‌ها</b>
+            </AccordionHeader>
             <AccordionBody accordionId="2">
               <Courses />
             </AccordionBody>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getItem } from "../common/storage.services";
+import { getItem, removeItem } from "../common/storage.services";
 import toast from "react-hot-toast";
 
 
@@ -19,11 +19,17 @@ const onSuccess = (response) => {
 const onError = (err) => {
     console.log(err);
 
-    if(err.response.status === 401){
+    if (err.message === "Network Error"){
+        toast.error("توکن شما منقضی شده است")
+        removeItem('token');
+        window.location.pathname = '/login'
+    }
+
+    else if(err.response.status === 401){
         // clearStorage()
         toast.error("توکن شما منقضی شده است")
         removeItem('token');
-        window.location.pathname = '/login' // or '/login'
+        window.location.pathname = '/login' // or '/'
     }
 
     if(err.response.status >= 400 && err.response.status < 500){

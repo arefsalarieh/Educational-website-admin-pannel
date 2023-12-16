@@ -7,41 +7,22 @@ import {
   Row,
   Col,
   Card,
-  Label,
-  Input,
-  Table,
-  Modal,
-  Button,
   CardBody,
-  ModalBody,
-  ModalHeader,
-  FormFeedback,
-  UncontrolledTooltip,
-  ListGroup,
-  ListGroupItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
+  Button,
 } from "reactstrap";
 
 // ** Third Party Components
 import {
   Book,
   BookOpen,
-  Copy,
   Feather,
   GitHub,
-  Info,
   Layers,
   Loader,
   Paperclip,
   UserCheck,
   Users,
 } from "react-feather";
-import { useForm, Controller } from "react-hook-form";
-import Select, { components } from "react-select";
-import { selectThemeColors } from "@utils";
 
 // ** Custom Components
 import instance from "../../../interceptor";
@@ -50,33 +31,7 @@ import UsersModal from "./UsersModal";
 import {PersianRolesMaker} from '../../../utils/persianRolesMaker'
 
 // ** FAQ Illustrations
-import { useMutation, useQueries, useQuery } from "react-query";
-
-const persianRole = (string) => {
-  if (string === "Administrator") return "ادمین";
-  else if (string === "Teacher") return "استاد";
-  else if (string === "Student") return "دانشجو";
-  else if (string === "CourseAssistance") return "دستیار آموزش";
-  else if (string === "Employee.Admin") return "دستیار ادمین";
-  else if (string === "Employee.Writer") return "دستیار نویسنده";
-  else if (string === "Referee") return "داور";
-  else if (string === "TournamentAdmin") return "ادمین دوره";
-  else if (string === "TournamentMentor") return "منتور";
-};
-
-
-import Avatar from "react-avatar";
-
-
-// ** Portraits
-import portrait1 from "@src/assets/images/portrait/small/avatar-s-9.jpg";
-import portrait2 from "@src/assets/images/portrait/small/avatar-s-3.jpg";
-import portrait3 from "@src/assets/images/portrait/small/avatar-s-5.jpg";
-import portrait4 from "@src/assets/images/portrait/small/avatar-s-7.jpg";
-import portrait5 from "@src/assets/images/portrait/small/avatar-s-11.jpg";
-import portrait6 from "@src/assets/images/portrait/small/avatar-s-10.jpg";
-import portrait7 from "@src/assets/images/portrait/small/avatar-s-8.jpg";
-import portrait8 from "@src/assets/images/portrait/small/avatar-s-6.jpg";
+import { useQuery } from "react-query";
 
 
 const RoleCards = () => {
@@ -88,101 +43,74 @@ const RoleCards = () => {
 
   // ** get datasets
 
-  const { data: dataset } = useQuery("dataset", () =>
+  const { data: dataset, refetch } = useQuery("dataset", () =>
     instance.get(
-      "/User/UserMannage?PageNumber=0&RowsOfPage=0&SortingCol=DESC&SortType=InsertDate&Query=&IsActiveUser=true&IsDeletedUser=true"
+      "/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&Query="
     )
   );
 
-  const { data: adminCount } = useQuery(
+  const { data: adminCount, } = useQuery(
     "adminCount",
     () =>
       instance.get(
-        "/User/UserMannage?RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&IsActiveUser=true&IsDeletedUser=true&roleId=1"
+        "/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&roleId=1"
       )
-    // .then((res) => {
-    //   return res.totalCount;
-    // })
   );
   const { data: teacherCount } = useQuery(
     "teacherCount",
     () =>
       instance.get(
-        "/User/UserMannage?RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&IsActiveUser=true&IsDeletedUser=true&roleId=2"
+        "/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&roleId=2"
       )
-    // .then((res) => {
-    //   return res.totalCount;
-    // })
   );
   const { data: studentCount } = useQuery(
     "studentCount",
     () =>
       instance.get(
-        "/User/UserMannage?RowsOfPage=100&SortingCol=0DESC&SortType=InsertDate&IsActiveUser=true&IsDeletedUser=true&roleId=3"
+        "/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&roleId=3"
       )
-    // .then((res) => {
-    //   return res.totalCount;
-    // })
   );
   const { data: courseAssistanceCount } = useQuery(
     "courseAssistanceCount",
     () =>
       instance.get(
-        "/User/UserMannage?PageNumber=0&RowsOfPage=0&SortingCol=DESC&SortType=InsertDate&Query=&IsActiveUser=true&IsDeletedUser=true&roleId=4"
+        "/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&roleId=4"
       )
-    // .then((res) => {
-    //   return res.totalCount;
-    // })
   );
   const { data: employeeAdminCount } = useQuery(
     "employeeAdminCount",
     () =>
       instance.get(
-        "/User/UserMannage?PageNumber=0&RowsOfPage=0&SortingCol=DESC&SortType=InsertDate&Query=&IsActiveUser=true&IsDeletedUser=true&roleId=5"
+        "/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&roleId=5"
       )
-    // .then((res) => {
-    //   return res.totalCount;
-    // })
   );
   const { data: employeeWriterCount } = useQuery(
     "employeeWriterCount",
     () =>
       instance.get(
-        "/User/UserMannage?PageNumber=0&RowsOfPage=0&SortingCol=DESC&SortType=InsertDate&Query=&IsActiveUser=true&IsDeletedUser=true&roleId=6"
+        "/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&roleId=6"
       )
-    // .then((res) => {
-    //   return res.totalCount;
-    // })
   );
   const { data: refereeCount } = useQuery(
     "refereeCount",
     () =>
       instance.get(
-        "/User/UserMannage?PageNumber=0&RowsOfPage=0&SortingCol=DESC&SortType=InsertDate&Query=&IsActiveUser=true&IsDeletedUser=true&roleId=7"
+        "/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&roleId=7"
       )
-    // .then((res) => {
-    //   return res.totalCount;
-    // })
   );
   const { data: tournamentAdminCount } = useQuery(
     "tournamentAdminCount",
     () =>
       instance.get(
-        "/User/UserMannage?PageNumber=0&RowsOfPage=0&SortingCol=DESC&SortType=InsertDate&Query=&IsActiveUser=true&IsDeletedUser=true&roleId=8"
+        "/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&roleId=8"
       )
-    // .then((res) => {
-    //   return res.totalCount;
-    // })
   );
   const { data: tournamentMentorCount, status } = useQuery(
     "tournamentMentorCount",
     () =>
       instance.get(
-        "/User/UserMannage?PageNumber=0&RowsOfPage=0&SortingCol=DESC&SortType=InsertDate&Query=&IsActiveUser=true&IsDeletedUser=true&roleId=9"
+        "/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&roleId=9"
       )
-    // .then((res) => {
-    //   return res.totalCount;
-    // })
   );
 
   const personCount = [
@@ -208,86 +136,7 @@ const RoleCards = () => {
     { feather: <Loader className="text-primary" width={54} height={54} /> },
     { feather: <Layers className="text-danger" width={54} height={54} /> },
   ];
-  const data = [
-    {
-      img: portrait1,
-      type: "Can Edit",
-      name: "Lester Palmer",
-      username: "pe@vogeiz.net",
-    },
-    {
-      img: portrait2,
-      type: "Owner",
-      name: "Mittie Blair",
-      username: "peromak@zukedohik.gov",
-    },
-    {
-      img: portrait3,
-      type: "Can Comment",
-      name: "Marvin Wheeler",
-      username: "rumet@jujpejah.net",
-    },
-    {
-      img: portrait4,
-      type: "Can View",
-      name: "Nannie Ford",
-      username: "negza@nuv.io",
-    },
-    {
-      img: portrait5,
-      type: "Can Edit",
-      name: "Julian Murphy",
-      username: "lunebame@umdomgu.net",
-    },
-    {
-      img: portrait6,
-      type: "Can View",
-      name: "Sophie Gilbert",
-      username: "ha@sugit.gov",
-    },
-    {
-      img: portrait7,
-      type: "Can Comment",
-      name: "Chris Watkins",
-      username: "zokap@mak.org",
-    },
-    {
-      img: portrait8,
-      type: "Can Edit",
-      name: "Adelaide Nichols",
-      username: "ujinomu@jigo.com",
-    },
-  ];
 
-  // ** Hooks
-  const {
-    reset,
-    control,
-    setError,
-    setValue,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ defaultValues: { roleName: "" } });
-
-  const onSubmit = (data) => {
-    if (data.roleName.length) {
-      setShow(false);
-    } else {
-      setError("roleName", {
-        type: "manual",
-      });
-    }
-  };
-
-  const onReset = () => {
-    setShow(false);
-    reset({ roleName: "" });
-  };
-
-  const handleModalClosed = () => {
-    setModalType("Add New");
-    setValue("roleName");
-  };
 
   return (
     <Fragment>
@@ -311,15 +160,16 @@ const RoleCards = () => {
                             <h4 className="fw-bolder">
                               {PersianRolesMaker(item.roleName)}
                             </h4>
-                            <small
-                              className="fw-bolder text-primary"
+                            <Button
+                            color="primary"
+                              className="fw-bolder"
                               onClick={() => {
                                 setShow(!show);
                                 setModalData(personCount[index]);
                                 setRole(item.roleName);
                               }}>
                               مشاهده اعضا
-                            </small>
+                            </Button>
                           </div>
                           {/* <Link
                       to=""
@@ -372,7 +222,7 @@ const RoleCards = () => {
         </Col> */}
       </Row>
 
-      {show && <UsersModal show={show} setShow={setShow} modalData={modalData} role={role} />}
+      {show && <UsersModal show={show} setShow={setShow} modalData={modalData} role={role} dataset={dataset} refetch={refetch} />}
     </Fragment>
   );
 };

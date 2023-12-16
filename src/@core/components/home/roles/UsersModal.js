@@ -1,10 +1,10 @@
 // ** React Imports
-import { Fragment, useState } from 'react'
+import { Fragment, useState } from "react";
 
 // ** Custom Components
 // import Avatar from '@components/avatar'
-import Avatar from 'react-avatar'
-import {PersianRolesMaker} from '../../../utils/persianRolesMaker'
+import Avatar from "react-avatar";
+import { PersianRolesMaker } from "../../../utils/persianRolesMaker";
 
 // ** Reactstrap Imports
 import {
@@ -22,141 +22,133 @@ import {
   DropdownItem,
   ListGroupItem,
   DropdownToggle,
-  UncontrolledDropdown
-} from 'reactstrap'
+  UncontrolledDropdown,
+} from "reactstrap";
+import { useNavigate } from "react-router-dom";
 
 // ** Third Party Components
-import Select, { components } from 'react-select'
-import { FileText, Users, Link } from 'react-feather'
+import Select, { components } from "react-select";
+import { FileText, Users, Link } from "react-feather";
 
 // ** Utils
-import { selectThemeColors } from '@utils'
+import { selectThemeColors } from "@utils";
+import { getItem } from "../../../common/storage.services";
+import { useMutation } from "react-query";
+import instance from "../../../interceptor";
+import toast from "react-hot-toast";
 
-// ** Avatars
-import avatar1 from '@src/assets/images/avatars/1-small.png'
-import avatar2 from '@src/assets/images/avatars/3-small.png'
-import avatar3 from '@src/assets/images/avatars/5-small.png'
-import avatar4 from '@src/assets/images/avatars/7-small.png'
-import avatar5 from '@src/assets/images/avatars/9-small.png'
-import avatar6 from '@src/assets/images/avatars/11-small.png'
+const roleParser = (role) => {
+  if (role === "Administrator") return 1;
+  else if (role === "Teacher") return 2;
+  else if (role === "Student") return 3;
+  else if (role === "CourseAssistance") return 4;
+  else if (role === "Employee.Admin") return 5;
+  else if (role === "Employee.Writer") return 6;
+  else if (role === "Referee") return 7;
+  else if (role === "TournamentAdmin") return 8;
+  else if (role === "Administrator") return 9;
+};
 
-// ** Portraits
-import portrait1 from '@src/assets/images/portrait/small/avatar-s-9.jpg'
-import portrait2 from '@src/assets/images/portrait/small/avatar-s-3.jpg'
-import portrait3 from '@src/assets/images/portrait/small/avatar-s-5.jpg'
-import portrait4 from '@src/assets/images/portrait/small/avatar-s-7.jpg'
-import portrait5 from '@src/assets/images/portrait/small/avatar-s-11.jpg'
-import portrait6 from '@src/assets/images/portrait/small/avatar-s-10.jpg'
-import portrait7 from '@src/assets/images/portrait/small/avatar-s-8.jpg'
-import portrait8 from '@src/assets/images/portrait/small/avatar-s-6.jpg'
-import { useNavigate } from 'react-router-dom'
+const ShareProjectExample = ({ show, setShow, modalData, role, dataset, refetch }) => {
+  const navigate = useNavigate();
 
-const options = [
-  { value: 'Donna Frank', label: 'Donna Frank', avatar: avatar1 },
-  { value: 'Jane Foster', label: 'Jane Foster', avatar: avatar2 },
-  { value: 'Gabrielle Robertson', label: 'Gabrielle Robertson', avatar: avatar3 },
-  { value: 'Lori Spears', label: 'Lori Spears', avatar: avatar4 },
-  { value: 'Sandy Vega', label: 'Sandy Vega', avatar: avatar5 },
-  { value: 'Cheryl May', label: 'Cheryl May', avatar: avatar6 }
-]
+  // console.log(modalData);
 
-const data = [
-  {
-    img: portrait1,
-    type: 'Can Edit',
-    name: 'Lester Palmer',
-    username: 'pe@vogeiz.net'
-  },
-  {
-    img: portrait2,
-    type: 'Owner',
-    name: 'Mittie Blair',
-    username: 'peromak@zukedohik.gov'
-  },
-  {
-    img: portrait3,
-    type: 'Can Comment',
-    name: 'Marvin Wheeler',
-    username: 'rumet@jujpejah.net'
-  },
-  {
-    img: portrait4,
-    type: 'Can View',
-    name: 'Nannie Ford',
-    username: 'negza@nuv.io'
-  },
-  {
-    img: portrait5,
-    type: 'Can Edit',
-    name: 'Julian Murphy',
-    username: 'lunebame@umdomgu.net'
-  },
-  {
-    img: portrait6,
-    type: 'Can View',
-    name: 'Sophie Gilbert',
-    username: 'ha@sugit.gov'
-  },
-  {
-    img: portrait7,
-    type: 'Can Comment',
-    name: 'Chris Watkins',
-    username: 'zokap@mak.org'
-  },
-  {
-    img: portrait8,
-    type: 'Can Edit',
-    name: 'Adelaide Nichols',
-    username: 'ujinomu@jigo.com'
-  }
-]
+  const newList = dataset?.listUser.filter((obj1) => {
+    return !modalData?.listUser.some((obj2) => obj1.id === obj2.id);
+  });
 
-const OptionComponent = ({ data, ...props }) => {
-  return (
-    <components.Option {...props}>
-      <div className='d-flex flex-wrap align-items-center'>
-        <Avatar className='my-0 me-1' size='sm' img={data.avatar} />
-        <div>{data.label}</div>
-      </div>
-    </components.Option>
-  )
-}
+  const setAccess = useMutation((setRoleObj) =>
+    instance
+      .post("/User/AddUserAccess?Enable=true", setRoleObj)
+      .then(
+        (res) =>
+          {res.success == true &&
+          toast.success(
+            `کاربر با موفقیت در لیست ${PersianRolesMaker(role)} اضافه شد`
+          );
+          res.errors == true && toast.error("عملیات با خطا مواجه شد")
+        }
+      )
+  );
 
+  const onAddRole = (e, id) => {
+    e.preventDefault();
+    const obj = { roleId: roleParser(role), userId: id };
+    setAccess.mutate(obj);
+    refetch
+  };
 
-const ShareProjectExample = ({show, setShow, modalData, role}) => {
-  const navigate = useNavigate()
-  console.log(modalData?.listUser);
+  const OptionComponent = ({ data, ...props }) => {
+    return (
+      <components.Option {...props}>
+        <div
+          className="d-flex flex-wrap align-items-center"
+          onClick={(e) => onAddRole(e, data.id)}>
+          <Avatar round size="20px" name={data.fname + " " + data.lname} />
+          <div className="d-flex">
+            <span className="mx-1">
+              {data.fname == null && data.lname == null
+                ? "اطلاعات ناقص است"
+                : data.fname + " " + data.lname}
+            </span>
+            <span>{data.gmail}</span>
+          </div>
+        </div>
+      </components.Option>
+    );
+  };
 
   return (
     <Fragment>
-      <Modal isOpen={show} toggle={() => setShow(!show)} className='modal-dialog-centered modal-lg'>
-        <ModalHeader className='bg-transparent' toggle={() => setShow(!show)}></ModalHeader>
-        <ModalBody className='px-sm-5 mx-50 pb-4'>
-          <h1 className='text-center mb-1'>لیست {PersianRolesMaker(role)}</h1>
-          <p className='text-center'>Share project with a team members</p>
-          <Label for='addMemberSelect' className='form-label fw-bolder font-size font-small-4 mb-50'>
-            Add Members
-          </Label>
-          <Select
-            options={options}
-            isClearable={false}
-            id='addMemberSelect'
-            theme={selectThemeColors}
-            className='react-select'
-            classNamePrefix='select'
-            components={{
-              Option: OptionComponent
-            }}
-          />
-          <p className='fw-bolder pt-50 mt-2'>{modalData.totalCount} Members</p>
-          <ListGroup flush className='mb-2'>
-            {modalData?.listUser.map((item,index) => {
+      <Modal
+        isOpen={show}
+        toggle={() => setShow(!show)}
+        className="modal-dialog-centered modal-lg">
+        <ModalHeader
+          className="bg-transparent"
+          toggle={() => setShow(!show)}></ModalHeader>
+        <ModalBody className="px-sm-5 mx-50 pb-4">
+          <h1 className="text-center mb-1">لیست {PersianRolesMaker(role)}</h1>
+          <p className="text-center">
+            مشاهده سریع لیست {PersianRolesMaker(role)}‌ها‌
+          </p>
+          {getItem("role") === "Administrator" && (
+            <>
+              <Label
+                for="addMemberSelect"
+                className="form-label fw-bolder font-size font-small-4 mb-50">
+                اضافه کاربر به لیست {PersianRolesMaker(role)}‌ها
+              </Label>
+              <Select
+                options={newList}
+                isClearable={false}
+                id="addMemberSelect"
+                theme={selectThemeColors}
+                className="react-select"
+                classNamePrefix="select"
+                components={{
+                  Option: OptionComponent,
+                }}
+              />
+            </>
+          )}
+
+          <p className="fw-bolder pt-50 mt-2">{modalData.totalCount} Members</p>
+          <ListGroup flush className="mb-2">
+            {modalData?.listUser.map((item, index) => {
               return (
-                <ListGroupItem key={index} className='d-flex align-items-start border-0 px-0'>
-                  <Avatar round size='35px' name={item.fname + " " + item.lname} />
-                  <div className='d-flex align-items-center justify-content-between w-100'>
-                    <div className='me-1 ms-1'>
-                      <h5 className='mb-25'>{item.fname + " " + item.lname}</h5>
+                <ListGroupItem
+                  key={index}
+                  className="d-flex align-items-start border-0 px-0">
+                  <Avatar
+                    round
+                    size="35px"
+                    name={item.fname + " " + item.lname}
+                  />
+                  <div className="d-flex align-items-center justify-content-between w-100">
+                    <div className="me-1 ms-1">
+                      <h5 className="mb-25">{item.fname + " " + item.lname}</h5>
                       <span>{item.gmail}</span>
                     </div>
                     {/* <UncontrolledDropdown>
@@ -171,10 +163,14 @@ const ShareProjectExample = ({show, setShow, modalData, role}) => {
                       </DropdownMenu>
                     </UncontrolledDropdown> */}
 
-                    <Button color='primary' onClick={() => navigate(`/pages/profile/${item.id}`)} >جزئیات کاربر</Button>
+                    <Button
+                      color="primary"
+                      onClick={() => navigate(`/pages/profile/${item.id}`)}>
+                      مشاهده اطلاعات کاربر
+                    </Button>
                   </div>
                 </ListGroupItem>
-              )
+              );
             })}
           </ListGroup>
           {/* <div className='d-flex align-content-center justify-content-between flex-wrap'>
@@ -190,7 +186,7 @@ const ShareProjectExample = ({show, setShow, modalData, role}) => {
         </ModalBody>
       </Modal>
     </Fragment>
-  )
-}
+  );
+};
 
-export default ShareProjectExample
+export default ShareProjectExample;

@@ -22,7 +22,8 @@ import {
   DropdownItem,
   ListGroupItem,
   DropdownToggle,
-  UncontrolledDropdown
+  UncontrolledDropdown,
+  Badge
 } from 'reactstrap'
 
 // ** Third Party Components
@@ -40,124 +41,51 @@ import avatar4 from '@src/assets/images/avatars/7-small.png'
 import avatar5 from '@src/assets/images/avatars/9-small.png'
 import avatar6 from '@src/assets/images/avatars/11-small.png'
 
-// ** Portraits
-import portrait1 from '@src/assets/images/portrait/small/avatar-s-9.jpg'
-import portrait2 from '@src/assets/images/portrait/small/avatar-s-3.jpg'
-import portrait3 from '@src/assets/images/portrait/small/avatar-s-5.jpg'
-import portrait4 from '@src/assets/images/portrait/small/avatar-s-7.jpg'
-import portrait5 from '@src/assets/images/portrait/small/avatar-s-11.jpg'
-import portrait6 from '@src/assets/images/portrait/small/avatar-s-10.jpg'
-import portrait7 from '@src/assets/images/portrait/small/avatar-s-8.jpg'
-import portrait8 from '@src/assets/images/portrait/small/avatar-s-6.jpg'
 import { useNavigate } from 'react-router-dom'
 
-const options = [
-  { value: 'Donna Frank', label: 'Donna Frank', avatar: avatar1 },
-  { value: 'Jane Foster', label: 'Jane Foster', avatar: avatar2 },
-  { value: 'Gabrielle Robertson', label: 'Gabrielle Robertson', avatar: avatar3 },
-  { value: 'Lori Spears', label: 'Lori Spears', avatar: avatar4 },
-  { value: 'Sandy Vega', label: 'Sandy Vega', avatar: avatar5 },
-  { value: 'Cheryl May', label: 'Cheryl May', avatar: avatar6 }
-]
 
-const data = [
-  {
-    img: portrait1,
-    type: 'Can Edit',
-    name: 'Lester Palmer',
-    username: 'pe@vogeiz.net'
-  },
-  {
-    img: portrait2,
-    type: 'Owner',
-    name: 'Mittie Blair',
-    username: 'peromak@zukedohik.gov'
-  },
-  {
-    img: portrait3,
-    type: 'Can Comment',
-    name: 'Marvin Wheeler',
-    username: 'rumet@jujpejah.net'
-  },
-  {
-    img: portrait4,
-    type: 'Can View',
-    name: 'Nannie Ford',
-    username: 'negza@nuv.io'
-  },
-  {
-    img: portrait5,
-    type: 'Can Edit',
-    name: 'Julian Murphy',
-    username: 'lunebame@umdomgu.net'
-  },
-  {
-    img: portrait6,
-    type: 'Can View',
-    name: 'Sophie Gilbert',
-    username: 'ha@sugit.gov'
-  },
-  {
-    img: portrait7,
-    type: 'Can Comment',
-    name: 'Chris Watkins',
-    username: 'zokap@mak.org'
-  },
-  {
-    img: portrait8,
-    type: 'Can Edit',
-    name: 'Adelaide Nichols',
-    username: 'ujinomu@jigo.com'
-  }
-]
 
-const OptionComponent = ({ data, ...props }) => {
-  return (
-    <components.Option {...props}>
-      <div className='d-flex flex-wrap align-items-center'>
-        <Avatar className='my-0 me-1' size='sm' img={data.avatar} />
-        <div>{data.label}</div>
-      </div>
-    </components.Option>
-  )
-}
+
 
 
 const ShareProjectExample = ({show, setShow, modalData, role}) => {
   const navigate = useNavigate()
   console.log(modalData?.listUser);
 
+  const BadgeColorMaker = (tech) => {
+    if (tech === "ّFront-End") return "info"
+    else if (tech === "ّReactJS") return "primary"
+    else if (tech === "ّNextJs") return "dark"
+    else if (tech === "JAVASCRIPTS") return "warning"
+    else if (tech === "BackEnd") return "success"
+    else if (tech === "C#") return "info"
+    else if (tech === "SQL") return "danger"
+    else return "muted"
+  }
+
+  const itemTechBadgeBuilder = (data) => {
+    const arr = data.split(', ')
+    return arr.map((item, index) => <Badge key={index} style={{margin: "0px 5px"}} color={BadgeColorMaker(item)}>{item}</Badge>)
+  }
+
   return (
     <Fragment>
       <Modal isOpen={show} toggle={() => setShow(!show)} className='modal-dialog-centered modal-lg'>
         <ModalHeader className='bg-transparent' toggle={() => setShow(!show)}></ModalHeader>
         <ModalBody className='px-sm-5 mx-50 pb-4'>
-          <h1 className='text-center mb-1'>لیست {PersianRolesMaker(role)}</h1>
-          <p className='text-center'>Share project with a team members</p>
-          <Label for='addMemberSelect' className='form-label fw-bolder font-size font-small-4 mb-50'>
-            Add Members
-          </Label>
-          <Select
-            options={options}
-            isClearable={false}
-            id='addMemberSelect'
-            theme={selectThemeColors}
-            className='react-select'
-            classNamePrefix='select'
-            components={{
-              Option: OptionComponent
-            }}
-          />
+          <h1 className='text-center mb-1'>لیست دوره‌ها</h1>
+          <p className='text-center'>لیست همه دورها</p>
           <p className='fw-bolder pt-50 mt-2'>{modalData.totalCount} Members</p>
           <ListGroup flush className='mb-2'>
-            {modalData?.listUser.map((item,index) => {
+            {modalData?.courseFilterDtos.map((item,index) => {
               return (
                 <ListGroupItem key={index} className='d-flex align-items-start border-0 px-0'>
-                  <Avatar round size='35px' name={item.fname + " " + item.lname} />
+                  <Avatar round size='35px' name={item.title} />
                   <div className='d-flex align-items-center justify-content-between w-100'>
                     <div className='me-1 ms-1'>
-                      <h5 className='mb-25'>{item.fname + " " + item.lname}</h5>
+                      <h5 className='mb-25'>{item.title}</h5>
                       <span>{item.gmail}</span>
+                      {itemTechBadgeBuilder(item?.technologyList)}
                     </div>
                     {/* <UncontrolledDropdown>
                       <DropdownToggle color='flat-secondary' caret>
@@ -170,8 +98,7 @@ const ShareProjectExample = ({show, setShow, modalData, role}) => {
                         <DropdownItem className='w-100'>Can View</DropdownItem>
                       </DropdownMenu>
                     </UncontrolledDropdown> */}
-
-                    <Button color='primary' onClick={() => navigate(`/pages/profile/${item.id}`)} >جزئیات کاربر</Button>
+                    <Button color='primary' onClick={() => navigate(`/DetailCourse/${item.courseId}`)} >جزئیات دوره</Button>
                   </div>
                 </ListGroupItem>
               )
