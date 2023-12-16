@@ -15,7 +15,9 @@ const UserItem = ({id=0 , fName , lNmae , role , gender , profileCompletionPerce
   return (
     <tr>
         <td>
-            <span className='align-middle fw-bold'> {fName +' ' + lNmae}</span>
+            <div style={{ width:'150px' , height:'30px' , overflow:'hidden'}}>
+                <span className='align-middle fw-bold'> {fName +' ' + lNmae}</span>
+            </div>
         </td>
 
         <td>
@@ -35,7 +37,9 @@ const UserItem = ({id=0 , fName , lNmae , role , gender , profileCompletionPerce
         </td>
 
         <td>
-            <span className='align-middle fw-bold'> {gmail}</span>
+            <div style={{width:'200px' , height:'30px' , overflow:'hidden'}}>
+                <span className='align-middle fw-bold'> {gmail}</span>           
+            </div>
         </td>        
 
         <td>

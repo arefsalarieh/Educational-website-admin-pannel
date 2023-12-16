@@ -47,7 +47,9 @@ const ReserveItem = ({courseName , studentName , studentId , reserverDate , acce
         
         <tr>
           <td className="text-nowrap ">
-            <Button className="text-nowrap"onClick={() => {navigate("/DetailCourse/" + courseId);}}>{courseName}</Button>  
+            <div style={{overflow:'hidden' , width:'200px'}}>
+              <Button className="text-nowrap"onClick={() => {navigate("/DetailCourse/" + courseId);}}>{courseName}</Button>  
+            </div>
           </td>
           <td className="text-nowrap ">
             <div onClick={() => {navigate("/pages/profile/" + studentId);}} style={{overflow:'hidden' , width:'150px'}}>
