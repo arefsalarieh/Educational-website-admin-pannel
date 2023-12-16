@@ -11,9 +11,6 @@ import instance from "../../interceptor";
 
 const CardMedal = ({userDetails, currentUser}) => {
 
-
-  console.log(userDetails);
-
   const user = useSelector((state) => state.user);
   return (
     <Card className="card-congratulations-medal">

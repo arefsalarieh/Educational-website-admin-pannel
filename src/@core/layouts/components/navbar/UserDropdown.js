@@ -2,7 +2,8 @@
 import { Link } from "react-router-dom";
 
 // ** Custom Components
-import Avatar from "@components/avatar";
+// import Avatar from "@components/avatar";
+import Avatar from "react-avatar"
 
 // ** Third Party Components
 import {
@@ -48,12 +49,10 @@ const UserDropdown = () => {
           <span className="user-name fw-bold">{data?.fName + " " + data?.lName }</span>
           <span className="user-status">{getItem("role")}</span>
         </div>
-        <Avatar
-          img={data?.currentPictureAddress}
-          imgHeight="40"
-          imgWidth="40"
-          status="online"
-        />
+        {data?.currentPictureAddress === undefined || null ? <Avatar name={data?.fName + " " + data?.lName } size="40" round /> : 
+          <img src={data?.currentPictureAddress} className="rounded-circle" style={{width: "40px", height: "40px"}} />
+        }
+
       </DropdownToggle>
       <DropdownMenu end>
         <DropdownItem tag={Link} to="/" onClick={(e) => e.preventDefault()}>
@@ -62,7 +61,7 @@ const UserDropdown = () => {
         </DropdownItem>
         <DropdownItem tag={Link} to="/" onClick={(e) => e.preventDefault()}>
           <Mail size={14} className="me-75" />
-          <span className="align-middle">Inbox</span>
+          <span className="align-middle">صندوق پیام</span>
         </DropdownItem>
         {/* <DropdownItem tag={Link} to="/" onClick={(e) => e.preventDefault()}>
           <CheckSquare size={14} className="me-75" />

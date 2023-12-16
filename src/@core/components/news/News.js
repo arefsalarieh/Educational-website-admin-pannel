@@ -33,7 +33,7 @@ const News = () => {
 
   const [apiParam, setApiParam] = useState({
     PageNumber: 1,
-    RowsOfPage: 6,
+    RowsOfPage: 10,
     SortingCol: "InsertDate",
     SortType: "DESC",
     Query: "",
