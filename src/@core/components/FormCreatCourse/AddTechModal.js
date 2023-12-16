@@ -50,6 +50,7 @@ import portrait5 from '@src/assets/images/portrait/small/avatar-s-11.jpg'
 import portrait6 from '@src/assets/images/portrait/small/avatar-s-10.jpg'
 import portrait7 from '@src/assets/images/portrait/small/avatar-s-8.jpg'
 import portrait8 from '@src/assets/images/portrait/small/avatar-s-6.jpg'
+import toast, { Toaster } from 'react-hot-toast';
 
 const options = [
   { value: 'Donna Frank', label: 'Donna Frank', avatar: avatar1 },
@@ -77,7 +78,7 @@ const AddTechModal = ({rand , setRand , getCourseInfoForDetail  , show2 , setSho
   const [courseTech, setCourseTech] = useState();  
   const [haveCourseTechs, sethaveCourseTechs] = useState();  
 
- 
+
 
 
   
@@ -124,6 +125,15 @@ const AddTechFunc = async (values) =>{
   const techArr = [values]
   const result = await http.post(`/Course/AddCourseTechnology?courseId=${id}` , techArr)
     // console.log(result);
+    if(result.success === true){
+      toast.success(result.message)    
+    }
+
+    else if(result.success === false){
+      toast.error(result.errors)       
+    }
+
+    
   setRand(Math.random())
   getCourseInfoForDetail()
 
@@ -137,59 +147,61 @@ const AddTechFunc = async (values) =>{
             افزودن تکنولوژی 
           </Button>
  
+        {newTechnologyDtos && (
+              <Modal isOpen={show2} toggle={() => setShow2(!show2)} className='modal-dialog-centered modal-lg'>
+                <ModalHeader className='bg-transparent' toggle={() => setShow2(!show2)}></ModalHeader>
+                  <Formik onSubmit={AddTechFunc} initialValues={{techId : ''}}>
+                    {({ values, handleSubmit, handleChange , setFieldValue}) =>(
+                      <form onSubmit={handleSubmit}>
+                        <ModalBody className='px-sm-5 mx-50 pb-4'>
+                          <h1 className='text-center mb-1'>AddTech</h1>
+                          <p className='text-center'>Share project with a team members</p>
+                          <Label for='addMemberSelect' className='form-label fw-bolder font-size font-small-4 mb-50'>
+                            Add Members
+                          </Label>
+                          <Select
+                              id='CourseTypeId'
+                              name='CourseTypeId' 
+                              className='react-select'
+                              classNamePrefix='select'
+                              options={newTechnologyDtos && newTechnologyDtos}
+                              isClearable={false}
+                              onChange={(value)=>{setFieldValue('techId',value.value)}}
+                            />
+        
+                          <Button className="me-1" color="primary" type="submit" >
+                            اضافه کردن
+                          </Button>
+        
+        
+                          {/* <p className='fw-bolder pt-50 mt-2'>لیست گروه ها</p>
+                          <ListGroup flush className='mb-2'>
+                              {haveCourseTechs && haveCourseTechs.map((item , index)=>{
+                                return(
+                                  <Badge key={index} style={{width:'100px'}} color='info'>{item}</Badge>
+                                )
+                              })}
+                          </ListGroup> */}
+        
+        
+                          <div className='d-flex align-content-center justify-content-between flex-wrap'>
+                            <div className='d-flex align-items-center me-2'>
+                              <Users className='font-medium-2 me-50' />
+                              <p className='fw-bolder mb-0'>Public to Vuexy - Pixinvent</p>
+                            </div>
+                            <a className='fw-bolder' href='#' onClick={e => e.preventDefault()}>
+                              <Link className='font-medium-2 me-50' />
+                              <span>Copy project link</span>
+                            </a>
+                          </div>
+                        </ModalBody>                
+                      </form>
+                    )}
+                  </Formik>
+        
+                </Modal>
+        )}
 
-        <Modal isOpen={show2} toggle={() => setShow2(!show2)} className='modal-dialog-centered modal-lg'>
-          <ModalHeader className='bg-transparent' toggle={() => setShow2(!show2)}></ModalHeader>
-          <Formik onSubmit={AddTechFunc} initialValues={{techId : ''}}>
-            {({ values, handleSubmit, handleChange , setFieldValue}) =>(
-              <form onSubmit={handleSubmit}>
-                <ModalBody className='px-sm-5 mx-50 pb-4'>
-                  <h1 className='text-center mb-1'>AddTech</h1>
-                  <p className='text-center'>Share project with a team members</p>
-                  <Label for='addMemberSelect' className='form-label fw-bolder font-size font-small-4 mb-50'>
-                    Add Members
-                  </Label>
-                  <Select
-                      id='CourseTypeId'
-                      name='CourseTypeId' 
-                      className='react-select'
-                      classNamePrefix='select'
-                      options={newTechnologyDtos && newTechnologyDtos}
-                      isClearable={false}
-                      onChange={(value)=>{setFieldValue('techId',value.value)}}
-                    />
-
-                  <Button className="me-1" color="primary" type="submit" >
-                    اضافه کردن
-                  </Button>
-
-
-                  {/* <p className='fw-bolder pt-50 mt-2'>لیست گروه ها</p>
-                  <ListGroup flush className='mb-2'>
-                      {haveCourseTechs && haveCourseTechs.map((item , index)=>{
-                        return(
-                          <Badge key={index} style={{width:'100px'}} color='info'>{item}</Badge>
-                        )
-                      })}
-                  </ListGroup> */}
-
-
-                  <div className='d-flex align-content-center justify-content-between flex-wrap'>
-                    <div className='d-flex align-items-center me-2'>
-                      <Users className='font-medium-2 me-50' />
-                      <p className='fw-bolder mb-0'>Public to Vuexy - Pixinvent</p>
-                    </div>
-                    <a className='fw-bolder' href='#' onClick={e => e.preventDefault()}>
-                      <Link className='font-medium-2 me-50' />
-                      <span>Copy project link</span>
-                    </a>
-                  </div>
-                </ModalBody>                
-              </form>
-            )}
-          </Formik>
-
-        </Modal>
     </Fragment>
   )
 }

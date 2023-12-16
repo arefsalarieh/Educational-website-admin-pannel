@@ -3,7 +3,7 @@ import { Button, Card, CardTitle, CardBody, CardText, CardSubtitle, CardLink, Ca
 import DeleteRoleItem from './DeleteRoleItem';
 import AddRoleItem from './AddRoleItem';
 
-const ChangeRole = ({roles}) => {
+const ChangeRole = ({roles , refetch2}) => {
     //  console.log(roles);
 
     const allRoleArr = [
@@ -108,7 +108,7 @@ const ChangeRole = ({roles}) => {
                 <h2> حذف دسترسی های کاربر</h2>
                 {myRoleArr.map((item , index)=>{
                     return(
-                        <DeleteRoleItem key={index} roleName={item.roleName} roleId={item.id}/>
+                        <DeleteRoleItem refetch2={refetch2} key={index} roleName={item.roleName} roleId={item.id}/>
                     )
                 })}
             </Col>
@@ -117,7 +117,7 @@ const ChangeRole = ({roles}) => {
               <h2> افزودن دسترسی  کاربر</h2>
                 {dontRoleArr.map((item , index)=>{
                     return(
-                        <AddRoleItem key={index}  roleName={item.roleName} roleId={item.id}/>
+                        <AddRoleItem refetch2={refetch2} key={index}  roleName={item.roleName} roleId={item.id}/>
                     )
                 })}            
             </Col>

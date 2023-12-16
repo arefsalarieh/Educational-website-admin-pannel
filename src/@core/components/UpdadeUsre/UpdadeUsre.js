@@ -5,6 +5,8 @@ import {useQuery} from 'react-query'
 import { Card, CardHeader, CardTitle, CardBody, Row, Col, Input, Form, Button, Label } from 'reactstrap'
 import { Formik } from 'formik'
 import UpdadeUsreRoles from './UpdadeUsreRoles';
+import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -13,7 +15,8 @@ const UpdadeUsre = () => {
     const [rolesList , setRolesList] = useState()
     const [coursesList , setCoursesList] = useState()
     const {id} = useParams();
-    
+    const navigate = useNavigate();
+
 
     const getUsersProf =async () =>{
         const result = await http.get(`/User/UserDetails/${id}`)
@@ -22,7 +25,7 @@ const UpdadeUsre = () => {
         setCoursesList(result.courses)
     }
 
-    coursesList && console.log(coursesList);
+    // coursesList && console.log(coursesList);
     
   
     useEffect(()=>{
@@ -37,6 +40,16 @@ const UpdadeUsre = () => {
     const show =async (values) =>{
       
       const result =await http.put('/User/UpdateUser' , values)
+
+      if(result.success === true){
+        toast.success(result.message) 
+        navigate('/pages/profile/' + id)  
+      }
+  
+      else if(result.success === false){
+        toast.error(result.errors)       
+      }
+
       console.log(result);
         
         
@@ -46,7 +59,7 @@ const UpdadeUsre = () => {
    
     <Card>
       <CardHeader>
-        <CardTitle tag='h4'>بروز رسانی کاربر </CardTitle>
+        <CardTitle tag='h4'>  <h1>بروز رسانی کاربر </h1></CardTitle>
       </CardHeader>
 
       {data &&       <CardBody>
@@ -218,12 +231,12 @@ const UpdadeUsre = () => {
               <Row>
 
                 <Col md='4'>
-                 {data && <UpdadeUsreRoles  rolesList={rolesList} setRolesList={setRolesList}/>} 
+                 {/* {data && <UpdadeUsreRoles  rolesList={rolesList} setRolesList={setRolesList}/>}  */}
                 </Col>
               </Row>
 
                 <Button className='me-1' color='primary' type='submit' >
-                  Submit
+                  بروز رسانی
                 </Button>
 
             </form>             

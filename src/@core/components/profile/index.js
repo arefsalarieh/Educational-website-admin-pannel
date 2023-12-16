@@ -191,7 +191,7 @@ const Profile = () => {
 
 
             {/* change role */}
-            {data && <ChangeRole  roles={data.roles}/>} 
+            {data && <ChangeRole refetch2={refetch2} roles={data.roles}/>} 
 
           </section>
         </div>

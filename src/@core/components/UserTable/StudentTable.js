@@ -14,7 +14,7 @@ import MyNavbar from './MyNavbar'
 const StudentTable = () => {
 
     const getStudents =async () =>{
-        const result = await http.get("/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&Query=&IsActiveUser=true&IsDeletedUser=true&roleId=3")
+        const result = await http.get("/User/UserMannage?PageNumber=1&RowsOfPage=200&SortingCol=DESC&SortType=InsertDate&Query=&IsActiveUser=true&IsDeletedUser=true&roleId=3")
         return result
       }
     

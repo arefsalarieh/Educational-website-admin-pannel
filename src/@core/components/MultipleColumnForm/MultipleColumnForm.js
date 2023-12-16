@@ -2,8 +2,13 @@
 import { Card, CardHeader, CardTitle, CardBody, Row, Col, Input, Form, Button, Label } from 'reactstrap'
 import { Formik } from 'formik'
 import http from '../../../@core/interceptor'
+import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
+
+
 
 const MultipleColumnForm = () => {
+  const navigate = useNavigate();
 
   const onSubmit =async (values) =>{
     const userObj = {
@@ -18,6 +23,16 @@ const MultipleColumnForm = () => {
     }
 
     const result = await http.post(`/User/CreateUser` , userObj)
+
+    if(result.success === true){
+      toast.success(result.message)  
+      
+      navigate('/pages/profile/' + result.id) 
+    }
+
+    else if(result.success === false){
+      toast.error(result.errors)       
+    }
 
     console.log(result);
   }

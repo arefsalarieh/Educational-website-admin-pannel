@@ -3,7 +3,7 @@ import { Button } from 'reactstrap'
 import http from '../../../@core/interceptor'
 import { useParams } from "react-router-dom";
 
-const DeleteRoleItem = ({roleName , roleId }) => {
+const DeleteRoleItem = ({roleName , roleId , refetch2 }) => {
 
   const {id} = useParams();
 
@@ -13,6 +13,7 @@ const DeleteRoleItem = ({roleName , roleId }) => {
       userId : id
     }
     const result =await http.post('/User/AddUserAccess?Enable=false' , delObj)
+    refetch2()
     console.log(result);
   }
   return (

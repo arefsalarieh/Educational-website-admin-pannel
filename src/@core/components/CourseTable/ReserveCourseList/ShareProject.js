@@ -27,6 +27,7 @@ import {
 // ** Third Party Components
 import Select, { components } from 'react-select'
 import AddGroup from '../../AddGroup/AddGroup'
+import toast, { Toaster } from 'react-hot-toast';
 
 
 
@@ -55,9 +56,13 @@ const ShareProjectExample = ({getCourseInfo , courseId , courseGroup , studentId
       }
       const result =await http.post("/CourseReserve/SendReserveToCourse" , reserveObj) 
       console.log(result);  
-      if(result.success === false){
-        alert(result.message);
-      }         
+      if(result.success === true){
+        toast.success(result.message)    
+      }
+  
+      else if(result.success === false){
+        toast.error(result.message)       
+      }      
     }catch(error){
  
         alert(error)
