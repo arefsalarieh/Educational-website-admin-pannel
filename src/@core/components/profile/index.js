@@ -34,7 +34,7 @@ import {
   ShoppingBag,
   AlertOctagon,
   MessageSquare,
-  Mail
+  Mail,
 } from 'react-feather'
 import gmailImage from '../../../../src/assets/images/NewImage/gmail.png'
 import linkedinImage from '../../../../src/assets/images/NewImage/linkedin.png'
@@ -45,6 +45,7 @@ import UserAcceptCourse from './UserAcceptCourse'
 import ChangeRole from './ChangeRole'
 import ProfileAbout2 from './ProfileAbout2'
 import { useNavigate } from 'react-router-dom';
+import { Badge } from 'reactstrap'
 
 const Profile = () => {
 

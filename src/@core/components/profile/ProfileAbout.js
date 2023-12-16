@@ -1,5 +1,6 @@
 // ** Reactstrap Imports
 import { Card, CardBody, CardText } from 'reactstrap'
+import { Badge } from 'reactstrap'
 
 const ProfileAbout = ({  id , gender , birthDay , insertDate , roles}) => {
 
@@ -16,32 +17,32 @@ const ProfileAbout = ({  id , gender , birthDay , insertDate , roles}) => {
       <CardBody>
 
         <div className='mt-2'>
-          <h5 className='mb-75'>آیدی :</h5>
+          <Badge className='mb-75'>آیدی :</Badge>
           <CardText>{id}</CardText>
         </div>
 
 
         <div className='mt-2'>
-          <h5 className='mb-75'>جنسیت :</h5>
+          <Badge className='mb-75'>جنسیت :</Badge>
           <CardText>{gender === true ? 'مرد' : "زن"}</CardText>
         </div>
 
         <div className='mt-2'>
-          <h5 className='mb-75'>تاریخ تولد :</h5>
+          <Badge className='mb-75'>تاریخ تولد :</Badge>
           <CardText>{birthDay}</CardText>
         </div>
         
         <div className='mt-2'>
-          <h5 className='mb-75'>زمان ثبت نام :</h5>
+          <Badge className='mb-75'>زمان ثبت نام :</Badge>
           <CardText>{insertDate}</CardText>
         </div>
 
         <div className='mt-2'>
-          <h5 className='mb-75'> نوع کاربر  :</h5>
+          <Badge className='mb-75'> نوع کاربر  :</Badge>
           <CardText>
             {rolesList.map((rol , index)=>{
                 return(
-                  <div key={index}>{rol}</div>
+                  <div key={index}>{index+1}-{rol}</div>
                 )
             })}
           </CardText>

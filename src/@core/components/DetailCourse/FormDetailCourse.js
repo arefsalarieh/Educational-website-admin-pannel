@@ -45,7 +45,7 @@ const FormDetailCourse = () => {
 
 
   const getCourseListInDetail =async () =>{
-    const result = await http.get(`/Course/CourseList?PageNumber=1&RowsOfPage=1000&SortingCol=DESC&SortType=Expire&Query`);   
+    const result = await http.get(`/Course/CourseList?PageNumber=1&RowsOfPage=200&SortingCol=DESC&SortType=Expire&Query`);   
     const thisCourse =  result.courseDtos.find((item)=>item.courseId === id)
     setThisCourseData(thisCourse)
   
