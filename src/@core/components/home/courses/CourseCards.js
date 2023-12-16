@@ -103,7 +103,6 @@ const coursesData = [
   presentData,
   onlineData,
 ];
-console.log(coursesData);
 
   const perCardIcon = [
     { feather: <Wifi className="text-warning" width={54} height={54} /> },

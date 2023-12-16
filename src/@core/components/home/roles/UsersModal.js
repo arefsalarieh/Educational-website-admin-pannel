@@ -68,7 +68,6 @@ const ShareProjectExample = ({ show, setShow, modalData, role, dataset, refetch 
             `کاربر با موفقیت در لیست ${PersianRolesMaker(role)} اضافه شد`
           );
           res.errors == true && toast.error("عملیات با خطا مواجه شد")
-          refetch()
         }
       )
   );

@@ -6,7 +6,7 @@ import { Card, CardBody } from 'reactstrap'
 function RateStars({rate}) {
   return (
     <Card>
-    <CardBody>
+    <CardBody className='pt-3'>
       <Rating
         readonly
       //   direction={dir}

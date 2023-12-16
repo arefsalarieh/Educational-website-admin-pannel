@@ -64,6 +64,7 @@ import ReplyComments from "./ReplyComments";
 import ProjSpinner from "../../common/Spinner";
 import NoItemFromDb from "../../common/NoItemFromDb";
 import DbError from "../../common/DbError";
+import RateStars from "../../common/RateStars";
 
 const validation = yup.object().shape({
   title: yup.string().required("لطفا مقدار عنوان را وارد کنید"),
@@ -79,12 +80,13 @@ const BlogDetails = () => {
   const [replyParams, setReplyParams] = useState(null);
   const param = useParams();
   const navigate = useNavigate();
+  const [rerenderNeed, setRerenderNeed] = useState(0);
 
   const {
     data: newsObj,
-    status,
     refetch,
-  } = useQuery("newsObj", () => instance.get(`/News/${param?.id}`));
+    status,
+  } = useQuery("newsObj", () => {return instance.get(`/News/${param?.id}`)});
 
   const addComment = useMutation((comment) =>
     instance.post("/News/CreateNewsComment", comment).then((res) => {
@@ -117,6 +119,7 @@ const BlogDetails = () => {
       console.log(replyParams);
       addReplyComment.mutate(replyParams);
       refetch();
+      setRerenderNeed(1)
     } else {
       const comment = {
         newsId: param.id,
@@ -126,6 +129,7 @@ const BlogDetails = () => {
       };
       addComment.mutate(comment);
       refetch();
+      setRerenderNeed(2)
     }
   };
 
@@ -141,7 +145,7 @@ const BlogDetails = () => {
 
   const likeNews = useMutation((id) =>
     instance.post(`/News/NewsLike/${id}`).then((res) => {
-      res.success === true && toast.success("عملیات با موفقیت انجام شد");
+      if(res.success === true) {toast.success("عملیات با موفقیت انجام شد"); refetch(); setRerenderNeed(8)}
       res.error === true && toast.error("خطایی اتفاق افتاده، مجددا تلاش کنید.");
     })
   );
@@ -160,10 +164,12 @@ const BlogDetails = () => {
   const onLikeNews = (id) => {
     likeNews.mutate(id);
     refetch();
+    setRerenderNeed(3)
   };
   const onDislikeNews = (id) => {
     dislikeNews.mutate(id);
     refetch();
+    setRerenderNeed(4)
   };
 
   const onLikeComment = (id) => {
@@ -174,6 +180,7 @@ const BlogDetails = () => {
       res.success && toast.success(",ملیات با موفقیت انجام شد");
       res.error && toast.error("خطایی رخ داده");
       refetch();
+      setRerenderNeed(5)
     } catch (error) {
       toast.error("خطایی رخ داده" + error.message);
     }
@@ -187,47 +194,12 @@ const BlogDetails = () => {
 
       res.success && toast.success(",ملیات با موفقیت انجام شد");
       res.error && toast.error("خطایی رخ داده");
+
     } catch (error) {
       toast.error("خطایی رخ داده" + error.message);
     }
   };
 
-  // const getCommentReplies = useMutation({
-  //   mutationFn: (commentId) => {
-  //     return instance.get(`/News/GetRepliesComments?Id=${commentId}`);
-  //   },
-  // });
-
-  const badgeColorsArr = {
-    Quote: "light-info",
-    Fashion: "light-primary",
-    Gaming: "light-danger",
-    Video: "light-warning",
-    Food: "light-success",
-  };
-
-  // const onShowCommentReplies = (id) => {
-  //   const replyComment = getCommentReplies.mutate(id);
-  //   console.log(replyComment);
-  //   return <p>hi</p>;
-  // };
-
-  // const renderTags = () => {
-  //   return newsObj?.detailsNewsDto?.keyword.map((tag, index) => {
-  //     return (
-  //       <a key={index} href="/" onClick={(e) => e.preventDefault()}>
-  //         <Badge
-  //           className={classnames({
-  //             "me-50": index !== newsObj?.detailsNewsDto?.keyword.length - 1,
-  //           })}
-  //           color={badgeColorsArr[tag]}
-  //           pill>
-  //           {tag}
-  //         </Badge>
-  //       </a>
-  //     );
-  //   });
-  // };
 
   const renderComments = () => {
     if (newsObj?.commentDtos.length === 0) {
@@ -461,6 +433,7 @@ const BlogDetails = () => {
                           </div>
                         </div>
                         <div className="d-flex justify-content-around align-items-center">
+                          <RateStars className='mt-2' rate={newsObj?.detailsNewsDto.currentRate} />
                           <Button color="primary" className="me-2" onClick={e => {e.preventDefault(); navigate(`/editNews/${newsObj?.detailsNewsDto.id}`)}}>تغییر محتویات خبر</Button>
                           <UncontrolledDropdown className="dropdown-icon-wrapper">
                             <DropdownToggle tag="span">
