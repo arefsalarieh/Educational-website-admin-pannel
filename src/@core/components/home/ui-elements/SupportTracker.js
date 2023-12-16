@@ -18,18 +18,16 @@ import {
 import { useQuery } from 'react-query'
 import instance from '../../../interceptor'
 import ProjSpinner from '../../common/Spinner'
+import { useNavigate } from 'react-router'
 
 const SupportTracker = props => {
+  const navigate = useNavigate()
   // ** get dashboard detials
-
   const { data: dashDetails , status } = useQuery("dashDetails", () => {
     return instance.get(
       `https://acadapi.etacorealtime.ir/api/Report/DashboardReport`
     );
   });
-
-  console.log(dashDetails);
-
 
   const options = {
       plotOptions: {
@@ -110,7 +108,8 @@ const SupportTracker = props => {
             <Chart options={options} series={series} type='radialBar' height={270} id='support-tracker-card' />
           </Col>
         </Row>
-        <div className='d-flex justify-content-between mt-1'>
+      console.log(res);
+        <div className='d-flex justify-content-between mt-1' onClick={() => navigate("/TableCourses")}>
           <div className='text-center'>
             <CardText className='mb-50'>رزروهای تایید نشده</CardText>
             <span className='font-large-1 fw-bold'>{dashDetails?.allReserveNotAccept}</span>

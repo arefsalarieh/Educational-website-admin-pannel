@@ -12,34 +12,13 @@ import {
   Button,
   Label,
   Modal,
-  CardBody,
-  CardText,
-  CardTitle,
   ListGroup,
   ModalBody,
   ModalHeader,
-  DropdownMenu,
-  DropdownItem,
   ListGroupItem,
-  DropdownToggle,
-  UncontrolledDropdown,
   Badge
 } from 'reactstrap'
 
-// ** Third Party Components
-import Select, { components } from 'react-select'
-import { FileText, Users, Link } from 'react-feather'
-
-// ** Utils
-import { selectThemeColors } from '@utils'
-
-// ** Avatars
-import avatar1 from '@src/assets/images/avatars/1-small.png'
-import avatar2 from '@src/assets/images/avatars/3-small.png'
-import avatar3 from '@src/assets/images/avatars/5-small.png'
-import avatar4 from '@src/assets/images/avatars/7-small.png'
-import avatar5 from '@src/assets/images/avatars/9-small.png'
-import avatar6 from '@src/assets/images/avatars/11-small.png'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -53,13 +32,14 @@ const ShareProjectExample = ({show, setShow, modalData, role}) => {
   console.log(modalData?.listUser);
 
   const BadgeColorMaker = (tech) => {
-    if (tech === "ّFront-End") return "info"
-    else if (tech === "ّReactJS") return "primary"
-    else if (tech === "ّNextJs") return "dark"
+    if (tech === "Front-End") return "info"
+    else if (tech === "ReactJS") return "primary"
+    else if (tech === "NextJs") return "dark"
     else if (tech === "JAVASCRIPTS") return "warning"
     else if (tech === "BackEnd") return "success"
     else if (tech === "C#") return "info"
     else if (tech === "SQL") return "danger"
+    else if (tech === "TSQL") return "secondary"
     else return "muted"
   }
 

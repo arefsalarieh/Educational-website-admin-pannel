@@ -144,7 +144,7 @@ const ApexRadiarChart = () => {
         </div>
       </CardHeader>
       <CardBody>
-        <Chart options={options} series={series} type="donut" height={310} />
+        <Chart options={options} series={series} type="donut" height={330} />
       </CardBody>
     </Card>
   );

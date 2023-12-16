@@ -15,17 +15,8 @@ import {
 import { ThemeColors } from "@src/utility/context/ThemeColors";
 
 // ** Demo Components
-import CompanyTable from "./CompanyTable";
-import Earnings from "./Earnings";
 import CardMedal from "./CardMedal";
-import CardMeetup from "./CardMeetup";
 import StatsCard from "./StatsCard";
-import GoalOverview from "./GoalOverview";
-import RevenueReport from "./RevenueReport";
-import OrdersBarChart from "./OrdersBarChart";
-import CardTransactions from "./CardTransactions";
-import ProfitLineChart from "./ProfitLineChart";
-import CardBrowserStates from "./CardBrowserState";
 import SupportTracker from "./ui-elements/SupportTracker";
 
 // ** Styles
