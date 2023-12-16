@@ -285,8 +285,8 @@ const BlogDetails = () => {
   return (
     <Fragment>
       <Breadcrumbs
-        title="Blog Details"
-        data={[{ title: "News" }, { title: "Details" }]}
+        title="محتوای خبر"
+        data={[{ title: "اخبار و مقالات" }, { title: "محتوای خبر" }]}
       />
       <div className="blog-wrapper">
         <div className="content-detached content-left">
