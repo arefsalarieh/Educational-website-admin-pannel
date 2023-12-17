@@ -16,7 +16,7 @@ import http from "../../interceptor";
 import { useQuery } from "react-query";
 import CourseItem from "./CourseItem";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState , useRef } from "react";
 import Search from "antd/es/input/Search";
 import MyNavbar from "./MyNavbar";
 import CourseGroup from "./CourseGroup/CourseGroup";
@@ -24,13 +24,23 @@ import CourseGroup from "./CourseGroup/CourseGroup";
 
 
 const TableCourses = () => {
+
   const [search, setSearch] = useState("");
 
+  const ref = useRef();
+
   const handleSearch = (e) => {
-    console.log(e.target.value);
-    e.target.value && setSearch(e.target.value)
+    clearTimeout(ref.current)
+  
+    const timeOut = setTimeout(()=>{
+      e.target.value && setSearch(e.target.value) 
+     },800)
+
+
     !e.target.value && setSearch('')
-    console.log(search);
+
+    ref.current = timeOut
+   
   };
 
   const getAllCourses = async () => {
@@ -56,6 +66,8 @@ const TableCourses = () => {
       <MyNavbar/>
 
       <h2>تمام دوره ها :</h2>
+
+      <Input onChange={handleSearch}  type='text' placeholder='search' />
 
       <Table responsive>
         <thead>

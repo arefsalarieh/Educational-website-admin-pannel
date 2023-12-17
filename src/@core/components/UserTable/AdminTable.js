@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { AlignJustify, Rss, Info, Image, Users, Edit } from 'react-feather'
-import {Card, CardImg, Collapse, Table, Badge, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle , Navbar, Nav, NavItem, NavLink, Button } from 'reactstrap'
+import {Card, CardImg, Badge, Table, Input , UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle , Navbar, Nav, NavItem, NavLink, Button } from 'reactstrap'
 import UserItem from './UserItem'
 import {useQuery} from 'react-query'
 import http from '../../../@core/interceptor'
@@ -12,13 +12,32 @@ import MyNavbar from './MyNavbar'
 
 const AdminTable = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [search, setSearch] = useState("");
+
+  const ref = useRef();
+
+  const handleSearch = (e) => {
+    clearTimeout(ref.current)
+  
+    const timeOut = setTimeout(()=>{
+      e.target.value && setSearch(e.target.value) 
+     },800)
+
+
+    !e.target.value && setSearch('')
+
+    ref.current = timeOut
+   
+  };
+
+
 
   const getAdmins =async () =>{
-    const result = await http.get("/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&Query=&IsActiveUser=true&IsDeletedUser=true&roleId=1")
+    const result = await http.get(`/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&Query=${search}&IsActiveUser=true&IsDeletedUser=true&roleId=1`)
     return result
   }
 
-  const {data , Status} = useQuery('getAdmin' , getAdmins)
+  const {data , Status} = useQuery(['getAdmin' , search] , getAdmins)
 
   var completeProfile = 0;
 
@@ -53,6 +72,13 @@ const AdminTable = () => {
 
 
         </Row>
+
+        <div style={{fontSize:'30px'}}> 
+            <Badge color='success'> ادمین ها </Badge>   
+        </div>
+
+
+        <Input onChange={handleSearch}  type='text' placeholder='search' />
 
           <Table responsive>
             <thead>

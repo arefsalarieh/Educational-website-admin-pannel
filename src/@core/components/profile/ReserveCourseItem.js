@@ -49,7 +49,7 @@ const ReserveCourseItem = ({ courseName , reserverDate , coursesReseves , refetc
 
                 <td>
                     {/* <div style={{border:'1px solid red' , width:'100px' , overflow:'hidden'}} className='align-middle fw-bold'> {reserverDate}</div> */}
-                    <div style={{width:'100px' , overflow:'hidden'}} className='align-middle fw-bold'> reserverDate</div>
+                    <div style={{width:'100px' , overflow:'hidden'}} className='align-middle fw-bold'> {item.reserverDate}</div>
                 </td>    
 
                 <td onClick={()=>getCourseInfoX(item.courseId )}>

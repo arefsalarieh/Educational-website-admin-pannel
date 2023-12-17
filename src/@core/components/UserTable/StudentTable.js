@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState , useRef } from 'react'
 import { MoreVertical, Edit, Trash } from 'react-feather'
-import { Table, Badge, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap'
+import { Table, Badge, UncontrolledDropdown, DropdownMenu, DropdownItem, Input } from 'reactstrap'
 import UserItem from './UserItem'
 import {useQuery} from 'react-query'
 import http from '../../../@core/interceptor'
@@ -12,13 +12,31 @@ import MyNavbar from './MyNavbar'
 
 
 const StudentTable = () => {
+    const [search, setSearch] = useState("");
+
+    const ref = useRef();
+  
+    const handleSearch = (e) => {
+      clearTimeout(ref.current)
+    
+      const timeOut = setTimeout(()=>{
+        e.target.value && setSearch(e.target.value) 
+       },800)
+  
+  
+      !e.target.value && setSearch('')
+  
+      ref.current = timeOut
+     
+    };
+
 
     const getStudents =async () =>{
-        const result = await http.get("/User/UserMannage?PageNumber=1&RowsOfPage=200&SortingCol=DESC&SortType=InsertDate&Query=&IsActiveUser=true&IsDeletedUser=true&roleId=3")
+        const result = await http.get(`/User/UserMannage?PageNumber=1&RowsOfPage=200&SortingCol=DESC&SortType=InsertDate&Query=${search}&IsActiveUser=true&IsDeletedUser=true&roleId=3`)
         return result
       }
     
-      const {data , Status} = useQuery('getStudent' , getStudents)
+      const {data , Status} = useQuery(['getStudent' , search] , getStudents)
 
       var completeProfile = 0;
 
@@ -52,6 +70,12 @@ const StudentTable = () => {
                     
         </Row>
 
+        <div style={{fontSize:'30px'}}> 
+            <Badge color='success'> دانشجویان </Badge>   
+        </div>
+
+
+        <Input onChange={handleSearch}  type='text' placeholder='search' />
 
         <Table responsive>
             <thead>

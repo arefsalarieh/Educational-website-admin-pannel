@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState , useRef } from 'react'
 import { AlignJustify, Rss, Info, Image, Users, Edit } from 'react-feather'
-import {Card, CardImg, Collapse, Table, Badge, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle , Navbar, Nav, NavItem, NavLink, Button } from 'reactstrap'
+import {Card, CardImg, Badge, Table, Input , Button } from 'reactstrap'
 import UserItem from './UserItem'
 import {useQuery} from 'react-query'
 import http from '../../../@core/interceptor'
@@ -10,14 +10,34 @@ import Earnings from '../Earnings/Earnings'
 import MyNavbar from './MyNavbar'
 
 const AllUsers = () => {
+
     const [isOpen, setIsOpen] = useState(false)
+    const [search, setSearch] = useState("");
+
+    const ref = useRef();
+
+    const handleSearch = (e) => {
+      clearTimeout(ref.current)
+    
+      const timeOut = setTimeout(()=>{
+        e.target.value && setSearch(e.target.value) 
+       },800)
+  
+  
+      !e.target.value && setSearch('')
+  
+      ref.current = timeOut
+     
+    };
+
+
 
     const getAlls =async () =>{
-      const result = await http.get("/User/UserMannage?PageNumber=1&RowsOfPage=200&SortingCol=DESC&SortType=InsertDate&Query=")
+      const result = await http.get(`/User/UserMannage?PageNumber=1&RowsOfPage=200&SortingCol=DESC&SortType=InsertDate&Query=${search}`)
       return result
     }
   
-    const {data , Status} = useQuery('getAll' , getAlls)
+    const {data , Status} = useQuery(['getAll' , search] , getAlls)
   
     var completeProfile = 0;
   
@@ -50,6 +70,13 @@ const AllUsers = () => {
 
 
         </Row>
+
+        <div style={{fontSize:'30px'}}> 
+            <Badge color='success'> تمام کاربران </Badge>   
+        </div>
+
+
+          <Input onChange={handleSearch}  type='text' placeholder='search' />
 
           <Table responsive>
             <thead>
