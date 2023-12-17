@@ -67,14 +67,29 @@ const AcceptReserveCourseInProfile = ({getCourseInfoX , courseId , courseGroup ,
             toast.error(result.message)       
           }   
 
-          console.log(result);  
-          // if(result.success === false){
-          //   alert(result.message);
-          // }         
+          refetch2()
 
-    
+          console.log(result);  
+
       }
+
+
+      const deletGroup =async (gId) =>{
+        const data = new FormData();
+        data.append('Id' , gId)
+        const result =await http.delete("/CourseGroup" , {data:data})
+        if(result.success === true){
+          toast.success(result.message)    
+        }
     
+        else if(result.success === false){
+          toast.error(result.errors)  
+
+        }   
+
+        setShow(false)
+        console.log(result);
+      }
 
 
     return (
@@ -120,7 +135,7 @@ const AcceptReserveCourseInProfile = ({getCourseInfoX , courseId , courseGroup ,
                           </div>
 
                           <div className='me-1'>
-                            <Button onClick={()=>handleReserve(item.groupId)} color='success'>
+                            <Button onClick={()=>deletGroup(item.groupId)} color='danger'>
                                 حذف گروه
                             </Button>
                           </div>                          
