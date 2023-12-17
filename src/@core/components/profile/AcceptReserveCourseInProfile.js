@@ -27,6 +27,7 @@ import {
 // ** Third Party Components
 import Select, { components } from 'react-select'
 import AddGroup2 from './AddGroup2'
+import toast, { Toaster } from 'react-hot-toast';
 
 
 
@@ -50,23 +51,27 @@ const OptionComponent = ({ data, ...props }) => {
 const AcceptReserveCourseInProfile = ({getCourseInfoX , courseId , courseGroup , studentId , show , setShow , refetch2 }) => {
 
     const handleReserve =async (courseGro) =>{
-        try{
+   
           const reserveObj = {
             courseId: courseId,
             courseGroupId: courseGro,
             studentId: studentId
           }
           
-          const result =await http.post("/CourseReserve/SendReserveToCourse" , reserveObj) 
+          const result =await http.post("/CourseReserve/SendReserveToCourse" , reserveObj)
+          if(result.success === true){
+            toast.success(result.message)    
+          }
+      
+          else if(result.success === false){
+            toast.error(result.message)       
+          }   
+
           console.log(result);  
-          if(result.success === false){
-            alert(result.message);
-          }         
-        }catch(error){
-     
-            alert(error)
-          
-        }
+          // if(result.success === false){
+          //   alert(result.message);
+          // }         
+
     
       }
     
@@ -113,6 +118,12 @@ const AcceptReserveCourseInProfile = ({getCourseInfoX , courseId , courseGroup ,
                             <h5 className='mb-25'>مدرس</h5>
                             <span>{item.teacherName}</span>
                           </div>
+
+                          <div className='me-1'>
+                            <Button onClick={()=>handleReserve(item.groupId)} color='success'>
+                                حذف گروه
+                            </Button>
+                          </div>                          
     
                           <div className='me-1'>
                             <Button onClick={()=>handleReserve(item.groupId)} color='success'>

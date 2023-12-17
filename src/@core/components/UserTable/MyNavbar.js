@@ -35,7 +35,7 @@ const MyNavbar = () => {
               </NavItem>              
               <NavItem >
                 <NavLink className='fw-bold'   >
-                  <Link to="/UsersList/TeacherTable">
+                  <Link to="/UsersList/AdminTable">
                     <div style={{fontSize:'20px'}}><Badge  className='d-none d-md-block'>  ادمین ها</Badge></div>                                  
                   </Link>
                   <Rss className='d-block d-md-none' size={14} />

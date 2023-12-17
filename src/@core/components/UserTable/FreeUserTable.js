@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState , useRef } from 'react'
 import { MoreVertical, Edit, Trash } from 'react-feather'
-import { Table, Badge, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap'
+import { Table, Badge, UncontrolledDropdown, DropdownMenu, DropdownItem, Input } from 'reactstrap'
 import UserItem from './UserItem'
 import {useQuery} from 'react-query'
 import http from '../../../@core/interceptor'
@@ -10,12 +10,31 @@ import Earnings from '../Earnings/Earnings'
 import MyNavbar from './MyNavbar'
 
 const FreeUserTable = () => {
+  const [search, setSearch] = useState("");
+
+  const ref = useRef();
+
+  const handleSearch = (e) => {
+    clearTimeout(ref.current)
+  
+    const timeOut = setTimeout(()=>{
+      e.target.value && setSearch(e.target.value) 
+     },800)
+
+
+    !e.target.value && setSearch('')
+
+    ref.current = timeOut
+   
+  };
+
+
     const getFreeUsers =async () =>{
-        const result = await http.get("/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&Query=&IsActiveUser=true&IsDeletedUser=true&roleId=7")
+        const result = await http.get(`/User/UserMannage?PageNumber=1&RowsOfPage=100&SortingCol=DESC&SortType=InsertDate&Query=${search}&IsActiveUser=true&IsDeletedUser=true&roleId=7`)
         return result
       }
     
-      const {data , Status} = useQuery('getFree' , getFreeUsers)
+      const {data , Status} = useQuery(['getFree' , search] , getFreeUsers)
 
       var completeProfile = 0;
 
@@ -49,6 +68,12 @@ const FreeUserTable = () => {
         </Col> */}
                   
       </Row>
+
+      <div style={{fontSize:'30px'}}> 
+            <Badge color='success'> داوران </Badge>   
+      </div>
+
+      <Input onChange={handleSearch}  type='text' placeholder='search' />
 
       <Table responsive>
           <thead>
