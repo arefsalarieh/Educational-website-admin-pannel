@@ -31,20 +31,22 @@ import { useNavigate } from "react-router-dom";
 
 function NewsItem({ data, apiParam, setApiParam, onClick, refetch }) {
   const navigate = useNavigate();
-
+  
   const onNavigateDetailsPage = (e) => {
     e.preventDefault();
     navigate("/news/newsDetail/" + data?.id);
   };
-
+  
   const onActiveDeactive = (e) => {
     e.preventDefault();
     const obj = {
       Id: data?.id,
       Active: !apiParam?.IsActive,
     };
+    
+    let newFormData = new FormData()
 
-    const newFormData = makeFormData(obj);
+    newFormData = makeFormData(obj);
 
     activeDeactive.mutate(newFormData);
     refetch();

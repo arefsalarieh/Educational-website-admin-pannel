@@ -1,5 +1,6 @@
 
 export const makeFormData = (obj) => {
+    const data = new FormData()
 
     const keys = Object.keys(obj)
 
