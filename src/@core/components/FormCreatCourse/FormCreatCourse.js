@@ -253,7 +253,7 @@ const FormCreatCourse = () => {
                 </Col>
 
                 <Col className="mb-1" md="6" sm="12">
-                  <Label className="form-label"> شماره کلاس </Label>
+                  <Label className="form-label">کلاس درس</Label>
                   <Select
                     style={{ width: "480px", height: "40px" }}
                     options={courseroom}
