@@ -55,7 +55,7 @@ root.render(
         <ThemeContext>
           <LazyApp />
           <Toaster
-            position={themeConfig.layout.toastPosition}
+            position="top-left"
             toastOptions={{ className: "react-hot-toast" }}
           />
         </ThemeContext>
